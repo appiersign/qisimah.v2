@@ -1,5 +1,6 @@
 <?php
 
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
@@ -18,5 +19,86 @@ class FeatureContext implements Context
      */
     public function __construct()
     {
+    }
+
+
+    /**
+     * @Given I am logged in as an admin
+     */
+    public function iAmLoggedInAsAnAdmin()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given there is :arg2 :arg1 feature
+     */
+    public function thereIsFeature($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given there is :arg1 feature
+     */
+    public function thereIsFeature2($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I type :arg1 as plan name, :arg2 as payable period
+     */
+    public function iTypeAsPlanNameAsPayablePeriod($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I add all features
+     */
+    public function iAddAllFeatures()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should have :arg2 features added to the plan and be able to see :arg1 Plan has been created.
+     */
+    public function iShouldHaveFeaturesAddedToThePlanAndBeAbleToSeePlanHasBeenCreated($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given I am logged in
+     */
+    public function iAmLoggedIn()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I visit the :arg1
+     */
+    public function iVisitThe($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see :arg1
+     */
+    public function iShouldSee($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see details such as :arg1, :arg2, :arg3, :arg4, :arg5, :arg6, :arg7 and :arg8
+     */
+    public function iShouldSeeDetailsSuchAsAnd($arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7, $arg8)
+    {
+        throw new PendingException();
     }
 }
