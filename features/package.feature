@@ -12,7 +12,8 @@ Feature: Plan Feature
     And there is "Automated Tweets" feature
     When I type "Basic" as plan name, "Monthly" as payable period
     And I add all features
-    Then I should have 3 features added to the plan and be able to see "Basic" Plan has been created.
+    Then I should have 3 features added to the plan
+    And I should see "Basic" Plan has been created.
 
   Scenario: Create Standard Plan
     Given there is 1 "artist(s) Account(s)" feature
@@ -22,4 +23,5 @@ Feature: Plan Feature
     And there is "Report Summary" feature
     When I type "Standard" as plan name, "Monthly" as payable period
     And I add all features
-    Then I should have 5 features added to the plan and be able to see "Standard" Plan has been created.
+    Then I should have 5 features added to the plan
+    And I should see "Standard" Plan has been created.

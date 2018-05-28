@@ -31,46 +31,6 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given there is :arg2 :arg1 feature
-     */
-    public function thereIsFeature($arg1, $arg2)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given there is :arg1 feature
-     */
-    public function thereIsFeature2($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When I type :arg1 as plan name, :arg2 as payable period
-     */
-    public function iTypeAsPlanNameAsPayablePeriod($arg1, $arg2)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When I add all features
-     */
-    public function iAddAllFeatures()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should have :arg2 features added to the plan and be able to see :arg1 Plan has been created.
-     */
-    public function iShouldHaveFeaturesAddedToThePlanAndBeAbleToSeePlanHasBeenCreated($arg1, $arg2)
-    {
-        throw new PendingException();
-    }
-
-    /**
      * @Given I am logged in
      */
     public function iAmLoggedIn()
@@ -101,4 +61,5 @@ class FeatureContext implements Context
     {
         throw new PendingException();
     }
+
 }
