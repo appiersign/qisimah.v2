@@ -4,5 +4,5 @@ use Behat\Behat\Context\Context;
 
 class UserAccountContext implements Context
 {
-    
+
 }
