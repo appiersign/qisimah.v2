@@ -4,3 +4,4 @@ default:
             contexts:
                 - FeatureContext
                 - PackageContext
+                - UserAccountContext
