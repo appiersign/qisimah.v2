@@ -4,7 +4,7 @@ Feature: Email Verification
   I need to be able to create an account with my email
 
   Background:
-    Given I am a new user
+    Given I am a guest and I want to sign up
 
   Scenario: Create new Account
     When I am on "Landing page"
