@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('email.verify', function (){
+    return 'verification email sent';
+});
+
 
 Route::get('sign.up', function (){
     return 'User Registration';
