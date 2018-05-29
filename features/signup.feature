@@ -7,5 +7,5 @@ Feature: Sign Up Form
     Given I am a guest and I want to sign up
 
   Scenario: On the welcome page
-    When I click the "sign up button"
+    When I click the sign up button
     Then I should see the "user registration form"

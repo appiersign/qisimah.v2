@@ -11,10 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
+
+Route::get('sign.up', function (){
+    return 'User Registration';
+});
 Route::get('/home', 'HomeController@index')->name('home');
