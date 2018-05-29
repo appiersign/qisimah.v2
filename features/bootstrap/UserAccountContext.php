@@ -1,31 +1,24 @@
 <?php
+
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
-use Tests\TestCase;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 
-class UserAccountContext implements Context
+/**
+ * Defines application features from the specific context.
+ */
+class UserAccountContext extends \Behat\MinkExtension\Context\MinkContext implements Context
 {
     /**
-     * @Given I am a guest and I want to sign up
+     * Initializes context.
+     *
+     * Every scenario gets its own context instance.
+     * You can also pass arbitrary arguments to the
+     * context constructor through behat.yml.
      */
-    public function iAmAGuestAndIWantToSignUp()
+    public function __construct()
     {
-
     }
 
-    /**
-     * @When I click the sign up button
-     */
-    public function iClickTheSignUpButton()
-    {
-        TestCase::get('sign.up')->assertStatus(200);
-    }
-
-    /**
-     * @Then I should see the :page_title
-     */
-    public function iShouldSeeThe($page_title)
-    {
-        TestCase::get('sign.up')->assertSeeText($page_title);
-    }
 }
