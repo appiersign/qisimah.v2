@@ -1,0 +1,18 @@
+<svg width="34" height="45" viewBox="0 0 34 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>logo-2</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-20461 74)">
+<g id="logo-2">
+<g id="Subtract">
+<use xlink:href="#path0_fill" transform="translate(20461 -74)"/>
+</g>
+<g id="Ellipse 2">
+<use xlink:href="#path1_fill" transform="translate(20471.8 -63.1883)" fill="#0CD9FF"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 29.0605 1.02094C 26.9492 0.357521 24.7051 0 22.377 0C 10.0176 0 0 10.0736 0 22.5C 0 34.9264 10.0176 45 22.377 45C 24.7051 45 26.9492 44.6425 29.0605 43.9791L 29.0605 1.02094Z"/>
+<path id="path1_fill" d="M 23.2478 11.6883C 23.2478 18.1436 18.0436 23.3766 11.6239 23.3766C 5.2042 23.3766 0 18.1436 0 11.6883C 0 5.23304 5.2042 0 11.6239 0C 18.0436 0 23.2478 5.23304 23.2478 11.6883Z"/>
+</defs>
+</svg>
