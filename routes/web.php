@@ -28,3 +28,6 @@ Route::get('sign.up', function (){
     return 'User Registration';
 });
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('artists', 'ArtistController');
+Route::resource('songs', 'SongController');
+Route::resource('Plays', 'PlayController');
