@@ -25,7 +25,8 @@
                 </div>
             </div>
             <div class="div-block" data-ix="load-text-2"><a href="#how-it-works" class="cta-hero-button w-button">How it
-                    works</a><a class="cta-hero-button reverse-button w-button" data-ix="form-modal-show">Try now</a></div>
+                    works</a><a class="cta-hero-button reverse-button w-button" data-ix="form-modal-show">Try now</a>
+            </div>
         </div>
     </div>
     <div id="who-is-it-for" class="who-for">
@@ -56,8 +57,10 @@
                             </div>
                             <div class="column-8 w-col w-col-6">
                                 <p class="new-paragraph">Do you want to know if your music is being played on the radio?
-                                    Qisimah will give you live feedback on which station is playing your music. Our platform
-                                    can help you identify areas of weakness in your music promotion plan. This will allow
+                                    Qisimah will give you live feedback on which station is playing your music. Our
+                                    platform
+                                    can help you identify areas of weakness in your music promotion plan. This will
+                                    allow
                                     you to make the right adjustments and investments to gain exposure in order to go
                                     mainstream.</p>
                             </div>
@@ -67,8 +70,10 @@
                         <div class="row-9 w-row">
                             <div class="column-10 w-col w-col-6">
                                 <p class="new-paragraph">Qisimah helps you analyse and compare your artists’performance
-                                    against that of  others within the industry. With our credible audio analytics, you can
-                                    make the right promotional decisions. We provide you with real time reports enabling you
+                                    against that of  others within the industry. With our credible audio analytics, you
+                                    can
+                                    make the right promotional decisions. We provide you with real time reports enabling
+                                    you
                                     to track your artists’s performance continually and with ease.</p>
                             </div>
                             <div class="column-9 w-col w-col-6">
@@ -82,8 +87,10 @@
                                 <div class="cat-img royalty"></div>
                             </div>
                             <div class="column-7 w-col w-col-6">
-                                <p class="new-paragraph">We provide you with an end-to-end solution that will enable you to
-                                    effectively fulfill your mandate. Our user friendly platform will allow you to manage
+                                <p class="new-paragraph">We provide you with an end-to-end solution that will enable you
+                                    to
+                                    effectively fulfill your mandate. Our user friendly platform will allow you to
+                                    manage
                                     your processes of allocation, collection and distribution.</p>
                             </div>
                         </div>
@@ -99,23 +106,27 @@
                 <h5 class="heading-3">How does Qisimah work?</h5>
             </div>
             <div class="how-column w-row">
-                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img src="{{ asset('images/upload-new.svg') }}"
-                                                                                             class="how-icon">
+                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img
+                            src="{{ asset('images/upload-new.svg') }}"
+                            class="how-icon">
                     <h4 class="heading-2">Upload</h4>
                     <p class="how-paragraph">Upload your content to Qisimah&#x27;s database to start monitoring.</p>
                 </div>
-                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img src="{{ asset('images/monitor.svg') }}"
-                                                                                             class="how-icon">
+                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img
+                            src="{{ asset('images/monitor.svg') }}"
+                            class="how-icon">
                     <h4 class="heading-2">Monitor</h4>
                     <p class="how-paragraph">Select the broadcasters which you would like to monitor.</p>
                 </div>
-                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img src="{{ asset('images/notification.svg') }}"
-                                                                                             class="how-icon">
+                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img
+                            src="{{ asset('images/notification.svg') }}"
+                            class="how-icon">
                     <h4 class="heading-2">Notifications</h4>
                     <p class="how-paragraph">Get real-time notification when your content is aired.</p>
                 </div>
-                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img src="{{ asset('images/reports.svg') }}"
-                                                                                             class="how-icon">
+                <div class="how-columns w-col w-col-3 w-col-stack" data-ix="fadebounce"><img
+                            src="{{ asset('images/reports.svg') }}"
+                            class="how-icon">
                     <h4 class="heading-2">Reports</h4>
                     <p class="how-paragraph">Receive broadcaster statistics and analytics on content uploaded.</p>
                 </div>
@@ -163,15 +174,19 @@
                     <h5 class="heading-3">01.</h5>
                     <h5 class="heading-3">WHO IS QISIMAH FOR?</h5>
                 </div>
-                <h1 class="heading altd" data-ix="fadebounce">A single platform for the management and monitoring of music
+                <h1 class="heading altd" data-ix="fadebounce">A single platform for the management and monitoring of
+                    music
                     and content airplay.</h1>
                 <div class="div-block-16">
                     <div class="cat-collection" data-ix="fadebounce">
                         <div class="div-block-12">
                             <h3 class="heading-4">Individual artist</h3>
-                            <p class="new-paragraph">Do you want to know if your music is being played on the radio? Qisimah
-                                will give you live feedback on which station is playing your music. Our platform can help
-                                you identify areas of weakness in your music promotion plan. This will allow you to make the
+                            <p class="new-paragraph">Do you want to know if your music is being played on the radio?
+                                Qisimah
+                                will give you live feedback on which station is playing your music. Our platform can
+                                help
+                                you identify areas of weakness in your music promotion plan. This will allow you to make
+                                the
                                 right adjustments and investments to gain exposure in order to go mainstream.</p>
                         </div>
                     </div>
@@ -179,7 +194,8 @@
                         <div class="cat-img label"></div>
                         <div class="div-block-12">
                             <h3 class="heading-4">Artist Management Firms / Record Labels</h3>
-                            <p class="new-paragraph">Qisimah helps you analyse and compare your artists’performance against
+                            <p class="new-paragraph">Qisimah helps you analyse and compare your artists’performance
+                                against
                                 that of  others within the industry. With our credible audio analytics, you can make the
                                 right promotional decisions. We provide you with real time reports enabling you to track
                                 your artists’s performance continually and with ease.</p>
@@ -190,7 +206,8 @@
                         <div class="div-block-12 sssss">
                             <h3 class="heading-4">Collective Management Organisations (CMOs)</h3>
                             <p class="new-paragraph">We provide you with an end-to-end solution that will enable you to
-                                effectively fulfill your mandate. Our user friendly platform will allow you to manage your
+                                effectively fulfill your mandate. Our user friendly platform will allow you to manage
+                                your
                                 processes of allocation, collection and distribution.</p>
                         </div>
                     </div>
@@ -255,7 +272,12 @@
                         <div class="text-block-3 enterprise" data-ix="fadebounce">Enterprise</div>
                     </div>
                 </div>
-                <a href="#" class="cta-hero-button reverse-button buttom w-button" data-ix="fadebounce">Try now</a></div>
+                <a href="#" class="cta-hero-button reverse-button buttom w-button" data-ix="fadebounce">Try now</a>
+            </div>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    @include('components.footer')
 @endsection

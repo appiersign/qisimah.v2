@@ -52,7 +52,7 @@
 
 @yield('content')
 
-@include('components.footer')
+@yield('footer')
 
 @include('components.scripts')
 
