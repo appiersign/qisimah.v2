@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Positive Icon@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Positive-Icon" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M8,0 C12.418,0 16,3.582 16,8 C16,12.418 12.418,16 8,16 C3.581,16 0,12.418 0,8 C0,3.582 3.581,0 8,0 Z M7.4393,11.0103 L11.5103,6.9393 C11.9013,6.5483 11.9013,5.9153 11.5103,5.5253 C11.1193,5.1343 10.4863,5.1343 10.0963,5.5253 L6.7323,8.8893 L5.9033,8.0603 C5.5133,7.6703 4.8803,7.6703 4.4893,8.0603 C4.0993,8.4513 4.0993,9.0843 4.4893,9.4753 L6.0253,11.0103 C6.4153,11.4013 7.0483,11.4013 7.4393,11.0103 Z" id="path-1"></path>
+        </g>
+    </g>
+</svg>

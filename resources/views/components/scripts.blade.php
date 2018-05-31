@@ -1,5 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
-<script type="text/javascript">WebFont.load({google: {families: ["Karla:regular,italic,700,700italic"]}});</script>
+<script type="text/javascript">WebFont.load({google: {families: ["Karla:regular,italic,700,700italic", "Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]}});</script>
 <!-- [if lt IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script>
 <![endif] -->
@@ -9,7 +9,7 @@
     }(window, document);</script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"
         intergrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="js/webflow.js" type="text/javascript"></script>
+<script src="{{ asset('js/webflow.js') }}" type="text/javascript"></script>
 <!-- [if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 <!--  Global site tag (gtag.js) - Google Analytics  -->
