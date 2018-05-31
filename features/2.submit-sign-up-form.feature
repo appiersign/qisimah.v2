@@ -1,10 +1,11 @@
-Feature: Submit Sign Up Form
-  Submit sign up form after completing form
+Feature: Email Verification Code
+  Send email verification code to user
   As a guest
-  I need to be able to submit my registration form
+  I need to be able to verify my email address
 
   Scenario: Complete Sign Up form
-    Given I am on "register"
-    When I press "Register"
-    Then I should be on "email.verify"
-    And I should see "verification email sent"
+    Given I am on "sign.up"
+    And I fill in "email" with "braasig@gmail.com"
+    When I press "next"
+    Then I should be on "verification/email.do"
+    And I should see "Email Verification"

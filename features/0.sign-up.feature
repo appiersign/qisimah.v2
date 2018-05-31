@@ -5,6 +5,6 @@ Feature: Sign Up
 
   
   Scenario: Home Page
-    Given I am on the homepage
-    When I follow "Register"
-    Then I should see "User Registration"
+    Given I am on "welcome"
+    When I follow "Sign Up"
+    Then I should see "Welcome to Qisimah"

@@ -1,0 +1,52 @@
+@extends('layouts.wide')
+@section('content')
+    <div class="verification">
+        <h1 class="heading-4">Email Verification</h1>
+        <div class="form-block-4 w-form">
+            <form id="" name="email-form" data-name="Email Form" method="get" action="{{ route('user.register') }}">
+                {{ csrf_field() }}
+                <label for="Email-verification-code" class="welcome-form-label">We have
+                    sent a confirmation code to <span>kofi@qisimah.com</span>. <br>It will expire shortly, so enter
+                    your code soon.</label>
+                <div class="div-block-156">
+                    <input type="text" class="verify-email-code the-cryer w-input"
+                           style="font-size: 2.5em; text-align: center" maxlength="1"
+                           name="Email-verification-code" size="1"
+                           data-name="Email verification code" id="Email-verification-code"
+                           required="">
+                    <input type="text" class="verify-email-code next-numbe w-input"
+                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           name="Email-verification-code-2"
+                           data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
+                    <input type="text" class="verify-email-code next-numbe another w-input"
+                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           name="Email-verification-code-3" data-name="Email Verification Code 2"
+                           id="Email-verification-code-2" required="">
+                    <div class="div-block-157"></div>
+                    <input type="text" class="verify-email-code the-cryer w-input"
+                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           name="Email-verification-code-4" data-name="Email Verification Code 3"
+                           id="Email-verification-code-3" required="">
+                    <input type="text" class="verify-email-code next-numbe w-input"
+                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           name="Email-verification-code-5"
+                           data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
+                    <input type="text" class="verify-email-code next-numbe another w-input"
+                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           name="Email-verification-code-6" data-name="Email Verification Code 2"
+                           id="Email-verification-code-2"
+                           required="">
+                    <input type="submit" value="verify" data-wait="Please wait..." class="send-verify-code w-button"
+                           data-ix=""></div>
+                <p class="paragraph-7">Keep this window open while checking for your code. <br>Haven&#x27;t received
+                    our email? Try your spam folder!</p>
+                <input type="submit" value="Verify" data-wait="Please wait..." class="email-button w-button"></form>
+            <div class="w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+            </div>
+            <div class="w-form-fail">
+                <div>Oops! Something went wrong while submitting the form.</div>
+            </div>
+        </div>
+    </div>
+@endsection

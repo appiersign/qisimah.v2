@@ -2,8 +2,9 @@
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Wed Mar 28 2018 21:05:17 GMT+0000 (UTC)  -->
 <html data-wf-page="5aadc40baf9783213523aaef" data-wf-site="5aadc40aaf9783146823aac3">
-
-@include('components.head')
+<head>
+    @include('components.head')
+</head>
 
 <body class="body-2">
 <div class="form-modal">
