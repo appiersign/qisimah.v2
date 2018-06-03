@@ -13,7 +13,7 @@ class VerifyEmailRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class VerifyEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'bail|required|email|unique:users'
         ];
     }
 }

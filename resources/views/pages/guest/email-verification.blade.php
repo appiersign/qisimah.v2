@@ -11,29 +11,29 @@
                 <div class="div-block-156">
                     <input type="text" class="verify-email-code the-cryer w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="1"
-                           name="Email-verification-code" size="1"
+                           name="verification_code[]" size="1"
                            data-name="Email verification code" id="Email-verification-code"
                            required="">
                     <input type="text" class="verify-email-code next-numbe w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="256"
-                           name="Email-verification-code-2"
+                           name="verification_code[]"
                            data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
                     <input type="text" class="verify-email-code next-numbe another w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="256"
-                           name="Email-verification-code-3" data-name="Email Verification Code 2"
+                           name="verification_code[]" data-name="Email Verification Code 2"
                            id="Email-verification-code-2" required="">
                     <div class="div-block-157"></div>
                     <input type="text" class="verify-email-code the-cryer w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="256"
-                           name="Email-verification-code-4" data-name="Email Verification Code 3"
+                           name="verification_code[]" data-name="Email Verification Code 3"
                            id="Email-verification-code-3" required="">
                     <input type="text" class="verify-email-code next-numbe w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="256"
-                           name="Email-verification-code-5"
+                           name="verification_code[]"
                            data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
                     <input type="text" class="verify-email-code next-numbe another w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="256"
-                           name="Email-verification-code-6" data-name="Email Verification Code 2"
+                           name="verification_code[]" data-name="Email Verification Code 2"
                            id="Email-verification-code-2"
                            required="">
                     <input type="submit" value="verify" data-wait="Please wait..." class="send-verify-code w-button"
