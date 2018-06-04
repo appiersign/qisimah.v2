@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\VerifyEmailRequest;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -39,7 +40,7 @@ class RegisterController extends Controller
         return view('pages.guest.sign-up');
     }
 
-    public function handleSignUpForm()
+    public function handleSignUpForm(VerifyEmailRequest $request)
     {
         
     }
