@@ -3,7 +3,7 @@
     <div class="get-started-email">
         <h1 class="heading-4">Welcome to Qisimah</h1>
         <div class="form-block-4 w-form">
-            <form id="" name="email-form" data-name="Email Form" class="w-clearfix" method="get" action="{{ route('email.verification.code') }}">
+            <form id="" name="email-form" data-name="Email Form" class="w-clearfix" method="post" action="{{ route('email.verification.handle') }}">
                 {{ csrf_field() }}
                 <label for="Sign-up-email" class="welcome-form-label">Get Started by entering and verifying your email</label>
                 <input type="email" class="select-field-3 w-input" maxlength="256" name="Sign-up-email" data-name="Sign up email"

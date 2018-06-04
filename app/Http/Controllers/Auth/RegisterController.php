@@ -30,6 +30,41 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show Sign Up form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showSignUpForm()
+    {
+        return view('pages.guest.sign-up');
+    }
+
+    public function handleSignUpForm()
+    {
+        
+    }
+
+    /**
+     * Show Email Verification Form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showEmailVerificationForm()
+    {
+        return view('pages.guest.email-verification');
+    }
+
+    /**
+     * Show User Details Form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showUserDetailsForm()
+    {
+        return view('pages.guest.user-details');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
