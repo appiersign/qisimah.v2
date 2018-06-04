@@ -8,12 +8,12 @@ Feature: Email Verification
 
   Scenario: Correct email verification code
     When I fill in the following:
-      | Email-verification-code | 1 |
-      | Email-verification-code-2 | 2 |
-      | Email-verification-code-3 | 3 |
-      | Email-verification-code-4 | 4 |
-      | Email-verification-code-5 | 5 |
-      | Email-verification-code-6 | 6 |
+      | verification_code[] | 1 |
+      | verification_code[] | 2 |
+      | verification_code[] | 3 |
+      | verification_code[] | 4 |
+      | verification_code[] | 5 |
+      | verification_code[] | 6 |
     And I press "verify"
     Then I should be on "users/register.do"
     And I should see "Personal Details"
