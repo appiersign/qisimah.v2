@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\VerifyEmailRequest;
+use App\Jobs\CreateUserJob;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -42,7 +45,15 @@ class RegisterController extends Controller
 
     public function handleSignUpForm(VerifyEmailRequest $request)
     {
-        
+        try {
+            $job = new CreateUserJob($request->email);
+            $this->dispatch($job);
+            Auth::onceUsingId(User::where('email', $request->email)->first()->id);
+            return redirect()->route('email.verification.code');
+        } catch (\Exception $exception) {
+            Session::put('error', 'User creation failed. Please try again in a while!');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
