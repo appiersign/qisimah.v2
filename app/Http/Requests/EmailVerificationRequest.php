@@ -13,7 +13,7 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class EmailVerificationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'verification_code' => 'bail|required|array|size:6'
         ];
     }
 }

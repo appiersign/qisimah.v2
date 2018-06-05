@@ -1,6 +1,9 @@
 @extends('layouts.wide')
 @section('content')
     <div class="verification">
+        @if($errors->any())
+            @include('components.guest.danger-message')
+        @endif
         <h1 class="heading-4">Email Verification</h1>
         <div class="form-block-4 w-form">
             <form id="" name="email-form" data-name="Email Form" method="post" action="{{ route('email.verification.handle') }}">
@@ -16,16 +19,16 @@
                     <input type="text" class="verify-email-code next-numbe w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]"
-                           data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
+                           data-name="Email Verification Code 2" id="Email-verification-code-2" required="" size="1">
                     <input type="text" class="verify-email-code next-numbe another w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" data-name="Email Verification Code 2"
-                           id="Email-verification-code-2" required="">
+                           id="Email-verification-code-2" required="" size="1">
                     <div class="div-block-157"></div>
                     <input type="text" class="verify-email-code the-cryer w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" data-name="Email Verification Code 3"
-                           id="Email-verification-code-3" required="">
+                           id="Email-verification-code-3" required="" size="1">
                     <input type="text" class="verify-email-code next-numbe w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]"
@@ -34,7 +37,7 @@
                            style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" data-name="Email Verification Code 2"
                            id="Email-verification-code-2"
-                           required="">
+                           required="" size="1">
                     <input type="submit" value="verify" data-wait="Please wait..." class="send-verify-code w-button"
                            data-ix=""></div>
                 <p class="paragraph-7">Keep this window open while checking for your code. <br>Haven&#x27;t received
