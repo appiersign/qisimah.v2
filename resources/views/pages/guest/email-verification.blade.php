@@ -3,7 +3,7 @@
     <div class="verification">
         <h1 class="heading-4">Email Verification</h1>
         <div class="form-block-4 w-form">
-            <form id="" name="email-form" data-name="Email Form" method="get" action="{{ route('user.register') }}">
+            <form id="" name="email-form" data-name="Email Form" method="post" action="{{ route('email.verification.handle') }}">
                 {{ csrf_field() }}
                 <label for="Email-verification-code" class="welcome-form-label">We have
                     sent a verification code to <strong>{{ \Illuminate\Support\Facades\Session::get('email') }}</strong>. <br>Please check you mail and enter the code in the text boxes below.</label>
@@ -14,24 +14,24 @@
                            data-name="Email verification code" id="Email-verification-code"
                            required autofocus>
                     <input type="text" class="verify-email-code next-numbe w-input"
-                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]"
                            data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
                     <input type="text" class="verify-email-code next-numbe another w-input"
-                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" data-name="Email Verification Code 2"
                            id="Email-verification-code-2" required="">
                     <div class="div-block-157"></div>
                     <input type="text" class="verify-email-code the-cryer w-input"
-                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" data-name="Email Verification Code 3"
                            id="Email-verification-code-3" required="">
                     <input type="text" class="verify-email-code next-numbe w-input"
-                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]"
                            data-name="Email Verification Code 2" id="Email-verification-code-2" required="">
                     <input type="text" class="verify-email-code next-numbe another w-input"
-                           style="font-size: 2.5em; text-align: center" maxlength="256"
+                           style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" data-name="Email Verification Code 2"
                            id="Email-verification-code-2"
                            required="">

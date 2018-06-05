@@ -75,6 +75,7 @@ class RegisterController extends Controller
 
     public function handleEmailVerificationFormRequest(SignUpRequest $request)
     {
+        return $request->session()->get('verification_code');
         try {
             $job = new CreateUserJob($request->email);
             $this->dispatch($job);
