@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,12 +14,13 @@ class CreateUserJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $email;
-    private $data;
+    private $data = [];
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param string $email
+     * @param array $data
      */
     public function __construct(string $email, array $data = [])
     {
@@ -33,7 +34,7 @@ class CreateUserJob implements ShouldQueue
      */
     public function handle()
     {
-        $user = $this->data['email'] = $this->email;
-        User::create($user);
+        $this->data['email'] = $this->email;
+        User::create($this->data);
     }
 }

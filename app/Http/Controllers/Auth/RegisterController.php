@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Jobs\CreateUserJob;
 use App\Mail\EmailVerification;
-use App\Models\User;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -51,8 +53,8 @@ class RegisterController extends Controller
         $verification_code = generateVerificationCode();
         $response = Mail::to($email)->send(new EmailVerification($email, $verification_code));
         if (is_null($response)) {
-            $signUpRequest->session()->flash('email', $email);
-            $signUpRequest->session()->flash('verification_code', $verification_code);
+            $signUpRequest->session()->put('email', $email);
+            $signUpRequest->session()->put('verification_code', $verification_code);
             return redirect()->route('email.verification.code');
         }
 
@@ -68,21 +70,34 @@ class RegisterController extends Controller
     public function showEmailVerificationForm()
     {
         if (Session::has('email')) {
+            Session::put('email', Session::get('email'));
+            Session::put('verification_code', Session::get('verification_code'));
             return view('pages.guest.email-verification');
         }
         return redirect()->to('sign.up');
     }
 
-    public function handleEmailVerificationFormRequest(SignUpRequest $request)
+    public function handleEmailVerificationFormRequest(EmailVerificationRequest $emailVerificationRequest)
     {
+        $email = $emailVerificationRequest->session()->get('email');
+        $expected_code =  str_replace('-', '', $emailVerificationRequest->session()->get('verification_code'));
+        $actual_code = implode('', $emailVerificationRequest->verification_code);
+        $validator = Validator::make([], []);
+
+        if ($actual_code <> $expected_code) {
+            $validator->errors()->add('verification_code', 'wrong verification code');
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
         try {
-            $job = new CreateUserJob($request->email);
+            $job = new CreateUserJob($email);
             $this->dispatch($job);
-            Auth::onceUsingId(User::where('email', $request->email)->first()->id);
-            return redirect()->route('email.verification.code');
+            Auth::onceUsingId(User::where('email', $email)->first()->id);
+            return redirect()->route('user.register');
         } catch (\Exception $exception) {
-            Session::put('error', 'User creation failed. Please try again in a while!');
-            return redirect()->back()->withInput();
+            Log::debug($exception->getMessage());
+            $validator->errors()->add('error', 'User creation failed. Please try again in a while!');
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     }
 
