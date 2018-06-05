@@ -26,7 +26,7 @@ Route::get('verification/email.do', 'Auth\RegisterController@showEmailVerificati
 Route::post('verification/email.do', 'Auth\RegisterController@handleEmailVerificationFormRequest')->name('email.verification.handle');
 
 Route::get('users/register.do', 'Auth\RegisterController@showUserDetailsForm')->name('user.register');
-Route::post('users/register.do', 'Auth\RegisterController@handleUserDetailsForm')->name('user.register.handle');
+Route::post('users/register.do', 'Auth\RegisterController@handleUserDetailsFormRequest')->name('user.register.handle');
 
 Auth::routes();
 

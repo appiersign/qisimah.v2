@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserDetailsRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UserDetailsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,9 @@ class UserDetailsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'bail|required|string|min:2|max:100',
+            'password' => 'bail|required|string|confirmed|min:6|max:50',
+            'accounts' => 'bail|required|array|min:1'
         ];
     }
 }
