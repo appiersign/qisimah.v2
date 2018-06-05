@@ -111,6 +111,11 @@ class RegisterController extends Controller
         return view('pages.guest.user-details');
     }
 
+    public function handleUserDetailsFormRequest()
+    {
+        
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
