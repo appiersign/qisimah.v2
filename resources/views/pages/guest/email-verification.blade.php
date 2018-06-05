@@ -6,14 +6,13 @@
             <form id="" name="email-form" data-name="Email Form" method="get" action="{{ route('user.register') }}">
                 {{ csrf_field() }}
                 <label for="Email-verification-code" class="welcome-form-label">We have
-                    sent a confirmation code to <span>kofi@qisimah.com</span>. <br>It will expire shortly, so enter
-                    your code soon.</label>
+                    sent a verification code to <strong>{{ \Illuminate\Support\Facades\Session::get('email') }}</strong>. <br>Please check you mail and enter the code in the text boxes below.</label>
                 <div class="div-block-156">
                     <input type="text" class="verify-email-code the-cryer w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="1"
                            name="verification_code[]" size="1"
                            data-name="Email verification code" id="Email-verification-code"
-                           required="">
+                           required autofocus>
                     <input type="text" class="verify-email-code next-numbe w-input"
                            style="font-size: 2.5em; text-align: center" maxlength="256"
                            name="verification_code[]"
