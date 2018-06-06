@@ -117,6 +117,8 @@ class RegisterController extends Controller
         $user = User::find(Auth::id());
         $user->password = bcrypt($userDetailsRequest->input('password'));
         $user->name = $userDetailsRequest->input('name');
+        $user->nick_name = $userDetailsRequest->input('nick_name');
+        $user->gender = $userDetailsRequest->input('gender');
         $user->save();
 
         return 'done';

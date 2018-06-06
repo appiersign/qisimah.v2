@@ -11,17 +11,28 @@
                 {{ csrf_field() }}
                 <label for="full-name" class="welcome-form-label">Your name</label>
                 <input type="text" class="name-fields w-input" maxlength="256" name="name"
-                       data-name="full-name" placeholder="enter your name" id="full-name" value="{{ old('name') }}" required="">
+                       data-name="full-name" placeholder="enter your name" id="full-name" value="{{ old('name') }}" required>
+
+                <label for="nick_name" class="welcome-form-label">Nick name</label>
+                <input type="text" class="name-fields w-input" maxlength="256" name="nick_name"
+                       data-name="nick_name" placeholder="enter your nick name" id="nick_name" value="{{ old('nick_name') }}" required>
+
+                <label for="gender" class="welcome-form-label">Gender</label>
+                <select id="gender" name="gender" class="name-fields w-select">
+                    <option value="" disabled selected>Select one...</option>
+                    <option value="m">male</option>
+                    <option value="f">female</option>
+                </select>
                 <label for="Password" class="welcome-form-label">Create Password</label>
                 <input type="password" class="name-fields w-input" maxlength="256" name="password"
                                            data-name="Password" placeholder="enter your password" id="Password"
                                            required="">
                 <label for="Password-3" class="welcome-form-label">Retype Password</label>
                 <input type="password" class="name-fields w-input" maxlength="256" name="password_confirmation"
-                                           data-name="Password 2" placeholder="enter your password" id="Password-2"
-                                           required=""><label for="Password-3" class="welcome-form-label">Select
-                    account type</label>
-                <select id="field" name="accounts[]" class="name-fields w-select" multiple>
+                                           data-name="Password 2" placeholder="confirm password" id="Password-2"
+                                           required="">
+                <label for="accounts" class="welcome-form-label">Select account type</label>
+                <select id="accounts" name="accounts[]" class="name-fields w-select" multiple>
                     <option value="" disabled selected>Select one...</option>
                     <option value="artist">Artist</option>
                     <option value="producer">Producer</option>
