@@ -27,7 +27,8 @@ Route::post('verification/email.do', 'Auth\RegisterController@handleEmailVerific
 
 Route::get('users/register.do', 'Auth\RegisterController@showUserDetailsForm')->name('user.register');
 Route::post('users/register.do', 'Auth\RegisterController@handleUserDetailsFormRequest')->name('user.register.handle');
-Route::get('artists/request.do', 'Auth\LoginController@showRequestArtistForm')->name('artists.request');
+Route::get('artists/request.do/{artist?}', 'Auth\LoginController@showRequestArtistForm')->name('artists.request');
+Route::post('artists/request.do', 'Auth\LoginController@handleSearchArtistForm');
 
 Auth::routes();
 

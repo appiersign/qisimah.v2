@@ -138,11 +138,9 @@ class RegisterController extends Controller
 
         $this->createUserAccountType($user, $accounts);
 
-        if (sizeof($accounts) > 1){
-            foreach (['artist', 'manager', 'label'] as $item) {
-                if (in_array($item, $accounts)){
-                    return redirect()->route('artists.request');
-                }
+        foreach (['artist', 'manager', 'label'] as $item) {
+            if (in_array($item, $accounts)){
+                return redirect()->route('artists.request');
             }
         } return redirect()->to('/');
 
