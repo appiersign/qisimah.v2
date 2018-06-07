@@ -6,6 +6,7 @@ use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\UserDetailsRequest;
 use App\Jobs\CreateArtistJob;
+use App\Jobs\CreateLabelJob;
 use App\Jobs\CreateManagerJob;
 use App\Jobs\CreateUserJob;
 use App\Label;
@@ -155,7 +156,7 @@ class RegisterController extends Controller
                 }
             } elseif ($accounts[0] === 'lab-rep') {
                 if (Label::where('search_box', strtolower($user->nick_name))->count() == 0) {
-                    $job = new CreateManagerJob($user->toArray());
+                    $job = new CreateLabelJob($user->toArray());
                     try {
                         $this->dispatch($job);
                         return redirect()->route('artists.request');
