@@ -22,7 +22,7 @@ class CreateLabelJob implements ShouldQueue
      */
     public function __construct( array $user )
     {
-        $this->user = $user;
+        $this->user['name'] = $user['nick_name'];
         $this->user['search_box'] = $user['nick_name'];
     }
 

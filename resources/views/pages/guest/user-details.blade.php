@@ -37,9 +37,10 @@
                     <option value="" disabled selected>Select one...</option>
                     <option value="artist">Artist</option>
                     <option value="producer">Producer</option>
+                    <option value="composer">Composer</option>
                     <option value="writer">Writer</option>
                     <option value="manager">Manager</option>
-                    <option value="label_rep">Label Rep</option>
+                    <option value="label">Label Rep</option>
                 </select>
                 <input type="submit" value="register" data-wait="Please wait..." class="_50 w-button">
                 <input type="submit" value="Verify" data-wait="Please wait..." class="email-button w-button">

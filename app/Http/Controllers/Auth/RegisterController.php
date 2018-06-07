@@ -15,6 +15,7 @@ use App\Manager;
 use App\Models\Artist;
 use App\User;
 use App\Http\Controllers\Controller;
+use function Composer\Autoload\includeFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -129,47 +130,68 @@ class RegisterController extends Controller
 
         $accounts = $userDetailsRequest->input('accounts');
 
+        return $this->createUserAccountType($user, $accounts);
+
+    }
+
+    public function createUserAccountType($user, $accounts)
+    {
         if (count($accounts) == 1){
-            if ($accounts[0] === 'artist') {
-                if (Artist::where('search_box', strtolower($user->nick_name))->count() == 0) {
-                    $job = new CreateArtistJob($user->toArray());
-                    try {
-                        $this->dispatch($job);
-                        return redirect()->route('artists.request');
-                    } catch (\Exception $exception) {
-                        Log::info('CreateArtistJob in RegisterController');
-                        Log::error($exception->getMessage());
-                        return redirect()->back()->with('failed', 'Setting up your artist account failed. Perhaps your nick name is taken! If this problem persists, contact support.');
-                    }
-                }
-            } elseif ($accounts[0] === 'manager') {
-                if (Manager::where('search_box', strtolower($user->nick_name))->count() == 0) {
-                    $job = new CreateManagerJob($user->toArray());
-                    try {
-                        $this->dispatch($job);
-                        return redirect()->route('artists.request');
-                    } catch (\Exception $exception) {
-                        Log::info('CreateArtistJob in RegisterController');
-                        Log::error($exception->getMessage());
-                        return redirect()->back()->with('failed', 'Setting up your manager account failed. Perhaps your nick name is taken! If this problem persists, contact support.');
-                    }
-                }
-            } elseif ($accounts[0] === 'lab-rep') {
-                if (Label::where('search_box', strtolower($user->nick_name))->count() == 0) {
-                    $job = new CreateLabelJob($user->toArray());
-                    try {
-                        $this->dispatch($job);
-                        return redirect()->route('artists.request');
-                    } catch (\Exception $exception ) {
-                        Log::info('CreateArtistJob in RegisterController');
-                        Log::error($exception->getMessage());
-                        return redirect()->back()->with('failed', 'Setting up your label account failed. Perhaps your nick name is taken! If this problem persists, contact support.');
-                    }
+            $response = $this->createUserAccountTypeIfNotExists($user, $accounts[0]);
+        } else {
+            foreach ($accounts as $account) {
+                $response = $this->createUserAccountTypeIfNotExists($user, $account);
+                if (!$response) {
+                    break;
                 }
             }
         }
+        return $response;
+    }
 
-        return 'done';
+    public function createUserAccountTypeIfNotExists($user, $account)
+    {
+        if ($account === 'artist') {
+            if (Artist::where('search_box', strtolower($user->nick_name))->count() == 0) {
+                $job = new CreateArtistJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'manager') {
+            if (Manager::where('search_box', strtolower($user->nick_name))->count() == 0) {
+                $job = new CreateManagerJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'label') {
+            if (Label::where('search_box', strtolower($user->nick_name))->count() == 0) {
+                $job = new CreateLabelJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception ) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } else {
+
+        }
+
+        return $response;
     }
 
     /**
