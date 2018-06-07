@@ -141,7 +141,7 @@ class RegisterController extends Controller
         } else {
             foreach ($accounts as $account) {
                 $response = $this->createUserAccountTypeIfNotExists($user, $account);
-                if (!$response) {
+                if ($response <> true) {
                     break;
                 }
             }
