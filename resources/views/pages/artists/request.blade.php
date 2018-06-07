@@ -15,35 +15,23 @@
                 </div>
                 <div class="free-the-wrapper-copy">
                     <div class="dont-mind-them w-row">
-                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="images/adina10.jpg" srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
+                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="{{ asset('images/adina10.jpg') }}" srcset="{{ asset('images/adina10-p-500.jpeg') }} 500w, {{ asset('images/adina10.jpg') }} 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
                         <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
                             <div class="text-block-55">Becca</div>
                             <div>Sweetie</div>
                         </div>
                     </div>
+
                     <div class="dont-mind-them w-row">
-                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="images/adina10.jpg" srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
+                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="{{ asset('images/adina10.jpg') }}" srcset="{{ asset('images/adina10-p-500.jpeg') }} 500w, {{ asset('images/adina10.jpg') }} 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
                         <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
                             <div class="text-block-55">Becca</div>
                             <div>Sweetie</div>
                         </div>
                     </div>
+
                     <div class="dont-mind-them w-row">
-                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="images/adina10.jpg" srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
-                        <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
-                            <div class="text-block-55">Becca</div>
-                            <div>Sweetie</div>
-                        </div>
-                    </div>
-                    <div class="dont-mind-them w-row">
-                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="images/adina10.jpg" srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
-                        <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
-                            <div class="text-block-55">Becca</div>
-                            <div>Sweetie</div>
-                        </div>
-                    </div>
-                    <div class="dont-mind-them w-row">
-                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="images/adina10.jpg" srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
+                        <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img src="{{ asset('images/adina10.jpg') }}" srcset="{{ asset('images/adina10-p-500.jpeg') }} 500w, {{ asset('images/adina10.jpg') }} 575w" sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw" class="image-13"></div>
                         <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
                             <div class="text-block-55">Becca</div>
                             <div>Sweetie</div>

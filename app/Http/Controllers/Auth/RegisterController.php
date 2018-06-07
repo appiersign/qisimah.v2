@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Composer;
 use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\UserDetailsRequest;
 use App\Jobs\CreateArtistJob;
+use App\Jobs\CreateComposerJob;
+use App\Jobs\CreateLabelJob;
+use App\Jobs\CreateManagerJob;
+use App\Jobs\CreateProducerJob;
 use App\Jobs\CreateUserJob;
+use App\Jobs\CreateWriteJob;
+use App\Label;
 use App\Mail\EmailVerification;
+use App\Manager;
 use App\Models\Artist;
+use App\Producer;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Writer;
+use function Composer\Autoload\includeFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -125,22 +136,111 @@ class RegisterController extends Controller
 
         $accounts = $userDetailsRequest->input('accounts');
 
+        $this->createUserAccountType($user, $accounts);
+
+        if (sizeof($accounts) > 1){
+            foreach (['artist', 'manager', 'label'] as $item) {
+                if (in_array($item, $accounts)){
+                    return redirect()->route('artists.request');
+                }
+            }
+        } return redirect()->to('/');
+
+    }
+
+    public function createUserAccountType($user, $accounts)
+    {
         if (count($accounts) == 1){
-            if ($accounts[0] === 'artist') {
-                if (Artist::where('nick_name', $user->nick_name)->count() == 0) {
-                    $job = new CreateArtistJob($user->toArray());
-                    try {
-                        $this->dispatch($job);
-                        return redirect()->route('artists.request');
-                    } catch (\Exception $exception) {
-                        Log::info('CreateArtistJob in RegisterController');
-                        Log::error($exception->getMessage());
-                    }
+            $response = $this->createUserAccountTypeIfNotExists($user, $accounts[0]);
+        } else {
+            foreach ($accounts as $account) {
+                $response = $this->createUserAccountTypeIfNotExists($user, $account);
+                if ($response <> true) {
+                    break;
+                }
+            }
+        }
+        return $response;
+    }
+
+    public function createUserAccountTypeIfNotExists($user, $account)
+    {
+        $response = true;
+        if ($account === 'artist') {
+            if (Artist::where('search_box', strtolower($user->nick_name))->count() == 0) {
+                $job = new CreateArtistJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'manager') {
+            if (Manager::where('search_box', strtolower($user->nick_name))->count() == 0) {
+                $job = new CreateManagerJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'label') {
+            if (Label::where('search_box', strtolower($user->nick_name))->count() == 0) {
+                $job = new CreateLabelJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception ) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'producer') {
+            if (Producer::where('search_box', strtolower($user->nick_name))->count() == 0){
+                $job = new CreateProducerJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception ) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'writer') {
+            if (Writer::where('search_box', strtolower($user->nick_name))->count() == 0){
+                $job = new CreateWriteJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception ) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
+                }
+            }
+        } elseif ($account === 'composer') {
+            if (Composer::where('search_box', strtolower($user->nick_name))->count() == 0){
+                $job = new CreateComposerJob($user->toArray());
+                try {
+                    $this->dispatch($job);
+                    $response = true;
+                } catch (\Exception $exception ) {
+                    Log::info('CreateArtistJob in RegisterController');
+                    Log::error($exception->getMessage());
+                    $response = false;
                 }
             }
         }
 
-        return 'done';
+        return $response;
     }
 
     /**
