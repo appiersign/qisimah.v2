@@ -13,8 +13,12 @@ class CreateProducesTable extends Migration
      */
     public function up()
     {
-        Schema::create('produces', function (Blueprint $table) {
+        Schema::create('producers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('full_name')->nullable();
+            $table->string('nick_name')->unique();
+            $table->string('search_box')->index();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

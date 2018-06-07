@@ -24,6 +24,7 @@ class CreateComposerJob implements ShouldQueue
     {
         $this->user = $user;
         $this->user['search_box'] = $user['nick_name'];
+        $this->user['full_name'] = $user['name'];
     }
 
     /**

@@ -17,7 +17,7 @@ use App\Label;
 use App\Mail\EmailVerification;
 use App\Manager;
 use App\Models\Artist;
-use App\Produce;
+use App\Producer;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Writer;
@@ -136,7 +136,15 @@ class RegisterController extends Controller
 
         $accounts = $userDetailsRequest->input('accounts');
 
-        return [$this->createUserAccountType($user, $accounts)];
+        $this->createUserAccountType($user, $accounts);
+
+        if (sizeof($accounts) > 1){
+            foreach (['artist', 'manager', 'label'] as $item) {
+                if (in_array($item, $accounts)){
+                    return redirect()->route('artists.request');
+                }
+            }
+        } return redirect()->to('/');
 
     }
 
@@ -157,6 +165,7 @@ class RegisterController extends Controller
 
     public function createUserAccountTypeIfNotExists($user, $account)
     {
+        $response = true;
         if ($account === 'artist') {
             if (Artist::where('search_box', strtolower($user->nick_name))->count() == 0) {
                 $job = new CreateArtistJob($user->toArray());
@@ -194,7 +203,7 @@ class RegisterController extends Controller
                 }
             }
         } elseif ($account === 'producer') {
-            if (Produce::where('search_box', strtolower($user->nick_name))->count() == 0){
+            if (Producer::where('search_box', strtolower($user->nick_name))->count() == 0){
                 $job = new CreateProducerJob($user->toArray());
                 try {
                     $this->dispatch($job);

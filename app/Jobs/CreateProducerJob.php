@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Produce;
+use App\Producer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -24,6 +24,7 @@ class CreateProducerJob implements ShouldQueue
     {
         $this->user = $user;
         $this->user['search_box'] = $user['nick_name'];
+        $this->user['full_name'] = $user['name'];
     }
 
     /**
@@ -33,6 +34,6 @@ class CreateProducerJob implements ShouldQueue
      */
     public function handle()
     {
-        Produce::create($this->user);
+        Producer::create($this->user);
     }
 }

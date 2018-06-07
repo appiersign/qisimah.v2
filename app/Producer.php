@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Composer extends Model
+class Producer extends Model
 {
     protected $fillable = ['nick_name', 'full_name', 'search_box'];
 

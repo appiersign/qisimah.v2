@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Produce;
+use App\Producer;
 use Illuminate\Http\Request;
 
 class ProduceController extends Controller
@@ -41,10 +41,10 @@ class ProduceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Produce  $produce
+     * @param  \App\Producer  $produce
      * @return \Illuminate\Http\Response
      */
-    public function show(Produce $produce)
+    public function show(Producer $produce)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProduceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Produce  $produce
+     * @param  \App\Producer  $produce
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produce $produce)
+    public function edit(Producer $produce)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProduceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Produce  $produce
+     * @param  \App\Producer  $produce
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produce $produce)
+    public function update(Request $request, Producer $produce)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProduceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Produce  $produce
+     * @param  \App\Producer  $produce
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produce $produce)
+    public function destroy(Producer $produce)
     {
         //
     }
