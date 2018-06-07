@@ -5,7 +5,8 @@ Feature: Email Verification Code
 
   Scenario: Complete Sign Up form
     Given I am on "sign.up"
-    And I fill in "email" with "braasig@gmail.com"
+    And I fill in "email" with "qisimah2@mailinator.com"
     When I press "next"
-    Then I should be on "verification/email.do"
+    Then I should receive "123-456" as my verification code
+    And I should be on "verification/email.do"
     And I should see "Email Verification"

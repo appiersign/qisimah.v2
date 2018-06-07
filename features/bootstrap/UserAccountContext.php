@@ -21,4 +21,13 @@ class UserAccountContext extends \Behat\MinkExtension\Context\MinkContext implem
     {
     }
 
+    /**
+     * @Then I should receive :code as my verification code
+     */
+    public function iShouldReceiveAsMyVerificationCode($code)
+    {
+        \Illuminate\Support\Facades\Session::put('verification_code', $code);
+        \Tests\TestCase::assertTrue(true);
+    }
+
 }
