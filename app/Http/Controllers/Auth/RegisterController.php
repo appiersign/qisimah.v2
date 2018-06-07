@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\SignUpRequest;
+use App\Http\Requests\UserDetailsRequest;
+use App\Jobs\CreateArtistJob;
 use App\Jobs\CreateUserJob;
 use App\Mail\EmailVerification;
+use App\Models\Artist;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +37,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('showUserDetailsForm', 'handleUserDetailsFormRequest');
     }
 
     /**
@@ -92,7 +95,7 @@ class RegisterController extends Controller
         try {
             $job = new CreateUserJob($email);
             $this->dispatch($job);
-            Auth::onceUsingId(User::where('email', $email)->first()->id);
+            Auth::loginUsingId(User::where('email', $email)->first()->id);
             return redirect()->route('user.register');
         } catch (\Exception $exception) {
             Log::debug($exception->getMessage());
@@ -109,6 +112,35 @@ class RegisterController extends Controller
     public function showUserDetailsForm()
     {
         return view('pages.guest.user-details');
+    }
+
+    public function handleUserDetailsFormRequest(UserDetailsRequest $userDetailsRequest)
+    {
+        $user = User::find(Auth::id());
+        $user->password = bcrypt($userDetailsRequest->input('password'));
+        $user->name = $userDetailsRequest->input('name');
+        $user->nick_name = $userDetailsRequest->input('nick_name');
+        $user->gender = $userDetailsRequest->input('gender');
+        $user->save();
+
+        $accounts = $userDetailsRequest->input('accounts');
+
+        if (count($accounts) == 1){
+            if ($accounts[0] === 'artist') {
+                if (Artist::where('nick_name', $user->nick_name)->count() == 0) {
+                    $job = new CreateArtistJob($user->toArray());
+                    try {
+                        $this->dispatch($job);
+                        return redirect()->route('artists.request');
+                    } catch (\Exception $exception) {
+                        Log::info('CreateArtistJob in RegisterController');
+                        Log::error($exception->getMessage());
+                    }
+                }
+            }
+        }
+
+        return 'done';
     }
 
     /**

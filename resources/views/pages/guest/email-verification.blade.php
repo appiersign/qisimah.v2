@@ -1,6 +1,6 @@
 @extends('layouts.wide')
 @section('content')
-    <div class="verification">
+    <div class="">
         @if($errors->any())
             @include('components.guest.danger-message')
         @endif

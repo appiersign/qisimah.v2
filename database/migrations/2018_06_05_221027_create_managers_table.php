@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArtistsTable extends Migration
+class CreateManagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateArtistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('artists', function (Blueprint $table) {
+        Schema::create('managers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('full_name')->nullable();
-            $table->string('nick_name');
-            $table->string('search_box');
-            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateArtistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artists');
+        Schema::dropIfExists('managers');
     }
 }
