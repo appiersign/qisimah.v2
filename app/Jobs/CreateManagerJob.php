@@ -24,6 +24,7 @@ class CreateManagerJob implements ShouldQueue
     {
         $this->user = $user;
         $this->user['search_box'] = $this->user['nick_name'];
+        $this->user['full_name'] = $user['name'];
     }
 
     /**
