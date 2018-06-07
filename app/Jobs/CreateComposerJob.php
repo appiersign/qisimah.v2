@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Composer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,14 +13,17 @@ class CreateComposerJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $user;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param array $user
      */
-    public function __construct()
+    public function __construct(array $user)
     {
-        //
+        $this->user = $user;
+        $this->user['search_box'] = $user['nick_name'];
     }
 
     /**
@@ -29,6 +33,6 @@ class CreateComposerJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Composer::create($this->user);
     }
 }
