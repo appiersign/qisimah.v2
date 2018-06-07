@@ -20,7 +20,7 @@ Route::get('log.in', function () { return view('pages.guest.log-in'); });
 
 
 Route::get('sign.up', 'Auth\RegisterController@showSignUpForm');
-Route::post('sign.up', 'Auth\RegisterController@handleSignUpFormRequest');
+Route::post('sign.up/{code?}', 'Auth\RegisterController@handleSignUpFormRequest')->name('users.sign.up');
 
 Route::get('verification/email.do', 'Auth\RegisterController@showEmailVerificationForm')->name('email.verification.code');
 Route::post('verification/email.do', 'Auth\RegisterController@handleEmailVerificationFormRequest')->name('email.verification.handle');

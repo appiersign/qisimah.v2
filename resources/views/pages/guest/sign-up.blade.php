@@ -8,7 +8,7 @@
         <h1 class="heading-4">Welcome to Qisimah</h1>
         <div class="form-block-4 w-form">
             <form id="" data-name="Email Form" class="w-clearfix" method="post"
-                  action="{{ url('sign.up') }}">
+                  action="{{ route('users.sign.up') }}">
                 {{ csrf_field() }}
                 <label for="Sign-up-email" class="welcome-form-label">Get Started by entering and verifying
                     your

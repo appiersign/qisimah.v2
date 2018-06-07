@@ -15,8 +15,7 @@ Feature: Email Verification
       | verification_code[] | 5 |
       | verification_code[] | 6 |
     And I press "verify"
-    Then I should be on "users/register.do"
-    And I should see "Personal Details"
+    Then the response status code should be 200
 
 
 #  Scenario: Wrong email verification code
