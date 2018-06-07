@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\UserDetailsRequest;
+use App\Jobs\CreateArtistJob;
 use App\Jobs\CreateUserJob;
 use App\Mail\EmailVerification;
+use App\Models\Artist;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -120,6 +122,23 @@ class RegisterController extends Controller
         $user->nick_name = $userDetailsRequest->input('nick_name');
         $user->gender = $userDetailsRequest->input('gender');
         $user->save();
+
+        $accounts = $userDetailsRequest->input('accounts');
+
+        if (count($accounts) == 1){
+            if ($accounts[0] === 'artist') {
+                if (Artist::where('nick_name', $user->nick_name)->count() == 0) {
+                    $job = new CreateArtistJob($user->toArray());
+                    try {
+                        $this->dispatch($job);
+                        return redirect()->route('artists.request');
+                    } catch (\Exception $exception) {
+                        Log::info('CreateArtistJob in RegisterController');
+                        Log::error($exception->getMessage());
+                    }
+                }
+            }
+        }
 
         return 'done';
     }

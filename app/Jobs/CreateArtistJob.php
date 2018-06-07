@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Artist;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,14 +13,23 @@ class CreateArtistJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $artist_id;
+    private $artist;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param array $artist
      */
-    public function __construct()
+    public function __construct( array $artist )
     {
-        //
+        $this->artist = $artist;
+        $this->artist['search_box'] = $artist['nick_name'];
+    }
+
+    public function getArtistId()
+    {
+        return $this->artist_id;
     }
 
     /**
@@ -29,6 +39,6 @@ class CreateArtistJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Artist::create($this->artist);
     }
 }
