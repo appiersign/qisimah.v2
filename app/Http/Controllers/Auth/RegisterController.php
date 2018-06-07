@@ -140,7 +140,7 @@ class RegisterController extends Controller
                 }
             } elseif ($accounts[0] === 'manager') {
                 if (Manager::where('nick_name', $user->nick_name)->count() == 0) {
-
+                    
                 }
             }
         }
