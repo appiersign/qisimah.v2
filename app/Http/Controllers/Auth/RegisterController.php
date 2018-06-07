@@ -8,6 +8,7 @@ use App\Http\Requests\UserDetailsRequest;
 use App\Jobs\CreateArtistJob;
 use App\Jobs\CreateUserJob;
 use App\Mail\EmailVerification;
+use App\Manager;
 use App\Models\Artist;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -136,6 +137,10 @@ class RegisterController extends Controller
                         Log::info('CreateArtistJob in RegisterController');
                         Log::error($exception->getMessage());
                     }
+                }
+            } elseif ($accounts[0] === 'manager') {
+                if (Manager::where('nick_name', $user->nick_name)->count() == 0) {
+
                 }
             }
         }
