@@ -20,11 +20,11 @@
     function gtag() {
         dataLayer.push(arguments);
     }
-
-    gtag('js', new Date());
-    gtag('config', 'UA-109589703-1');
-    gtag('set', {'user_id': 'USER_ID'}); // Set the user ID using signed-in user_id.
-    ga('set', 'userId', 'USER_ID'); // Set the user ID using signed-in user_id.
+    //
+    // gtag('js', new Date());
+    // gtag('config', 'UA-109589703-1');
+    // gtag('set', {'user_id': 'USER_ID'}); // Set the user ID using signed-in user_id.
+    // ga('set', 'userId', 'USER_ID'); // Set the user ID using signed-in user_id.
 </script>
 <script src="https://mattboldt.com/demos/typed-js/js/typed.custom.js"></script>
 <script>
@@ -43,3 +43,4 @@
         });
     });
 </script>
+<script src="{{ asset('js/custom.js') }}"></script>
