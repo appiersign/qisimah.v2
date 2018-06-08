@@ -26,7 +26,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout', 'showRequestArtistForm', 'handleSearchArtistForm');
+        $this->middleware('guest')->except('logout', 'showRequestArtistForm', 'handleSearchArtistForm', 'handleArtistManagementDetails');
     }
 
     public function showRequestArtistForm($artist = '')
@@ -41,5 +41,14 @@ class LoginController extends Controller
     public function handleSearchArtistForm(Request $request)
     {
         return redirect()->to('artists/request.do/'.$request->input('artist'));
+    }
+
+    public function handleArtistManagementDetails($qisimah_id)
+    {
+        $artist = Artist::where('qisimah_id', $qisimah_id)->first();
+        if (is_null($artist)){
+            return view('pages.artists.management-details')->with('errors', 'Bad Request');
+        }
+        return view('pages.artists.management-details', compact('artist'));
     }
 }

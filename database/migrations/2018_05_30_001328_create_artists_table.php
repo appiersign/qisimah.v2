@@ -15,6 +15,7 @@ class CreateArtistsTable extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('qisimah_id')->unique();
             $table->string('full_name')->nullable();
             $table->string('nick_name');
             $table->string('search_box');

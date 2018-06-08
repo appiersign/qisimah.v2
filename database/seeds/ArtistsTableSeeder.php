@@ -14,19 +14,22 @@ class ArtistsTableSeeder extends Seeder
         \App\Models\Artist::create([
             'full_name' => 'Michael Asante',
             'nick_name' => 'Sarkodie',
-            'search_box' => 'sarkodie'
+            'search_box' => 'sarkodie',
+            'qisimah_id' => uniqid()
         ]);
 
         \App\Models\Artist::create([
             'full_name' => 'Charles Nii Armah',
             'nick_name' => 'Shatta Wale',
-            'search_box' => 'shatta wale'
+            'search_box' => 'shatta wale',
+            'qisimah_id' => uniqid()
         ]);
 
         \App\Models\Artist::create([
             'full_name' => 'Livingston Stone',
             'nick_name' => 'StoneBwoy',
-            'search_box' => 'stonebwoy'
+            'search_box' => 'stonebwoy',
+            'qisimah_id' => uniqid()
         ]);
     }
 }
