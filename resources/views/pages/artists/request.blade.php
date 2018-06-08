@@ -22,17 +22,19 @@
                 @if(count($artists))
                     <div class="free-the-wrapper-copy">
                         @foreach($artists as $artist)
-                            <div class="dont-mind-them w-row">
-                                <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img
-                                            src="{{ asset('images/adina10.jpg') }}"
-                                            srcset="{{ asset('images/adina10-p-500.jpeg') }} 500w, {{ asset('images/adina10.jpg') }} 575w"
-                                            sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw"
-                                            class="image-13"></div>
-                                <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
-                                    <div class="text-block-55">{{ $artist->nick_name }}</div>
-                                    <div>{{ $artist->full_name }}</div>
+                            <a href="{{ route('artists.management.details', ['qisimah_id' => $artist->qisimah_id]) }}">
+                                <div class="dont-mind-them w-row">
+                                    <div class="w-col w-col-1 w-col-small-6 w-col-tiny-6"><img
+                                                src="{{ asset('images/adina10.jpg') }}"
+                                                srcset="{{ asset('images/adina10-p-500.jpeg') }} 500w, {{ asset('images/adina10.jpg') }} 575w"
+                                                sizes="(max-width: 767px) 50px, (max-width: 991px) 3vw, 1vw"
+                                                class="image-13"></div>
+                                    <div class="column-67 w-col w-col-11 w-col-small-6 w-col-tiny-6">
+                                        <div class="text-block-55">{{ $artist->nick_name }}</div>
+                                        <div>{{ $artist->full_name }}</div>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 @endif
