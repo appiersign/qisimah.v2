@@ -14,7 +14,9 @@ class CreateArtistUserTable extends Migration
     public function up()
     {
         Schema::table('artist_user', function (Blueprint $table) {
-            //
+            $table->unsignedInteger('artist_id')->index();
+            $table->unsignedInteger('user_id')->index();
+            $table->string('role');
         });
     }
 
