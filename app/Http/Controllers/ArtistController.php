@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
+use App\Http\Requests\ArtistManagementDetailsRequest;
 use Illuminate\Http\Request;
 
 class ArtistController extends Controller
@@ -81,5 +82,10 @@ class ArtistController extends Controller
     public function destroy(Artist $artist)
     {
         //
+    }
+
+    public function storeArtistManagementDetails(ArtistManagementDetailsRequest $artistManagementDetailsRequest)
+    {
+        $artistManagementDetailsRequest->all();
     }
 }
