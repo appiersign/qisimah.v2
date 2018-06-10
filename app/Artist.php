@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Artist extends Model
 {
-    protected $fillable = ['full_name', 'nick_name', 'search_box'];
+    protected $fillable = ['full_name', 'nick_name', 'search_box', 'label_id', 'manager_id'];
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     public function manager()

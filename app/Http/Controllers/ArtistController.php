@@ -6,6 +6,8 @@ use App\Artist;
 use App\Http\Requests\ArtistManagementDetailsRequest;
 use App\Jobs\CreateLabelJob;
 use App\Jobs\CreateManagerJob;
+use App\Label;
+use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -101,21 +103,18 @@ class ArtistController extends Controller
         $label['website']   = $artistManagementDetailsRequest->input('label_website');
         $label['telephone'] = $artistManagementDetailsRequest->input('label_telephone');
 
-        $createLabel = new CreateLabelJob($label);
-        try {
-            $this->dispatch($createLabel);
-            if ($artistManagementDetailsRequest->input('autofill-management') === 'on'){
-                $createManagement = new CreateManagerJob($label);
-                try {
-                    $this->dispatch($createManagement);
-                } catch (\Exception $exception) {
-                    return $exception->getMessage();
-                }
-            }
+        $createLabel = Label::create($label);
+
+        if ($createLabel <> null){
             $artist = Artist::where('qisimah_id', $qisimah_id)->first();
-            $artist->users()->attach(Auth::id());
-        } catch (\Exception $exception) {
-            return $exception->getMessage();
+            $artist->label_id = $createLabel->id;
+            if ($artistManagementDetailsRequest->input('autofill-management') === 'on'){
+                $manager = Manager::create($label);
+            }
+
+            $artist->manager_id = $manager->id;
+            $artist->save();
+            return $artist;
         }
 
         return $artistManagementDetailsRequest->all();
