@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProducesTable extends Migration
+class CreateArtistUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateProducesTable extends Migration
      */
     public function up()
     {
-        Schema::create('producers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('full_name')->nullable();
-            $table->string('nick_name')->unique();
-            $table->string('search_box')->index();
-            $table->string('avatar')->nullable();
+        Schema::create('artist_user', function (Blueprint $table) {
+            $table->unsignedInteger('artist_id')->index();
+            $table->unsignedInteger('user_id')->index();
+            $table->string('role');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateProducesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producers');
+        Schema::dropIfExists('artist_user');
     }
 }

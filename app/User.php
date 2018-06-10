@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function artists()
+    {
+        return $this->belongsToMany(Artist::class)->withTimestamps();
+    }
 }

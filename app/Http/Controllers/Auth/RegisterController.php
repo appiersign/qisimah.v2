@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Artist;
 use App\Composer;
 use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\SignUpRequest;
@@ -16,7 +17,6 @@ use App\Jobs\CreateWriteJob;
 use App\Label;
 use App\Mail\EmailVerification;
 use App\Manager;
-use App\Models\Artist;
 use App\Producer;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -183,18 +183,6 @@ class RegisterController extends Controller
                     $this->dispatch($job);
                     $response = true;
                 } catch (\Exception $exception) {
-                    Log::info('CreateArtistJob in RegisterController');
-                    Log::error($exception->getMessage());
-                    $response = false;
-                }
-            }
-        } elseif ($account === 'label') {
-            if (Label::where('search_box', strtolower($user->nick_name))->count() == 0) {
-                $job = new CreateLabelJob($user->toArray());
-                try {
-                    $this->dispatch($job);
-                    $response = true;
-                } catch (\Exception $exception ) {
                     Log::info('CreateArtistJob in RegisterController');
                     Log::error($exception->getMessage());
                     $response = false;

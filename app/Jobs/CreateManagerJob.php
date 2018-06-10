@@ -13,18 +13,23 @@ class CreateManagerJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $user;
+    private $data;
+    private $id;
 
     /**
      * Create a new job instance.
      *
-     * @param array $user
+     * @param array $data
      */
-    public function __construct( array $user )
+    public function __construct( array $data )
     {
-        $this->user = $user;
-        $this->user['search_box'] = $this->user['nick_name'];
-        $this->user['full_name'] = $user['name'];
+        $this->data = $data;
+        $this->data['search_box'] = $this->data['name'];
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -34,6 +39,8 @@ class CreateManagerJob implements ShouldQueue
      */
     public function handle()
     {
-        Manager::create($this->user);
+        $manager = Manager::create($this->data);
+
+        $this->id = $manager->id;
     }
 }

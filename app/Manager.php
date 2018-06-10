@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manager extends Model
 {
-    protected $fillable = ['nick_name', 'full_name', 'search_box'];
+    protected $fillable = ['name', 'search_box', 'avatar', 'rep', 'telephone', 'email', 'website'];
 
-    public function setSearchBoxAttribute($value)
+    public function setNameAttribute($value)
     {
+        $this->attributes['name'] =$value;
         $this->attributes['search_box'] = strtolower($value);
+    }
+
+    public function artists()
+    {
+        return $this->hasMany(Artist::class);
     }
 }

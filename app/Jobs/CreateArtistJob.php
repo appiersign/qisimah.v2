@@ -25,6 +25,7 @@ class CreateArtistJob implements ShouldQueue
     {
         $this->artist = $artist;
         $this->artist['search_box'] = $artist['nick_name'];
+        $this->artist['qisimah_id'] = uniqid();
     }
 
     public function getArtistId()
