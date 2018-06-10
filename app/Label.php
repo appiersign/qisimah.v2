@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Label extends Model
 {
-    protected $fillable = ['name', 'search_box', 'avatar'];
+    protected $fillable = ['name', 'search_box', 'avatar', 'rep', 'telephone', 'email', 'website'];
 
     public function setSearchBoxAttribute($value)
     {

@@ -13,17 +13,17 @@ class CreateLabelJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $user;
+    private $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct( array $user )
+    public function __construct( array $data )
     {
-        $this->user['name'] = $user['nick_name'];
-        $this->user['search_box'] = $user['nick_name'];
+        $this->data = $data;
+        $this->data['search_box'] = $data['name'];
     }
 
     /**
@@ -33,6 +33,6 @@ class CreateLabelJob implements ShouldQueue
      */
     public function handle()
     {
-        Label::create($this->user);
+        Label::create($this->data);
     }
 }

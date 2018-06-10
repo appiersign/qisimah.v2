@@ -30,6 +30,7 @@ Route::post('users/register.do', 'Auth\RegisterController@handleUserDetailsFormR
 Route::get('artists/request.do/{artist?}', 'Auth\LoginController@showRequestArtistForm')->name('artists.request');
 Route::post('artists/request.do', 'Auth\LoginController@handleSearchArtistForm');
 Route::get('artists/{qisimah_id}/management.details', 'Auth\LoginController@handleArtistManagementDetails')->name('artists.management.details');
+Route::post('artists/{qisimah_id}/management.details', 'ArtistController@storeArtistManagementDetails')->name('artists.management.details.store');
 
 Auth::routes();
 

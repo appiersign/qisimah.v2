@@ -13,10 +13,11 @@ class CreateArtistUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('artist_user', function (Blueprint $table) {
+        Schema::create('artist_user', function (Blueprint $table) {
             $table->unsignedInteger('artist_id')->index();
             $table->unsignedInteger('user_id')->index();
             $table->string('role');
+            $table->timestamps();
         });
     }
 
@@ -27,8 +28,6 @@ class CreateArtistUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('artist_user', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('artist_user');
     }
 }

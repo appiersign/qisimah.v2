@@ -15,8 +15,11 @@ class CreateManagersTable extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('full_name')->nullable();
-            $table->string('nick_name')->unique();
+            $table->string('name')->unique();
+            $table->string('rep');
+            $table->string('email');
+            $table->string('telephone');
+            $table->string('website')->nullable();
             $table->string('search_box')->index();
             $table->string('avatar')->nullable();
             $table->timestamps();
