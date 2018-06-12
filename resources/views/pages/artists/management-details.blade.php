@@ -18,17 +18,17 @@
 
                 <form action="{{ route('artists.management.details.store', ['qisimah_id' => $artist->qisimah_id]) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <div class="div-block-158">
-                        <div class="form-block-4 w-form">
-                            <label for="role" class="welcome-form-label">Your role</label>
-                            <select id="role" name="role" data-name="Field" class="name-fields w-select">
-                                <option value="" disabled selected>Select one...</option>
-                                <option value="artist">Artist</option>
-                                <option value="manager">Manager</option>
-                                <option value="label">Label Rep</option>
-                            </select>
-                        </div>
-                    </div>
+                    {{--<div class="div-block-158">--}}
+                        {{--<div class="form-block-4 w-form">--}}
+                            {{--<label for="role" class="welcome-form-label">Your role</label>--}}
+                            {{--<select id="role" name="role" data-name="Field" class="name-fields w-select">--}}
+                                {{--<option value="" disabled selected>Select one...</option>--}}
+                                {{--<option value="artist">Artist</option>--}}
+                                {{--<option value="manager">Manager</option>--}}
+                                {{--<option value="label">Label Rep</option>--}}
+                            {{--</select>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                     <div class="label-contact">
                         <div class="form-block-4 w-form">

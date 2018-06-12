@@ -10,6 +10,7 @@ use App\Label;
 use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ArtistController extends Controller
 {
@@ -96,12 +97,9 @@ class ArtistController extends Controller
 
     public function storeArtistManagementDetails(ArtistManagementDetailsRequest $artistManagementDetailsRequest, $qisimah_id)
     {
-        $label = [];
-        $label['name']      = $artistManagementDetailsRequest->input('label_name');
-        $label['rep']       = $artistManagementDetailsRequest->input('label_rep');
-        $label['email']     = $artistManagementDetailsRequest->input('label_email');
-        $label['website']   = $artistManagementDetailsRequest->input('label_website');
-        $label['telephone'] = $artistManagementDetailsRequest->input('label_telephone');
+        $validator = Validator::make([],[]);
+
+        $label = $this->getLabelDetails($artistManagementDetailsRequest);
 
         $createLabel = Label::create($label);
 
@@ -110,13 +108,47 @@ class ArtistController extends Controller
             $artist->label_id = $createLabel->id;
             if ($artistManagementDetailsRequest->input('autofill-management') === 'on'){
                 $manager = Manager::create($label);
+            } else {
+                $management = $this->getManagementDetails($artistManagementDetailsRequest);
+
+                $manager = Manager::create($management);
+            }
+
+            if (is_null($manager)) {
+                $validator->errors()->add('failed', 'management details could not be saved at this time. please try again!');
+                return redirect()->back()->withInput()->withErrors($validator);
             }
 
             $artist->manager_id = $manager->id;
             $artist->save();
             return $artist;
-        }
 
-        return $artistManagementDetailsRequest->all();
+        } else {
+
+            $validator->errors()->add('failed', 'label details could not be save at this time. please try again!');
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+    }
+
+    public function getLabelDetails(ArtistManagementDetailsRequest $artistManagementDetailsRequest)
+    {
+        $label = [];
+        $label['name']      = $artistManagementDetailsRequest->input('label_name');
+        $label['rep']       = $artistManagementDetailsRequest->input('label_rep');
+        $label['email']     = $artistManagementDetailsRequest->input('label_email');
+        $label['website']   = $artistManagementDetailsRequest->input('label_website');
+        $label['telephone'] = $artistManagementDetailsRequest->input('label_telephone');
+        return $label;
+    }
+
+    public function getManagementDetails(ArtistManagementDetailsRequest $artistManagementDetailsRequest)
+    {
+        $management = [];
+        $management['name']      = $artistManagementDetailsRequest->input('management_name');
+        $management['rep']       = $artistManagementDetailsRequest->input('management_rep');
+        $management['email']     = $artistManagementDetailsRequest->input('management_email');
+        $management['website']   = $artistManagementDetailsRequest->input('management_website');
+        $management['telephone'] = $artistManagementDetailsRequest->input('management_telephone');
+        return $management;
     }
 }

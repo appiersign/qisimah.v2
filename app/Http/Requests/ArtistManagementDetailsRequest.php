@@ -25,7 +25,6 @@ class ArtistManagementDetailsRequest extends FormRequest
     public function rules()
     {
         return [
-            'role'              => 'bail|required|string',
             'label_name'        => 'bail|required|string|unique:labels,name',
             'label_logo'        => 'bail|image|max:2000000',
             'label_rep'         => 'bail|required|string|max:100',
