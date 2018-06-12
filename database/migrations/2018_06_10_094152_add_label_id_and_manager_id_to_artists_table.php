@@ -27,8 +27,8 @@ class AddLabelIdAndManagerIdToArtistsTable extends Migration
     public function down()
     {
         Schema::table('artists', function (Blueprint $table) {
-            $table->dropForeign('label_id');
-            $table->dropForeign('manager_id');
+            $table->dropForeign('artists_label_id_foreign');
+            $table->dropForeign('artists_manager_id_foreign');
         });
     }
 }
