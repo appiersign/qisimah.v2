@@ -10,6 +10,7 @@ use App\Label;
 use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ArtistController extends Controller
@@ -110,7 +111,6 @@ class ArtistController extends Controller
                 $manager = Manager::create($label);
             } else {
                 $management = $this->getManagementDetails($artistManagementDetailsRequest);
-
                 $manager = Manager::create($management);
             }
 
