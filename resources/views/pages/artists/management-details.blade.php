@@ -70,7 +70,7 @@
                                    placeholder="management name" id="management-name" required="">
 
                             <label for="management-rep" class="welcome-form-label">Contact Name</label>
-                            <input type="email" class="name-fields w-input management-fields" name="management_rep"
+                            <input type="text" class="name-fields w-input management-fields" name="management_rep"
                                    placeholder="management rep's name" id="management-rep" required="">
 
                             <label for="management-logo" class="welcome-form-label">Company Logo</label>
