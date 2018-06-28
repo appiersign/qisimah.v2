@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('telephone')->nullable();
             $table->string('country_id')->nullable();
+            $table->string('google_code')->nullable();
+            $table->string('google_access_token')->nullable();
+            $table->string('google_refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

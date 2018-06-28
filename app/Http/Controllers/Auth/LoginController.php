@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Artist;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -17,7 +18,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -51,4 +52,20 @@ class LoginController extends Controller
         }
         return view('pages.artists.management-details', compact('artist'));
     }
+
+    public function authenticate(Request $request)
+    {
+        $this->validateLogin($request);
+
+        $credentials = $this->credentials($request);
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/');
+        };
+
+        $request->session()->flash('error', 'login failed, please check credentials and try again. if persists, contact support');
+
+        return redirect()->back()->withInput(['email']);
+    }
+
 }
