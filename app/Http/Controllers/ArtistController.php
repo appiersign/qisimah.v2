@@ -121,7 +121,7 @@ class ArtistController extends Controller
 
             $artist->manager_id = $manager->id;
             $artist->save();
-            return 'you\'ll see the dashboard soon';
+            return redirect()->to('/');
 
         } else {
 

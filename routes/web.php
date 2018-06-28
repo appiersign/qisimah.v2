@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('welcome', function () { return view('pages.guest.index'); });
 Route::get('about.us', function (){ return view('pages.guest.about-us'); });
 Route::get('log.in', function () { return view('pages.guest.log-in'); });
+Route::post('log.in', 'Auth\LoginController@authenticate');
+Route::get('login', function () { return redirect()->to('log.in'); });
 
 
 Route::get('sign.up', 'Auth\RegisterController@showSignUpForm');
@@ -23,11 +25,17 @@ Route::post('artists/{qisimah_id}/management.details', 'ArtistController@storeAr
 
 Auth::routes();
 
-Route::get('dashment', function (){
-   return view('layouts.dashboard');
-});
+Route::get('', 'HomeController@dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('artists', 'ArtistController');
 Route::resource('songs', 'SongController');
 Route::resource('Plays', 'PlayController');
+
+Route::get('3rd-party/auth/google', function(\Illuminate\Http\Request $request){
+    return $request->get('code');
+});
+
+Route::get('google/authorization', function(\Illuminate\Http\Request $request){
+    return $request->all();
+});
