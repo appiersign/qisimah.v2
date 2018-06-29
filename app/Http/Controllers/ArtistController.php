@@ -122,6 +122,7 @@ class ArtistController extends Controller
 
             $artist->manager_id = $manager->id;
             $artist->save();
+            Auth::user()->artists()->attach($artist);
             return redirect()->to('/');
 
         } else {
