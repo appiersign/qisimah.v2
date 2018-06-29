@@ -27,7 +27,8 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        return view('pages.artists.index', compact('user'));
     }
 
     /**

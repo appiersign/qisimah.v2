@@ -25,6 +25,7 @@ class CreateUserJob implements ShouldQueue
     public function __construct(string $email, array $data = [])
     {
         $this->email = $email;
+        $this->data['qisimah_id'] = str_random();
     }
 
     /**
