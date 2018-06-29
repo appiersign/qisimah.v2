@@ -397,10 +397,21 @@
                         <div class="w-col w-col-6 w-col-stack">
                             <div class="artist-cards">
                                 <div class="image-wrapper-artists">
-                                    <img src="images/adina10.jpg" srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w" sizes="(max-width: 479px) 100vw, (max-width: 692px) 83vw, (max-width: 767px) 575px, (max-width: 991px) 45vw, 20vw" class="image-12"></div>
+                                    @if($artist->avatar)
+                                        <img src="{{ $artist->avatar }}"
+                                             srcset="{{ $artist->avatar }} 500w, {{ $artist->avatar }} 575w"
+                                             sizes="(max-width: 479px) 100vw, (max-width: 692px) 83vw, (max-width: 767px) 575px, (max-width: 991px) 45vw, 20vw"
+                                             class="image-12">
+                                    @else
+                                        <img src="images/adina10.jpg"
+                                             srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w"
+                                             sizes="(max-width: 479px) 100vw, (max-width: 692px) 83vw, (max-width: 767px) 575px, (max-width: 991px) 45vw, 20vw"
+                                             class="image-12">
+                                    @endif
+                                </div>
                                 <div class="div-block-116">
                                     <div class="text-block-40">{{ $artist->nick_name }}</div>
-                                    <div class="text-block-44">{{ $artist->label->name }}</div>
+                                    <div class="text-block-44">{{ strtoupper($artist->label->name) }}</div>
                                     <div class="row-10 w-row">
                                         <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
                                             <div class="text-block-41">ALBUMS</div>

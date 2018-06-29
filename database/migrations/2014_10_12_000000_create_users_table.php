@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('telephone')->nullable();
             $table->string('country_id')->nullable();
             $table->string('type')->nullable()->index();
-            $table->string('google_code')->nullable();
+            $table->string('google_auth_code')->nullable();
             $table->string('google_access_token')->nullable();
             $table->string('google_refresh_token')->nullable();
             $table->rememberToken();
