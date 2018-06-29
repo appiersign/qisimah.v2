@@ -29,7 +29,8 @@ class ArtistController extends Controller
     public function index()
     {
         $user = User::with('artists.label')->find(Auth::id());
-        return view('pages.artists.index', compact('user'));
+        $artists = Artist::all();
+        return view('pages.artists.index', compact('user', 'artists'));
     }
 
     /**

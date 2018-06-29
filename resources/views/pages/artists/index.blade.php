@@ -121,12 +121,14 @@
                     <form id="email-form-2" name="email-form-2" data-name="Email Form 2" action="index.blade.php">
                         <div class="w-row">
                             <div class="w-col w-col-6"><label for="Station" class="form-label">Select
-                                    artist:</label><select id="field-3" name="field-3" data-name="Field 3"
-                                                           class="text-field-2 w-select">
-                                    <option value="">Select one...</option>
-                                    <option value="First">First Choice</option>
-                                    <option value="Second">Second Choice</option>
-                                    <option value="Third">Third Choice</option>
+                                    artist:</label>
+                                <select id="field-3" name="field-3" data-name="Field 3" class="text-field-2 w-select">
+                                    <option value="" disabled selected>Select one...</option>
+                                    @if(count($artists))
+                                        @foreach($artists as $artist)
+                                            <option value="">{{$artist->nick_name}}</option>
+                                        @endforeach
+                                    @endif
                                 </select><a href="#" class="link-3">Cant find your artist? Click here to request
                                     addition</a></div>
                             <div class="w-col w-col-6"><label for="Frequency" class="form-label">Select
@@ -276,97 +278,7 @@
             </div>
         </div>
     </div>
-    <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease-in-out-quart"
-         data-no-scroll="1" class="navbar w-nav">
-        <div class="container w-container"><a href="#" class="brand w-nav-brand"><img
-                        src="images/Qisimah-logo-qhite.gif" width="726"></a>
-            <nav role="navigation" class="nav-menu w-nav-menu">
-                <div class="srcoll-bar-wrap"><a href="index.html" class="nav-link w-nav-link">Dashboard</a><a href="#"
-                                                                                                              class="nav-link w-nav-link">Ads
-                        Dashboard</a><a href="artists.html" class="nav-link w-nav-link w--current">Artists</a><a
-                            href="albums.html" class="nav-link w-nav-link">Albums</a><a href="broadcasters.html"
-                                                                                        class="nav-link w-nav-link">Broadcasters</a>
-                    <p class="nav-separator-text">Monitoring</p><a href="songs.html"
-                                                                   class="nav-link w-nav-link">Songs</a><a href="#"
-                                                                                                           class="nav-link w-nav-link">Ads</a><a
-                            href="charts.html" class="nav-link w-nav-link">Charts</a>
-                    <div class="drop-parent">
-                        <div class="drop-triger" data-ix="open-drop-menu">
-                            <div class="div-block-19" data-ix="open-drop-menu">
-                                <div class="reports-head" data-ix="open-drop-menu">Reports</div>
-                                <div class="open-and-close-drop">+</div>
-                            </div>
-                        </div>
-                        <div class="drop-child"><a href="summary-report.html"
-                                                   class="dropnav-links w-nav-link">Summary</a><a href="compare.html"
-                                                                                                  class="dropnav-links w-nav-link">Compare</a><a
-                                    href="general-reports.html" class="dropnav-links w-nav-link">General Reports</a>
-                        </div>
-                    </div>
-                    <p class="nav-separator-text">Account</p><a href="settings.html" class="nav-link w-nav-link">Settings</a>
-                    <div class="drop-parent-2">
-                        <div class="admin-drop-triger" data-ix="open-admin-drop-menu">
-                            <div class="div-block-19">
-                                <div class="reports-head-2">Admin</div>
-                                <div class="admin-open-and-close-drop">+</div>
-                            </div>
-                        </div>
-                        <div class="admin-drop-child"><a href="email-input.html" class="dropnav-links-2 w-nav-link">Email
-                                Verification</a><a href="add-artist-details.html" class="dropnav-links-2 w-nav-link">Add
-                                Role &amp; Details</a><a href="add-artist-filla.html"
-                                                         class="dropnav-links-2 w-nav-link">Another page</a><a
-                                    href="new-signup.html" class="dropnav-links-2 w-nav-link">Welcome Screen</a><a
-                                    href="#" class="dropnav-links-2 w-nav-link">Admin Dashboard</a><a href="#"
-                                                                                                      class="dropnav-links-2 w-nav-link">Client
-                                Mgt</a><a href="#" class="dropnav-links-2 w-nav-link">User Mgt.</a><a href="#"
-                                                                                                      class="dropnav-links-2 w-nav-link">Reporting
-                                Tool</a></div>
-                    </div>
-                </div>
-            </nav>
-            <div class="menu-button w-nav-button">
-                <div class="icon-3 w-icon-nav-menu"></div>
-            </div>
-        </div>
-    </div>
-    <div class="top-nav">
-        <div data-delay="0" class="dropdown-2 w-dropdown">
-            <div class="dropdown-toggle-2 w-dropdown-toggle">
-                <div class="w-icon-dropdown-toggle"></div>
-                <div>All Artists</div>
-            </div>
-            <nav class="dropdown-list-3 w-dropdown-list"><a href="#"
-                                                            class="artist-dashboard-drop w-dropdown-link">All</a><a
-                        href="#" class="artist-dashboard-drop w-dropdown-link">Kidi</a><a href="#"
-                                                                                          class="artist-dashboard-drop w-dropdown-link">Kwame
-                    Eugene</a><a href="#" class="artist-dashboard-drop w-dropdown-link">Miss Vee</a></nav>
-        </div>
-        <div class="div-block-11">
-            <div data-delay="120" data-hover="1" class="dropdown-3 _444444 w-dropdown">
-                <div class="dropdown-toggle-3 _45455 w-dropdown-toggle">
-                    <div class="icon-2 w-icon-dropdown-toggle"></div>
-                    <div>GH</div>
-                </div>
-                <nav class="dropdown-list-3 w-dropdown-list"><a href="#" class="artist-dashboard-drop w-dropdown-link">All</a><a
-                            href="#" class="artist-dashboard-drop w-dropdown-link">Togo</a><a href="#"
-                                                                                              class="artist-dashboard-drop w-dropdown-link">Ghana</a><a
-                            href="#" class="artist-dashboard-drop w-dropdown-link">South Africa</a></nav>
-            </div>
-            <div class="div-block-14">
-                <div data-delay="100" data-hover="1" class="dropdown-4 w-clearfix w-dropdown">
-                    <div class="dropdown-toggle w-dropdown-toggle">
-                        <div class="div-block-10"><img src="images/profile-img_1profile-img.jpg" width="75"
-                                                       class="image-4"></div>
-                    </div>
-                    <nav class="dropdown-list w-dropdown-list">
-                        <div class="text-block-20">Hey! <span>Kofi</span></div>
-                        <a href="#" class="dropdown-link w-dropdown-link">Profile</a><a href="#"
-                                                                                        class="dropdown-link w-dropdown-link">Settings</a><a
-                                href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="">
         <div class="inner-top-wrapper">
             <div class="div-block-16">
@@ -447,42 +359,57 @@
                                     <div class="div-block-117"></div>
                                     <div class="text-block-43">CONNECT SOCIAL MEDIA</div>
                                     <div class="row-11 w-row">
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-active w-inline-block"><img
-                                                        src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade2f6c4682eaa5b7e28353_036-facebook.svg"
-                                                        width="32"></a></div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade301a4682ea0de0e283b8_008-twitter.svg"
-                                                        width="32"></a></div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="images/029-instagram.svg" width="32"></a></div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="images/001-youtube.svg" width="32"></a></div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-active w-inline-block">
+                                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade2f6c4682eaa5b7e28353_036-facebook.svg" width="32">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-inactive w-inline-block">
+                                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade301a4682ea0de0e283b8_008-twitter.svg" width="32">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-inactive w-inline-block">
+                                                <img src="images/029-instagram.svg" width="32">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="{{ url('link.youtube.account') }}" class="{{ ($user->google_auth_code)? 'connect-active' : 'connect-inactive' }} w-inline-block">
+                                                <img src="images/001-youtube.svg" width="32">
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="row-11 w-row">
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="images/icons8-google-play-music.svg" width="32"></a></div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="images/icons8-deezer.svg" width="32"></a></div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="images/012-spotify.svg" width="32"></a></div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3"><a href="#"
-                                                                                                 class="connect-inactive w-inline-block"><img
-                                                        src="images/013-soundcloud.svg" width="32"></a></div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-inactive w-inline-block">
+                                                <img src="images/icons8-google-play-music.svg" width="32">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-inactive w-inline-block">
+                                                <img src="images/icons8-deezer.svg" width="32"></a>
+                                        </div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-inactive w-inline-block">
+                                                <img src="images/012-spotify.svg" width="32">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
+                                            <a href="#" class="connect-inactive w-inline-block">
+                                                <img src="images/013-soundcloud.svg" width="32">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="edit-delete-wrapper"><a href="#" class="edit-artist-trigger w-inline-block"
-                                                                    data-ix="edit-artist"><img
-                                                src="images/icons8-pencil-20.png"></a><a href="#"
-                                                                                         class="delete-artist-trigger w-inline-block"
-                                                                                         data-ix="delete-artist-warning"><img
-                                                src="images/icons8-close-window-20.png"></a></div>
+                                <div class="edit-delete-wrapper">
+                                    <a href="#" class="edit-artist-trigger w-inline-block" data-ix="edit-artist">
+                                        <img src="images/icons8-pencil-20.png">
+                                    </a>
+                                    <a href="#" class="delete-artist-trigger w-inline-block" data-ix="delete-artist-warning">
+                                        <img src="images/icons8-close-window-20.png">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @endforeach

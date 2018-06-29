@@ -27,12 +27,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        return view('home', compact('user'));
     }
 
     public function dashboard()
     {
-        return view('pages.index');
+        $user = Auth::user();
+        return view('pages.index', compact('user'));
     }
 
     public function goolgeLogin(Request $request)
