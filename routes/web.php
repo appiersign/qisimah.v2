@@ -32,9 +32,9 @@ Route::resource('artists', 'ArtistController');
 Route::resource('songs', 'SongController');
 Route::resource('Plays', 'PlayController');
 
-Route::get('3rd-party/auth/google', function(\Illuminate\Http\Request $request){
-    return $request->get('code');
-});
+Route::get('link.youtube.account', 'SocializationController@linkYoutubeAccount');
+
+Route::get('3rd-party/auth/google', 'SocializationController@handleGoogleAuthentication');
 
 Route::get('google/authorization', function(\Illuminate\Http\Request $request){
     return $request->all();

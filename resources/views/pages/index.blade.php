@@ -642,18 +642,18 @@
                 <div data-w-tab="YouTube" class="dash-tab-pane w-tab-pane">
                     <div class="tabs-top-wrapper youtube-monitoring-tab">
                         <div class="div-block-16">
-                            <h1 class="heading-2">YouTube</h1><a href="#" class="upload-song-button w-inline-block"
-                                                                 data-ix="upload-song-modal-trigger"><img
-                                        src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ad49a1a0e93f33a9edcb8eb_upload-to-the-cloud.svg"
-                                        width="30">
+                            <h1 class="heading-2">YouTube</h1>
+                            <a href="#" class="upload-song-button w-inline-block" data-ix="upload-song-modal-trigger">
+                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ad49a1a0e93f33a9edcb8eb_upload-to-the-cloud.svg" width="30">
                                 <div class="div-block-18">
                                     <div class="text-block-6">Upload song</div>
                                 </div>
-                            </a></div>
+                            </a>
+                        </div>
                         <div class="w-row">
                             <div class="column-19 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">2214</h1>
+                                    <h1 class="number-card-number">0</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Subscribers</div>
@@ -661,7 +661,7 @@
                             </div>
                             <div class="column-32 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">332</h1>
+                                    <h1 class="number-card-number">0</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Likes</div>
@@ -669,7 +669,7 @@
                             </div>
                             <div class="column-36 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">887</h1>
+                                    <h1 class="number-card-number">0</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Dislikes</div>
@@ -677,7 +677,7 @@
                             </div>
                             <div class="column-18 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">99</h1>
+                                    <h1 class="number-card-number">0</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Favourites</div>
@@ -686,50 +686,64 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
-                        <h1 class="inner-page-sub">Top Post Engagements</h1>
-                        <div class="w-hidden-medium w-hidden-small w-hidden-tiny w-row">
-                            <div class="w-col w-col-2">
-                                <div class="heading-text">THUMBNAIL</div>
-                            </div>
-                            <div class="w-col w-col-4">
-                                <div class="heading-text">CAPTION</div>
-                            </div>
-                            <div class="w-col w-col-2">
-                                <div class="heading-text">VIEWS</div>
-                            </div>
-                            <div class="w-col w-col-2">
-                                <div class="heading-text">LIKES</div>
-                            </div>
-                            <div class="w-col w-col-2">
-                                <div class="heading-text">SHARES</div>
-                            </div>
-                        </div>
-                        <div class="div-block-4">
-                            <div class="w-row">
-                                <div class="column-49 w-col w-col-2 w-col-stack">
-                                    <div class="heading-text w-hidden-main">THUMBNAIL</div>
-                                    <img src="images/30710976_1456888347750092_5566715646445617152_n.jpg"
-                                         class="image-8"></div>
-                                <div class="w-col w-col-4 w-col-stack">
-                                    <div class="heading-text w-hidden-main">CAPTION</div>
-                                    <p>FOR ALL THESE YEARS, YOU GUYS ARE STILL HERE WITH ME. <br>I LOVE YOU ALL MY FANS!<br>MAY
-                                        GOD BLESS YOU ALL!!! 💜💜👊👏👏</p>
+                        @if($user->google_auth_code)
+                            <h1 class="inner-page-sub">Top Post Engagements</h1>
+                            <div class="w-hidden-medium w-hidden-small w-hidden-tiny w-row">
+                                <div class="w-col w-col-2">
+                                    <div class="heading-text">THUMBNAIL</div>
                                 </div>
-                                <div class="column-50 w-col w-col-2 w-col-stack">
-                                    <div class="heading-text w-hidden-main">VIEWS</div>
-                                    <div class="text-block-11">19k</div>
+                                <div class="w-col w-col-4">
+                                    <div class="heading-text">CAPTION</div>
                                 </div>
-                                <div class="column-51 w-col w-col-2 w-col-stack">
-                                    <div class="heading-text w-hidden-main">LIKES</div>
-                                    <div class="text-block-11">150</div>
+                                <div class="w-col w-col-2">
+                                    <div class="heading-text">VIEWS</div>
                                 </div>
-                                <div class="w-col w-col-2 w-col-stack">
-                                    <div class="heading-text w-hidden-main">SHARES</div>
-                                    <div class="text-block-11">100</div>
+                                <div class="w-col w-col-2">
+                                    <div class="heading-text">LIKES</div>
+                                </div>
+                                <div class="w-col w-col-2">
+                                    <div class="heading-text">SHARES</div>
                                 </div>
                             </div>
-                            <div class="text-block-10">Posted on: 21 Jul 2018</div>
-                        </div>
+                            <div class="div-block-4">
+                                <div class="w-row">
+                                    <div class="column-49 w-col w-col-2 w-col-stack">
+                                        <div class="heading-text w-hidden-main">THUMBNAIL</div>
+                                        <img src="images/30710976_1456888347750092_5566715646445617152_n.jpg"
+                                             class="image-8"></div>
+                                    <div class="w-col w-col-4 w-col-stack">
+                                        <div class="heading-text w-hidden-main">CAPTION</div>
+                                        <p>FOR ALL THESE YEARS, YOU GUYS ARE STILL HERE WITH ME. <br>I LOVE YOU ALL MY
+                                            FANS!<br>MAY
+                                            GOD BLESS YOU ALL!!! 💜💜👊👏👏</p>
+                                    </div>
+                                    <div class="column-50 w-col w-col-2 w-col-stack">
+                                        <div class="heading-text w-hidden-main">VIEWS</div>
+                                        <div class="text-block-11">19k</div>
+                                    </div>
+                                    <div class="column-51 w-col w-col-2 w-col-stack">
+                                        <div class="heading-text w-hidden-main">LIKES</div>
+                                        <div class="text-block-11">150</div>
+                                    </div>
+                                    <div class="w-col w-col-2 w-col-stack">
+                                        <div class="heading-text w-hidden-main">SHARES</div>
+                                        <div class="text-block-11">100</div>
+                                    </div>
+                                </div>
+                                <div class="text-block-10">Posted on: 21 Jul 2018</div>
+                            </div>
+                        @else
+                            <div class="div-block-16">
+                                <h1 class="heading-2">YouTube</h1>
+                                <a href="{{ url('link.youtube.account') }}" class="upload-song-button w-inline-block"
+                                   data-ix="">
+                                    <img src="images/001-youtube.svg" width="32">
+                                    <div class="div-block-18">
+                                        <div class="text-block-6">Connect to YouTube</div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div data-w-tab="Instagram" class="dash-tab-pane w-tab-pane">

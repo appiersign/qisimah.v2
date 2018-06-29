@@ -132,6 +132,7 @@ class RegisterController extends Controller
         $user->name = $userDetailsRequest->input('name');
         $user->nick_name = $userDetailsRequest->input('nick_name');
         $user->gender = $userDetailsRequest->input('gender');
+        $user->type = (count($userDetailsRequest->input('accounts')) > 1) ? 'multiple' : $userDetailsRequest->input('accounts')[0];
         $user->save();
 
         $accounts = $userDetailsRequest->input('accounts');

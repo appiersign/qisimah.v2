@@ -8,6 +8,7 @@ use App\Jobs\CreateLabelJob;
 use App\Jobs\CreateManagerJob;
 use App\Label;
 use App\Manager;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,9 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::with('artists.label')->find(Auth::id());
+        $artists = Artist::all();
+        return view('pages.artists.index', compact('user', 'artists'));
     }
 
     /**
@@ -121,6 +124,7 @@ class ArtistController extends Controller
 
             $artist->manager_id = $manager->id;
             $artist->save();
+            Auth::user()->artists()->attach($artist);
             return redirect()->to('/');
 
         } else {

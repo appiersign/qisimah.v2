@@ -30,6 +30,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout', 'showRequestArtistForm', 'handleSearchArtistForm', 'handleArtistManagementDetails');
     }
 
+    public function showLoginForm()
+    {
+        return view('pages.guest.log-in');
+    }
+
     public function showRequestArtistForm($artist = '')
     {
         $artists = [];

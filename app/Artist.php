@@ -20,6 +20,11 @@ class Artist extends Model
         return $this->belongsTo(Manager::class);
     }
 
+    public function label()
+    {
+        return $this->belongsTo(Label::class);
+    }
+
     public function setSearchBoxAttribute($value)
     {
         $this->attributes['search_box'] = strtolower($value);
