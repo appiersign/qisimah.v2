@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Artist::class)->withTimestamps();
     }
+
+    public function youtube()
+    {
+        return $this->hasMany(YouTube::class);
+    }
 }

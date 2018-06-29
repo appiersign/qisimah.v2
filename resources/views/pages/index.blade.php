@@ -642,7 +642,7 @@
                 <div data-w-tab="YouTube" class="dash-tab-pane w-tab-pane">
                     <div class="tabs-top-wrapper youtube-monitoring-tab">
                         <div class="div-block-16">
-                            <h1 class="heading-2">YouTube</h1>
+                            <h1 class="heading-2">YouTube - {{ $youtube['title'] ?? 'Channel Name' }}</h1>
                             <a href="#" class="upload-song-button w-inline-block" data-ix="upload-song-modal-trigger">
                                 <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ad49a1a0e93f33a9edcb8eb_upload-to-the-cloud.svg" width="30">
                                 <div class="div-block-18">
@@ -653,18 +653,18 @@
                         <div class="w-row">
                             <div class="column-19 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">0</h1>
+                                    <h1 class="number-card-number">{{ $youtube['views'] ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
-                                    <div class="number-card-dollars">Subscribers</div>
+                                    <div class="number-card-dollars">Views</div>
                                 </div>
                             </div>
                             <div class="column-32 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">0</h1>
+                                    <h1 class="number-card-number">{{ $youtube['subscribers'] ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
-                                    <div class="number-card-dollars">Likes</div>
+                                    <div class="number-card-dollars">Subscribers</div>
                                 </div>
                             </div>
                             <div class="column-36 w-col w-col-3 w-col-medium-6 w-col-small-6">
@@ -672,7 +672,7 @@
                                     <h1 class="number-card-number">0</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
-                                    <div class="number-card-dollars">Dislikes</div>
+                                    <div class="number-card-dollars">Likes</div>
                                 </div>
                             </div>
                             <div class="column-18 w-col w-col-3 w-col-medium-6 w-col-small-6">

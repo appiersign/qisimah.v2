@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use WebDriver\Log;
 
 class Google extends Model
 {
@@ -76,13 +77,15 @@ class Google extends Model
 
         $response = json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
 
+        \Illuminate\Support\Facades\Log::info('response from get you tube data');
+        \Illuminate\Support\Facades\Log::debug($response);
+
         if (isset($response['error']['message']) && $response['error']['message'] === 'Invalid Credentials') {
             $access_token = $this->refreshAccessToken($user);
             if (!$access_token){
                 $headers = [ 'Authorization: Bearer '. $access_token ];
                 return json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
             }
-            return null;
         }
         return $response;
     }
@@ -96,7 +99,7 @@ class Google extends Model
         $response = json_decode($this->sendRequest($url, [], $fields), 1);
 
         if (isset($response['access_token'])){
-            $user->google_refresh_token = $response["access_token"];
+            $user->google_access_token = $response["access_token"];
             $user->save();
             return $response['access_token'];
         }

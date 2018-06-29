@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\YouTube;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,10 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $user = Auth::user();
-        return view('pages.index', compact('user'));
+        $user = User::find(Auth::id());
+        $youtube = YouTube::getYouTubeData($user);
+
+        return view('pages.index', compact('user', 'youtube'));
     }
 
     public function goolgeLogin(Request $request)
