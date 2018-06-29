@@ -4,7 +4,8 @@
             <img src="images/Qisimah-logo-qhite.gif" width="726">
         </a>
         <nav role="navigation" class="nav-menu w-nav-menu">
-            <div class="srcoll-bar-wrap"><a href="index.html" class="nav-link w-nav-link w--current">Dashboard</a>
+            <div class="srcoll-bar-wrap">
+                <a href="{{ url('/') }}" class="nav-link w-nav-link w--current">Dashboard</a>
                 <a href="#" class="nav-link w-nav-link">Ads Dashboard</a>
                 <a href="{{ route('artists.index') }}" class="nav-link w-nav-link">Artists</a>
                 <a href="albums.html" class="nav-link w-nav-link">Albums</a>
@@ -26,8 +27,8 @@
                         <a href="general-reports.html" class="dropnav-links w-nav-link">General Reports</a>
                     </div>
                 </div>
-                <p class="nav-separator-text">Account</p><a href="settings.html"
-                                                            class="nav-link w-nav-link">Settings</a>
+                <p class="nav-separator-text">Account</p>
+                <a href="settings.html" class="nav-link w-nav-link">Settings</a>
                 <div class="drop-parent-2">
                     <div class="admin-drop-triger" data-ix="open-admin-drop-menu">
                         <div class="div-block-19">
