@@ -10,6 +10,11 @@ class YouTube extends Model
 {
     protected $fillable = ['etag', 'channel_id', 'user_id', 'title', 'description', 'published_at', 'avatar', 'views', 'subscribers', 'last_request'];
 
+    public function getLastRequestAttribute()
+    {
+        return Carbon::parse($this->attributes['last_request']);
+    }
+
     public static function getYouTubeData(User $user)
     {
         $data = $user->youtube()->first();
