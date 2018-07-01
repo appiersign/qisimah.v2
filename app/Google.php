@@ -82,7 +82,9 @@ class Google extends Model
 
         if (isset($response['error']['message']) && $response['error']['message'] === 'Invalid Credentials') {
             $access_token = $this->refreshAccessToken($user);
-            if (!$access_token){
+
+            \Illuminate\Support\Facades\Log::debug($access_token);
+            if ($access_token){
                 $headers = [ 'Authorization: Bearer '. $access_token ];
                 return json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
             }
