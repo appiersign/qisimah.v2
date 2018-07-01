@@ -41,7 +41,7 @@ class YouTube extends Model
     {
         $google = new Google();
         $youtube_data = [];
-        $response = $google->getYouTubeData($user);
+        $response = $google->getYouTubeChannelData($user);
 
         $date = Carbon::parse($response['items'][0]['snippet']["publishedAt"]);
         $youtube_data['etag'] = $response['etag'];

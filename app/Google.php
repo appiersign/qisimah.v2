@@ -68,7 +68,7 @@ class Google extends Model
         return redirect()->to('artists');
     }
 
-    public function getYouTubeData(User $user)
+    public function getYouTubeChannelData(User $user)
     {
         $url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics&mine=true';
         $headers = [
