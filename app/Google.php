@@ -22,7 +22,7 @@ class Google extends Model
 
     public static function login()
     {
-        return redirect('https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=https://www.googleapis.com/auth/youtubepartner&redirect_uri=http://localhost:8000/3rd-party/auth/google&client_id=744307183277-du6f030bialb2cnnqfg45549tikcnrhq.apps.googleusercontent.com&include_granted_scopes=true&access_type=offline&prompt=consent');
+        return redirect('https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=https://www.googleapis.com/auth/youtube&redirect_uri=http://localhost:8000/3rd-party/auth/google&client_id=744307183277-du6f030bialb2cnnqfg45549tikcnrhq.apps.googleusercontent.com&include_granted_scopes=true&access_type=offline&prompt=consent');
     }
 
     public function updateUserGoogleAuthCode(User $user, $code)
@@ -77,19 +77,24 @@ class Google extends Model
 
         $response = json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
 
-        \Illuminate\Support\Facades\Log::info('response from get you tube data');
-        \Illuminate\Support\Facades\Log::debug($response);
-
         if (isset($response['error']['message']) && $response['error']['message'] === 'Invalid Credentials') {
             $access_token = $this->refreshAccessToken($user);
 
-            \Illuminate\Support\Facades\Log::debug($access_token);
             if ($access_token){
                 $headers = [ 'Authorization: Bearer '. $access_token ];
                 return json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
             }
         }
         return $response;
+    }
+
+    public function getYoutubeChannelActivities(User $user)
+    {
+        $url = "https://www.googleapis.com/youtube/v3/activities?mine=true&part=snippet,contentDetails&maxResults=50";
+        $headers = [
+            'Authorization: Bearer '. $user->google_access_token
+        ];
+        return $this->sendRequest($url, $headers, '', 'GET');
     }
 
     public function refreshAccessToken(User $user)
