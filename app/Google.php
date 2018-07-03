@@ -97,6 +97,11 @@ class Google extends Model
         return $this->sendRequest($url, $headers, '', 'GET');
     }
 
+    public function handleGetYoutubeChannelActivities($response)
+    {
+        $activities = json_decode($response, 1);
+    }
+
     public function refreshAccessToken(User $user)
     {
         $refresh_token = $user->google_refresh_token;
