@@ -97,9 +97,36 @@ class Google extends Model
         return $this->sendRequest($url, $headers, '', 'GET');
     }
 
-    public function handleGetYoutubeChannelActivities($response)
+    public function handleGetYoutubeChannelActivities($response): array 
     {
-        $activities = json_decode($response, 1);
+        $_response = json_decode($response, 1);
+        if (isset($_response['items'])){
+            $video_ids = [];
+            $activities = $_response['items'];
+            if (count($activities)){
+                foreach ($activities as $activity) {
+                    if ($activity['snippet']['type'] === 'upload'){
+                        $video = [];
+                        $video['qisimah_id']    = str_random();
+                        $video['published_at']  = $activity['snippet']['publishedAt'];
+                        $video['title']         = $activity['snippet']['title'];
+                        $video['description']   = $activity['snippet']['description'];
+                        $video['channel_id']    = $activity['snippet']['channelId'];
+                        $video['thumbnail_medium']  = $activity['snippet']['thumbnails']['medium']['url'];
+                        $video['thumbnail_default'] = $activity['snippet']['thumbnails']['default']['url'];
+                        $video['thumbnail_standard'] = $activity['snippet']['thumbnails']['standard']['url'];
+                        $video['thumbnail_high']    = $activity['snippet']['thumbnails']['high']['url'];
+                        $video['thumbnail_maxres']  = $activity['snippet']['thumbnails']['maxres']['url'];
+                        $video['video_id']          = $activity['contentDetails']['upload']['videoId'];
+
+                        Video::create($video);
+
+                        array_push($video_ids, $activity['contentDetails']['upload']['videoId']);
+                    }
+                }
+                return $video_ids;
+            }
+        }
     }
 
     public function refreshAccessToken(User $user)
