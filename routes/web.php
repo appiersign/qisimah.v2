@@ -43,5 +43,5 @@ Route::get('google/authorization', function(\Illuminate\Http\Request $request){
 Route::post('testicles', function (\Illuminate\Http\Request $request){
     $google = new \App\Google();
     $response = json_encode($request->all());
-    $google->handleGetYoutubeChannelActivities($response);
+    return $google->handleGetYoutubeChannelActivities($response);
 });

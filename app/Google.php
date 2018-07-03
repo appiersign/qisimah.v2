@@ -94,10 +94,12 @@ class Google extends Model
         $headers = [
             'Authorization: Bearer '. $user->google_access_token
         ];
-        return $this->sendRequest($url, $headers, '', 'GET');
+        $response = $this->sendRequest($url, $headers, '', 'GET');
+
+        $this->handleGetYoutubeChannelActivities($response);
     }
 
-    public function handleGetYoutubeChannelActivities($response): array 
+    public function handleGetYoutubeChannelActivities($response): array
     {
         $_response = json_decode($response, 1);
         if (isset($_response['items'])){
@@ -127,6 +129,11 @@ class Google extends Model
                 return $video_ids;
             }
         }
+    }
+
+    public function getYoutubeVideoData($video_ids)
+    {
+
     }
 
     public function refreshAccessToken(User $user)
