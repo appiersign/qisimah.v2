@@ -39,3 +39,9 @@ Route::get('3rd-party/auth/google', 'SocializationController@handleGoogleAuthent
 Route::get('google/authorization', function(\Illuminate\Http\Request $request){
     return $request->all();
 });
+
+Route::post('testicles', function (\Illuminate\Http\Request $request){
+    $google = new \App\Google();
+    $response = json_encode($request->all());
+    return $google->handleGetYoutubeChannelActivities($response);
+});

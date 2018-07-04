@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(YouTube::class);
     }
+
+    public function videos()
+    {
+        return $this->belongsToMany(Video::class)->withTimestamps();
+    }
 }

@@ -669,7 +669,7 @@
                             </div>
                             <div class="column-36 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">0</h1>
+                                    <h1 class="number-card-number">{{ $youtube['likes'] ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Likes</div>
@@ -677,7 +677,7 @@
                             </div>
                             <div class="column-18 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">0</h1>
+                                    <h1 class="number-card-number">{{ $youtube['favorites'] ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Favourites</div>
@@ -702,36 +702,36 @@
                                     <div class="heading-text">LIKES</div>
                                 </div>
                                 <div class="w-col w-col-2">
-                                    <div class="heading-text">SHARES</div>
+                                    <div class="heading-text">FAVORITES</div>
                                 </div>
                             </div>
+                        @foreach($videos as $video)
                             <div class="div-block-4">
                                 <div class="w-row">
                                     <div class="column-49 w-col w-col-2 w-col-stack">
                                         <div class="heading-text w-hidden-main">THUMBNAIL</div>
-                                        <img src="images/30710976_1456888347750092_5566715646445617152_n.jpg"
+                                        <img src="{{ $video->thumbnail_standard }}"
                                              class="image-8"></div>
                                     <div class="w-col w-col-4 w-col-stack">
                                         <div class="heading-text w-hidden-main">CAPTION</div>
-                                        <p>FOR ALL THESE YEARS, YOU GUYS ARE STILL HERE WITH ME. <br>I LOVE YOU ALL MY
-                                            FANS!<br>MAY
-                                            GOD BLESS YOU ALL!!! 💜💜👊👏👏</p>
+                                        <p>{{ $video->description }}</p>
                                     </div>
                                     <div class="column-50 w-col w-col-2 w-col-stack">
                                         <div class="heading-text w-hidden-main">VIEWS</div>
-                                        <div class="text-block-11">19k</div>
+                                        <div class="text-block-11">{{ $video->views }}</div>
                                     </div>
                                     <div class="column-51 w-col w-col-2 w-col-stack">
                                         <div class="heading-text w-hidden-main">LIKES</div>
-                                        <div class="text-block-11">150</div>
+                                        <div class="text-block-11">{{ $video->likes }}</div>
                                     </div>
                                     <div class="w-col w-col-2 w-col-stack">
-                                        <div class="heading-text w-hidden-main">SHARES</div>
-                                        <div class="text-block-11">100</div>
+                                        <div class="heading-text w-hidden-main">FAVORITES</div>
+                                        <div class="text-block-11">{{ $video->favorites }}</div>
                                     </div>
                                 </div>
-                                <div class="text-block-10">Posted on: 21 Jul 2018</div>
+                                <div class="text-block-10">Posted on: {{ $video->published_at->toFormattedDateString() }}</div>
                             </div>
+                            @endforeach
                         @else
                             <div class="div-block-16">
                                 <h1 class="heading-2">YouTube</h1>
