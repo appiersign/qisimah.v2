@@ -24,7 +24,6 @@ class YouTube extends Model
                 self::create($youtube_data);
                 self::fetchChannelActivity($user);
                 self::fetchVideoStats($user);
-                return $youtube_data;
             } elseif ($data->last_request->diffInMinutes(Carbon::now()) > 30) {
                 self::fetchVideoStats($user);
                 return self::refreshYoutubeData($user);
@@ -71,9 +70,13 @@ class YouTube extends Model
         return $google->getYoutubeChannelActivities($user);
     }
 
-    public static function fetchVideoStats($user)
+    public static function fetchVideoStats(User $user)
     {
         $google = new Google();
-        return $google->getYoutubeVideoData($user);
+        $google->getYoutubeVideoData($user);
+        $channel = $user->youtube()->first();
+        $channel->likes      = (int) $user->videos()->sum('likes');
+        $channel->favorites  = (int) $user->videos()->sum('favorites');
+        $channel->save();
     }
 }
