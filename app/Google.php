@@ -65,7 +65,7 @@ class Google extends Model
 
         Auth::loginUsingId($user->id);
 
-        return redirect()->to('artists');
+        return redirect()->to('/');
     }
 
     public function getYouTubeChannelData(User $user)
