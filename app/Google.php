@@ -149,7 +149,7 @@ class Google extends Model
     {
         $this->refreshAccessToken($user);
         $number_of_videos = 0;
-        $ids = implode(',', $user->videos()->pluck('videos.video_id'));
+        $ids = implode(',', $user->videos()->pluck('videos.video_id')->toArray());
         $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=$ids";
         $headers = [
             'Authorization: Bearer '. $user->google_access_token
@@ -160,7 +160,7 @@ class Google extends Model
             $number_of_videos = count($videos);
             if ($number_of_videos) {
                 foreach ($videos as $video) {
-                    $_video = Video::where('video_id', $video['id']);
+                    $_video = Video::where('video_id', $video['id'])->first();
                     if (!is_null($_video)){
                         $_video->likes      = $video['statistics']['likeCount'];
                         $_video->dislikes   = $video['statistics']['dislikeCount'];
