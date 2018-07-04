@@ -13,4 +13,9 @@ class Video extends Model
     {
         $this->attributes['published_at'] = Carbon::parse($value)->toDateTimeString();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }

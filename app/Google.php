@@ -96,7 +96,12 @@ class Google extends Model
         ];
         $response = $this->sendRequest($url, $headers, '', 'GET');
 
-        return $this->handleGetYoutubeChannelActivities($response);
+        $video_ids = $this->handleGetYoutubeChannelActivities($response);
+
+        if (count($video_ids)){
+            $user->videos()->sync($video_ids);
+        }
+        return $video_ids;
     }
 
     public function handleGetYoutubeChannelActivities($response): array
