@@ -102,8 +102,8 @@ class Google extends Model
     public function handleGetYoutubeChannelActivities($response): array
     {
         $_response = json_decode($response, 1);
+        $video_ids = [];
         if (isset($_response['items'])){
-            $video_ids = [];
             $activities = $_response['items'];
             if (count($activities)){
                 foreach ($activities as $activity) {
@@ -126,14 +126,40 @@ class Google extends Model
                         array_push($video_ids, $activity['contentDetails']['upload']['videoId']);
                     }
                 }
-                return $video_ids;
             }
         }
+        return $video_ids;
     }
 
-    public function getYoutubeVideoData($video_ids)
+    public function getYoutubeVideoData(User $user, array $video_ids): int
     {
+        $this->refreshAccessToken($user);
 
+        $ids = implode(',', $video_ids);
+        $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=$ids";
+        $headers = [
+            'Authorization: Bearer '. $user->google_access_token
+        ];
+        $response = json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
+        if (isset($response['items'])){
+            $videos = $response['items'];
+            if (count($videos)) {
+                foreach ($videos as $video) {
+                    $_video = Video::where('video_id', $video['id']);
+                    if (!is_null($_video)){
+                        $_video->likes      = $video['statistics']['likeCount'];
+                        $_video->dislikes   = $video['statistics']['dislikeCount'];
+                        $_video->comments   = $video['statistics']['commentCount'];
+                        $_video->favorites  = $video['statistics']['favoriteCount'];
+                        $_video->favorites  = $video['statistics']['favoriteCount'];
+                        $_video->views      = $video['statistics']['viewCount'];
+                        $_video->save();
+                    }
+                }
+            }
+            return count($videos);
+        }
+        return 0;
     }
 
     public function refreshAccessToken(User $user)

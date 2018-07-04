@@ -15,18 +15,21 @@ class YouTube extends Model
         return Carbon::parse($this->attributes['last_request']);
     }
 
-    public static function getYouTubeData(User $user)
+    public static function getYouTubeData(User $user): array
     {
-        $data = $user->youtube()->first();
-        if (is_null($data)){
-            $youtube_data = self::fetch($user);
-            self::create($youtube_data);
-            return $youtube_data;
-        } elseif ($data->last_request->diffInMinutes(Carbon::now()) > 30) {
-            return self::refreshYoutubeData($user);
-        }
+        if ($user->google_access_token) {
+            $data = $user->youtube()->first();
+            if (is_null($data)){
+                $youtube_data = self::fetch($user);
+                self::create($youtube_data);
+                return $youtube_data;
+            } elseif ($data->last_request->diffInMinutes(Carbon::now()) > 30) {
+                return self::refreshYoutubeData($user);
+            }
 
-        return $user->youtube()->first()->toArray();
+            return $user->youtube()->first()->toArray();
+        }
+        return [];
 
     }
 

@@ -34,12 +34,8 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $user = User::find(Auth::id());
-        $youtube = [];
-        if ($user->google_access_token){
-            $youtube = YouTube::getYouTubeData($user);
-        }
-
+        $user    = User::find(Auth::id());
+        $youtube = YouTube::getYouTubeData($user);
         return view('pages.index', compact('user', 'youtube'));
     }
 
