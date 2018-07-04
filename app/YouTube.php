@@ -25,7 +25,7 @@ class YouTube extends Model
                 self::fetchChannelActivity($user);
                 self::fetchVideoStats($user);
                 return $youtube_data;
-            } elseif ($data->last_request->diffInMinutes(Carbon::now()) > 60) {
+            } elseif ($data->last_request->diffInMinutes(Carbon::now()) > 30) {
                 self::fetchVideoStats($user);
                 return self::refreshYoutubeData($user);
             }

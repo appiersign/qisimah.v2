@@ -96,18 +96,19 @@ class Google extends Model
         ];
         $response = $this->sendRequest($url, $headers, '', 'GET');
 
-        $video_ids = $this->handleGetYoutubeChannelActivities($response);
+        $results = $this->handleGetYoutubeChannelActivities($response);
 
-        if (count($video_ids)){
-            $user->videos()->sync($video_ids);
+        if (count($results[1])){
+            $user->videos()->sync($results[1]);
         }
-        return $video_ids;
+        return $results[0];
     }
 
     public function handleGetYoutubeChannelActivities($response): array
     {
         $_response = json_decode($response, 1);
         $video_ids = [];
+        $ids = [];
         if (isset($_response['items'])){
             $activities = $_response['items'];
             if (count($activities)){
@@ -126,21 +127,25 @@ class Google extends Model
                         $video['thumbnail_maxres']  = $activity['snippet']['thumbnails']['maxres']['url'];
                         $video['video_id']          = $activity['contentDetails']['upload']['videoId'];
 
-                        Video::create($video);
+                        $created = Video::create($video);
+
+                        if ($created){
+                            array_push($ids, $created->id);
+                        }
 
                         array_push($video_ids, $activity['contentDetails']['upload']['videoId']);
                     }
                 }
             }
         }
-        return $video_ids;
+        return [$video_ids, $ids];
     }
 
-    public function getYoutubeVideoData(User $user, array $video_ids): int
+    public function getYoutubeVideoData(User $user): int
     {
         $this->refreshAccessToken($user);
         $number_of_videos = 0;
-        $ids = implode(',', $video_ids);
+        $ids = implode(',', $user->videos()->pluck('videos.video_id'));
         $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=$ids";
         $headers = [
             'Authorization: Bearer '. $user->google_access_token
