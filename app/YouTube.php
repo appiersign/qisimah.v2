@@ -61,4 +61,16 @@ class YouTube extends Model
 
         return $youtube_data;
     }
+
+    public static function fetchChannelActivity($user)
+    {
+        $google = new Google();
+        return $google->getYoutubeChannelActivities($user);
+    }
+
+    public static function fetchVideoStats($user)
+    {
+        $google = new Google();
+        return $google->getYoutubeVideoData($user, self::fetchChannelActivity($user));
+    }
 }

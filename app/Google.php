@@ -96,7 +96,7 @@ class Google extends Model
         ];
         $response = $this->sendRequest($url, $headers, '', 'GET');
 
-        $this->handleGetYoutubeChannelActivities($response);
+        return $this->handleGetYoutubeChannelActivities($response);
     }
 
     public function handleGetYoutubeChannelActivities($response): array
@@ -134,7 +134,7 @@ class Google extends Model
     public function getYoutubeVideoData(User $user, array $video_ids): int
     {
         $this->refreshAccessToken($user);
-
+        $number_of_videos = 0;
         $ids = implode(',', $video_ids);
         $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=$ids";
         $headers = [
@@ -143,7 +143,8 @@ class Google extends Model
         $response = json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
         if (isset($response['items'])){
             $videos = $response['items'];
-            if (count($videos)) {
+            $number_of_videos = count($videos);
+            if ($number_of_videos) {
                 foreach ($videos as $video) {
                     $_video = Video::where('video_id', $video['id']);
                     if (!is_null($_video)){
@@ -157,9 +158,8 @@ class Google extends Model
                     }
                 }
             }
-            return count($videos);
         }
-        return 0;
+        return $number_of_videos;
     }
 
     public function refreshAccessToken(User $user)
