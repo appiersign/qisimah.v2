@@ -114,25 +114,29 @@ class Google extends Model
             if (count($activities)){
                 foreach ($activities as $activity) {
                     if ($activity['snippet']['type'] === 'upload'){
-                        $video = [];
-                        $video['qisimah_id']    = str_random();
-                        $video['published_at']  = $activity['snippet']['publishedAt'];
-                        $video['title']         = $activity['snippet']['title'];
-                        $video['description']   = $activity['snippet']['description'];
-                        $video['channel_id']    = $activity['snippet']['channelId'];
-                        $video['thumbnail_medium']  = $activity['snippet']['thumbnails']['medium']['url'];
-                        $video['thumbnail_default'] = $activity['snippet']['thumbnails']['default']['url'];
-                        $video['thumbnail_standard'] = $activity['snippet']['thumbnails']['standard']['url'];
-                        $video['thumbnail_high']    = $activity['snippet']['thumbnails']['high']['url'];
-                        $video['thumbnail_maxres']  = $activity['snippet']['thumbnails']['maxres']['url'];
-                        $video['video_id']          = $activity['contentDetails']['upload']['videoId'];
+                        $video_exists = Video::where('video_id', $activity['contentDetails']['upload']['videoId'])->first();
+                        if ($video_exists){
+                            array_push($ids, $video_exists->id);
+                        } else {
+                            $video = [];
+                            $video['qisimah_id']    = str_random();
+                            $video['published_at']  = $activity['snippet']['publishedAt'];
+                            $video['title']         = $activity['snippet']['title'];
+                            $video['description']   = $activity['snippet']['description'];
+                            $video['channel_id']    = $activity['snippet']['channelId'];
+                            $video['thumbnail_medium']  = $activity['snippet']['thumbnails']['medium']['url'];
+                            $video['thumbnail_default'] = $activity['snippet']['thumbnails']['default']['url'];
+                            $video['thumbnail_standard'] = $activity['snippet']['thumbnails']['standard']['url'];
+                            $video['thumbnail_high']    = $activity['snippet']['thumbnails']['high']['url'];
+                            $video['thumbnail_maxres']  = $activity['snippet']['thumbnails']['maxres']['url'];
+                            $video['video_id']          = $activity['contentDetails']['upload']['videoId'];
 
-                        $created = Video::create($video);
+                            $created = Video::create($video);
 
-                        if ($created){
-                            array_push($ids, $created->id);
+                            if ($created){
+                                array_push($ids, $created->id);
+                            }
                         }
-
                         array_push($video_ids, $activity['contentDetails']['upload']['videoId']);
                     }
                 }
