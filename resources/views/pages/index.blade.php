@@ -749,21 +749,30 @@
                 <div data-w-tab="Instagram" class="dash-tab-pane w-tab-pane">
                     <div class="tabs-top-wrapper instagram-monitoring-tab">
                         <div class="div-block-16">
-                            <h1 class="heading-2">Instagram</h1><a href="#" class="upload-song-button w-inline-block"
-                                                                   data-ix="upload-song-modal-trigger"><img
+                            <h1 class="heading-2">Instagram</h1>
+                            <a href="#" class="upload-song-button w-inline-block" data-ix="upload-song-modal-trigger"><img
                                         src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ad49a1a0e93f33a9edcb8eb_upload-to-the-cloud.svg"
                                         width="30">
                                 <div class="div-block-18">
                                     <div class="text-block-6">Upload song</div>
                                 </div>
-                            </a></div>
+                            </a>
+                        </div>
                         <div class="w-row">
                             <div class="column-2-copy w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
                                     <h1 class="number-card-number">24</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
-                                    <div class="number-card-dollars">Posts</div>
+                                    <div class="number-card-dollars">Media</div>
+                                </div>
+                            </div>
+                            <div class="column-11 w-col w-col-3 w-col-medium-6 w-col-small-6">
+                                <div class="div-block-5">
+                                    <h1 class="number-card-number">321</h1>
+                                    <div class="spacer-in-tab"></div>
+                                    <div class="number-card-divider"></div>
+                                    <div class="number-card-dollars">Likes</div>
                                 </div>
                             </div>
                             <div class="column-32 w-col w-col-3 w-col-medium-6 w-col-small-6">
@@ -780,14 +789,6 @@
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Following</div>
-                                </div>
-                            </div>
-                            <div class="column-11 w-col w-col-3 w-col-medium-6 w-col-small-6">
-                                <div class="div-block-5">
-                                    <h1 class="number-card-number">321</h1>
-                                    <div class="spacer-in-tab"></div>
-                                    <div class="number-card-divider"></div>
-                                    <div class="number-card-dollars">Unread DM</div>
                                 </div>
                             </div>
                         </div>
