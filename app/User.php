@@ -41,4 +41,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Video::class)->withTimestamps();
     }
+
+    public function instagrams()
+    {
+        return $this->belongsToMany(Instagram::class)->withTimestamps();
+    }
+
+    public function media()
+    {
+        return $this->belongsToMany(Media::class)->withTimestamps();
+    }
 }
