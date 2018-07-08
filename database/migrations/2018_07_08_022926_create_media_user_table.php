@@ -14,8 +14,8 @@ class CreateMediaUserTable extends Migration
     public function up()
     {
         Schema::create('media_user', function (Blueprint $table) {
-            $table->unsignedSmallInteger('media_id');
-            $table->unsignedSmallInteger('user_id');
+            $table->unsignedInteger('media_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
