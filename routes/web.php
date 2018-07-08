@@ -33,6 +33,23 @@ Route::resource('songs', 'SongController');
 Route::resource('Plays', 'PlayController');
 
 Route::get('link.youtube.account', 'SocializationController@linkYoutubeAccount');
+Route::get('link.instagram.account', 'SocializationController@linkInstagramAccount');
+
+Route::get('hooks/instagram/auth', function (\Illuminate\Http\Request $request){
+    $state = $request->get('state');
+    if ($state === csrf_token()){
+        $code = $request->get('code');
+        if ($code){
+            $user = \App\User::find(Auth::id());
+            $user->instagram_auth_code = $code;
+            $user->save();
+            Auth::loginUsingId($user->id);
+            return redirect()->to('')->with('success', 'Instagram account linked!');
+        }
+    }
+    Auth::logout();
+    return new OAuthException("state does not exist!");
+});
 
 Route::get('3rd-party/auth/google', 'SocializationController@handleGoogleAuthentication');
 

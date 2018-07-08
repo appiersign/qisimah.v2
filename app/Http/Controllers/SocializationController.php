@@ -36,4 +36,9 @@ class SocializationController extends Controller
 
         return $google->updateUserAccessTokenAndRefreshToken($user, $response);
     }
+
+    public function linkInstagramAccount()
+    {
+        return redirect()->to('https://api.instagram.com/oauth/authorize/?client_id='.env('INSTAGRAM_CLIENT_ID').'&redirect_uri=http://localhost:8000/hooks/instagram/auth&response_type=code&state='.csrf_token().'&scope=basic+public_content');
+    }
 }
