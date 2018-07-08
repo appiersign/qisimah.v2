@@ -14,8 +14,11 @@ class CreateInstagramUserTable extends Migration
     public function up()
     {
         Schema::create('instagram_user', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedInteger('instagram_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+            $table->foreign('instagram_id')->references('id')->on('instagrams')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
