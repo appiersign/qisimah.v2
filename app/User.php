@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Media::class)->withTimestamps();
     }
+
+    public function getInstagramAccessToken()
+    {
+        return $this->attributes["instagram_access_token"];
+    }
+
+    public function getInstagramProfile()
+    {
+        return $this->instagrams()->first();
+    }
 }

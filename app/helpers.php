@@ -17,6 +17,7 @@ function sendRequest($url, $headers = ['Content-Type: application/json'], $field
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     if ($method === 'POST') {
         curl_setopt($curl, CURLOPT_POSTFIELDS, $fields);
     }

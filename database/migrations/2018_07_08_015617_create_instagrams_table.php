@@ -29,7 +29,7 @@ class CreateInstagramsTable extends Migration
             $table->unsignedInteger('likes')->default(0);
             $table->unsignedInteger('comments')->default(0);
             $table->dateTime('last_request');
-            $table->dateTime('last_media_request');
+            $table->dateTime('last_media_request')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Google;
+use App\Instagram;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ class SocializationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('handleInstagramAuthentication');
     }
 
     public function linkYoutubeAccount()
@@ -39,11 +40,17 @@ class SocializationController extends Controller
 
     public function linkInstagramAccount()
     {
-        return redirect()->to('https://api.instagram.com/oauth/authorize/?client_id='.env('INSTAGRAM_CLIENT_ID').'&redirect_uri=http://localhost:8000/hooks/instagram/auth&response_type=code&state='.csrf_token().'&scope=basic+public_content');
+        return redirect()->to('https://api.instagram.com/oauth/authorize/?client_id='.env('INSTAGRAM_CLIENT_ID').'&redirect_uri=http://localhost:8000/hooks/instagram/auth?tag='.Auth::user()->qisimah_id.'&response_type=code&state='.csrf_token().'&scope=basic+public_content');
     }
 
-    public function handleInstagramAuthentication()
+    public function handleInstagramAuthentication(Request $request)
     {
-        
+        $user = User::where('qisimah_id', $request->get('tag'))->first();
+        if (is_null($user)){
+            $request->session()->flash('error', 'Suspicious log in detected!');
+            return redirect()->to('login');
+        }
+        $instagram = new Instagram();
+        return $instagram->handleInstagramAuthentication($request, $user);
     }
 }

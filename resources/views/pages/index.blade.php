@@ -761,7 +761,7 @@
                         <div class="w-row">
                             <div class="column-2-copy w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">24</h1>
+                                    <h1 class="number-card-number">{{ $instagram->media ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Media</div>
@@ -769,7 +769,7 @@
                             </div>
                             <div class="column-11 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">321</h1>
+                                    <h1 class="number-card-number">{{ $instagram->likes ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Likes</div>
@@ -777,7 +777,7 @@
                             </div>
                             <div class="column-32 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">244</h1>
+                                    <h1 class="number-card-number">{{ $instagram->followed_by ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Followers</div>
@@ -785,7 +785,7 @@
                             </div>
                             <div class="column-36 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">33</h1>
+                                    <h1 class="number-card-number">{{ $instagram->follows ?? 0 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Following</div>

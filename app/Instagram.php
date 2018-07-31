@@ -2,49 +2,93 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class Instagram extends Model
 {
     protected $fillable = ['qisimah_id', 'external_id', 'user_name', 'full_name', 'avatar', 'bio', 'website', 'is_business', 'media', 'follows', 'followed_by', 'likes', 'comments', 'last_request', 'last_media_request'];
 
-    private $user;
-
-    public function __construct(User $user)
+    public function setIsBusinessAttribute($is_business)
     {
-        $this->user = $user;
+        $this->attributes['is_business'] = (bool) $is_business;
     }
 
-    public function handleInstagramAuthentication(Request $request): bool
+    public function handleInstagramAuthentication(Request $request, User $user)
     {
-        $state = $request->get('state');
-        if ($state === csrf_token()){
-            $code = $request->get('code');
-            if ($code){
-                $this->user->instagram_auth_code = $code;
-                $this->user->save();
-                Auth::loginUsingId($this->user->id);
-                return redirect()->to('')->with([
-                    'success' => 'Instagram account linked!',
-                    'tab' => 'instagram'
+        if ($request->get('state') === csrf_token()){
+            $request->session()->put('tab', 'instagram');
+            Auth::loginUsingId($user->id);
+            if ($request->get('code')){
+                $user->instagram_auth_code = $request->get('code');
+                $user->save();
+                $request->session()->put('success', 'Instagram account linked!');
+                return redirect()->to('');
+            } else {
+                $request->session()->put('error', 'Instagram account link failed. Please try again!');
+            }
+            return redirect()->to('');
+        }
+        Session::flash('error', 'Authorized request');
+        return redirect()->to('login');
+    }
+
+    public function getAccessToken(User $user)
+    {
+        $fields = 'client_id='.env('INSTAGRAM_CLIENT_ID').'&client_secret='.env('INSTAGRAM_CLIENT_SECRET').'&grant_type=authorization_code&code='.$user->instagram_auth_code.'&redirect_uri='.env('INSTAGRAM_REDIRECT_URI').'?tag='.$user->qisimah_id;
+        $response = json_decode(sendRequest(env('INSTAGRAM_ACCESS_TOKEN_URL'), [], $fields, 'POST'), true);
+        if (isset($response['code'])) {
+            return redirect()->to('link.instagram.account');
+        }
+        $user->instagram_access_token = $response['access_token'];
+        $user->save();
+
+        $instagram = Instagram::where('external_id', $response['user']['id'])->first();
+
+        if (is_null($instagram)) {
+            try {
+                $instagram = Instagram::create([
+                    "external_id"   =>  $response["user"]["id"],
+                    "qisimah_id" => strtoupper(str_random()),
+                    "user_name" => $response["user"]["username"],
+                    "full_name" => $response["user"]["full_name"],
+                    "avatar"    => $response["user"]["profile_picture"],
+                    "bio"       => $response["user"]["bio"],
+                    "website"   => $response["user"]["website"],
+                    "is_business"   => $response["user"]["is_business"],
+                    "last_request"  => Carbon::now()->toDateTimeString()
                 ]);
+            } catch (\Exception $exception) {
+                return false;
             }
         }
-        Auth::logout();
-        return new OAuthException("state does not exist!");
+        $user->instagrams()->sync($instagram->id);
+        return true;
     }
 
-    public function getAccessToken(): bool
+    public function getProfile(User $user): array
     {
-        // TODO
-    }
+        $response = json_decode(sendRequest(env('INSTAGRAM_GET_PROFILE_URI').'?access_token='.$user->getInstagramAccessToken(), []), true);
+        if (isset($response['code'])) {
+            return redirect()->to('link.instagram.account');
+        }
 
-    public function getProfile(): array
-    {
-        // TODO
+        if (isset($response["meta"]["code"]) && $response["meta"]["code"] == 200) {
+            $instagram = Instagram::where('external_id', $response["data"]["id"])->first();
+            if ($instagram){
+                $instagram->media = $response["data"]["counts"]["media"];
+                $instagram->follows = $response["data"]["counts"]["follows"];
+                $instagram->followed_by = $response["data"]["counts"]["followed_by"];
+                $instagram->save();
+                return $instagram->toArray();
+            }
+        }
+
+        return $response;
     }
 
     public function getMedia(): array
