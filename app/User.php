@@ -61,4 +61,13 @@ class User extends Authenticatable
     {
         return $this->instagrams()->first();
     }
+
+    public function getInstagramMedia()
+    {
+        $instagramMedia = $this->getInstagramProfile();
+        if (!is_null($instagramMedia)){
+            return $instagramMedia->media()->orderBy('likes', 'desc')->get();
+        }
+        return [];
+    }
 }

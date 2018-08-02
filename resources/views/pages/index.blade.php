@@ -769,7 +769,7 @@
                             </div>
                             <div class="column-11 w-col w-col-3 w-col-medium-6 w-col-small-6">
                                 <div class="div-block-5">
-                                    <h1 class="number-card-number">{{ $instagram->likes ?? 0 }}</h1>
+                                    <h1 class="number-card-number">{{ $instagram->likes ?? 00 }}</h1>
                                     <div class="spacer-in-tab"></div>
                                     <div class="number-card-divider"></div>
                                     <div class="number-card-dollars">Likes</div>
@@ -794,44 +794,68 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
-                        <h1 class="inner-page-sub">Top Post Engagements</h1>
-                        <div class="div-block-4">
-                            <div class="section-heading w-row">
-                                <div class="w-col w-col-2">
-                                    <div class="heading-text">IMAGE / VIDEO</div>
+                        @if($user->instagram_auth_code)
+                            <h1 class="inner-page-sub">Top Post Engagements</h1>
+                            <div class="div-block-4">
+                                <div class="section-heading w-row">
+                                    <div class="w-col w-col-2">
+                                        <div class="heading-text">IMAGE / VIDEO</div>
+                                    </div>
+                                    <div class="w-col w-col-4">
+                                        <div class="heading-text">CAPTION</div>
+                                    </div>
+                                    <div class="w-col w-col-2">
+                                        <div class="heading-text">VIEWS</div>
+                                    </div>
+                                    <div class="column-2 w-col w-col-2">
+                                        <div class="heading-text">LIKES</div>
+                                    </div>
+                                    <div class="column-2 w-col w-col-2">
+                                        <div class="heading-text">COMMENTS</div>
+                                    </div>
                                 </div>
-                                <div class="w-col w-col-4">
-                                    <div class="heading-text">CAPTION</div>
-                                </div>
-                                <div class="w-col w-col-2">
-                                    <div class="heading-text">VIEWS</div>
-                                </div>
-                                <div class="column-2 w-col w-col-2">
-                                    <div class="heading-text">LIKES</div>
-                                </div>
-                                <div class="column-2 w-col w-col-2">
-                                    <div class="heading-text">COMMENTS</div>
-                                </div>
-                            </div>
-                            <div class="w-row">
-                                <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack"><img
-                                            src="images/30710976_1456888347750092_5566715646445617152_n.jpg"
-                                            class="image-8"></div>
-                                <div class="w-col w-col-4 w-col-medium-4 w-col-small-small-stack">
-                                    <p>FOR ALL THESE YEARS, YOU GUYS ARE STILL HERE WITH ME. <br>I LOVE YOU ALL MY FANS!<br>MAY
-                                        GOD BLESS YOU ALL!!! 💜💜👊👏👏</p>
-                                </div>
-                                <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
-                                    <div class="text-block-11">19k</div>
-                                </div>
-                                <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
-                                    <div class="text-block-11">150</div>
-                                </div>
-                                <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
-                                    <div class="text-block-11">100</div>
-                                </div>
-                            </div>
-                            <div class="text-block-10">Posted on: 21 Jul 2018</div>
+
+                                @if(count($media))
+                                    @foreach($media as $post)
+                                        <div class="w-row">
+                                            <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack"><img
+                                                        src="{{ $post->avatar_standard }}"
+                                                        class="image-8"></div>
+                                            <div class="w-col w-col-4 w-col-medium-4 w-col-small-small-stack">
+                                                <p>{{ $post->caption }}</p>
+                                            </div>
+                                            <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
+                                                <div class="text-block-11">{{ $post->views }}</div>
+                                            </div>
+                                            <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
+                                                <div class="text-block-11">{{ $post->likes }}</div>
+                                            </div>
+                                            <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
+                                                <div class="text-block-11">{{ $post->comments }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-block-10">Posted on: {{ $post->created_time }}</div>
+                                        <br>
+                                    @endforeach
+                                @else
+                                    <div class="w-row">
+                                        <p>We did not find anything on Instagram</p>
+                                    </div>
+                                    <br>
+                                @endif
+                                @else
+                                    <div class="div-block-16">
+                                        <h1 class="heading-2">YouTube</h1>
+                                        <a href="{{ url('link.instagram.account') }}"
+                                           class="upload-song-button w-inline-block"
+                                           data-ix="">
+                                            <img src="images/001-instagram.svg" width="32">
+                                            <div class="div-block-18">
+                                                <div class="text-block-6">Connect to Instagram</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
                         </div>
                     </div>
                 </div>

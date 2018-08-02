@@ -18,6 +18,11 @@ class Instagram extends Model
         $this->attributes['is_business'] = (bool) $is_business;
     }
 
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
+
     public function handleInstagramAuthentication(Request $request, User $user)
     {
         if ($request->get('state') === csrf_token()){
@@ -80,20 +85,63 @@ class Instagram extends Model
         if (isset($response["meta"]["code"]) && $response["meta"]["code"] == 200) {
             $instagram = Instagram::where('external_id', $response["data"]["id"])->first();
             if ($instagram){
+                $user->instagrams()->attach($instagram->id);
                 $instagram->media = $response["data"]["counts"]["media"];
                 $instagram->follows = $response["data"]["counts"]["follows"];
                 $instagram->followed_by = $response["data"]["counts"]["followed_by"];
                 $instagram->save();
                 return $instagram->toArray();
             }
+            return [];
         }
 
         return $response;
     }
 
-    public function getMedia(): array
+    public function getMedia(User $user, string $uri = null)
     {
-        // TODO
+        $instagramProfile = $user->getInstagramProfile();
+        $_uri = ($uri)? $uri : env('INSTAGRAM_GET_MEDIA_URI').'access_token='.$user->getInstagramAccessToken();
+        $response = json_decode(sendRequest($_uri, []), true);
+        if (isset($response['code'])) {
+            return redirect()->to('link.instagram.account');
+        }
+
+        $this->handleMedia($response["data"], $instagramProfile->id);
+
+        if (count($response["pagination"]) === 2 && isset($response["pagination"]["next_url"])){
+            $this->getMedia($user, $response["pagination"]["next_url"]);
+        }
+
+        $likes = $this->getLikes($instagramProfile->id);
+        $instagramProfile->likes = $likes;
+        $instagramProfile->save();
+    }
+
+    public function handleMedia(array $data, int $instagram_id)
+    {
+        foreach ($data as $datum) {
+            Media::create([
+                "qisimah_id"    =>  strtoupper(str_random()),
+                "external_id"   =>  $datum["id"],
+                "instagram_id"  =>  $instagram_id,
+                "caption"       =>  $datum["caption"]["text"],
+                "type"          =>  $datum["type"],
+                "link"          =>  $datum["link"],
+                "user_has_liked"    =>  (bool) $datum["user_has_liked"],
+                "likes"         =>  $datum["likes"]["count"],
+                "comments"      =>  $datum["comments"]["count"],
+                "avatar"        =>  $datum["images"]["thumbnail"]["url"],
+                "avatar_low"    =>  $datum["images"]["low_resolution"]["url"],
+                "avatar_standard"   =>  $datum["images"]["standard_resolution"]["url"],
+                "created_time"  =>  $datum["created_time"]
+            ]);
+        }
+    }
+
+    public function getLikes(int $instagram_id): int
+    {
+        return (int) Media::where('instagram_id', $instagram_id)->sum('likes');
     }
 
 }

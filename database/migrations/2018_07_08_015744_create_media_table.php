@@ -17,7 +17,8 @@ class CreateMediaTable extends Migration
             $table->increments('id');
             $table->string('qisimah_id')->unique();
             $table->string('external_id')->unique();
-            $table->string('insta_id')->index();
+            $table->unsignedInteger('instagram_id');
+            $table->text('caption')->nullable();
             $table->string('type');
             $table->string('link');
             $table->boolean('user_has_liked')->default(false);
@@ -28,6 +29,7 @@ class CreateMediaTable extends Migration
             $table->text('avatar_low')->nullable();
             $table->integer('created_time');
             $table->timestamps();
+            $table->foreign('instagram_id')->references('id')->on('instagrams')->onDelete('cascade');
         });
     }
 
