@@ -37,7 +37,9 @@ class HomeController extends Controller
         $user    = User::find(Auth::id());
         $youtube = YouTube::getYouTubeData($user);
         $videos  = $user->videos()->orderBy('views', 'desc')->limit(20)->get();
-        return view('pages.index', compact('user', 'youtube', 'videos'));
+        $instagram = $user->getInstagramProfile();
+        $media = $user->getInstagramMedia();
+        return view('pages.index', compact('user', 'youtube', 'videos', 'instagram', 'media'));
     }
 
     public function goolgeLogin(Request $request)

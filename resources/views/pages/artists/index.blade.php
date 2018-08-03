@@ -370,7 +370,7 @@
                                             </a>
                                         </div>
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="#" class="connect-inactive w-inline-block">
+                                            <a href="{{ url('link.instagram.account') }}" class="connect-inactive w-inline-block">
                                                 <img src="images/029-instagram.svg" width="32">
                                             </a>
                                         </div>

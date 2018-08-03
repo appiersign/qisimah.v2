@@ -33,12 +33,13 @@ Route::resource('songs', 'SongController');
 Route::resource('Plays', 'PlayController');
 
 Route::get('link.youtube.account', 'SocializationController@linkYoutubeAccount');
+Route::get('link.instagram.account', 'SocializationController@linkInstagramAccount');
+
+Route::get('hooks/instagram/auth', 'SocializationController@handleInstagramAuthentication');
 
 Route::get('3rd-party/auth/google', 'SocializationController@handleGoogleAuthentication');
 
-Route::get('google/authorization', function(\Illuminate\Http\Request $request){
-    return $request->all();
-});
+//Route::get('google/authorization', 'SocializationController@handleInstagramAuthentication');
 
 Route::post('testicles', function (\Illuminate\Http\Request $request){
     $google = new \App\Google();

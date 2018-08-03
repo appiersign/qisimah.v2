@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('google_auth_code')->nullable();
             $table->string('google_access_token')->nullable();
             $table->string('google_refresh_token')->nullable();
+            $table->string('instagram_auth_code')->nullable();
+            $table->string('instagram_access_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
