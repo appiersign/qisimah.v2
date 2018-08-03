@@ -849,7 +849,7 @@
                                         <a href="{{ url('link.instagram.account') }}"
                                            class="upload-song-button w-inline-block"
                                            data-ix="">
-                                            <img src="images/001-instagram.svg" width="32">
+                                            <img src="images/029-instagram.svg" width="32">
                                             <div class="div-block-18">
                                                 <div class="text-block-6">Connect to Instagram</div>
                                             </div>
