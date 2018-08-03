@@ -67,12 +67,12 @@ class User extends Authenticatable
     {
         $instagramProfile = $this->getInstagramProfile();
 
-        if ($instagramProfile->last_media_request && Carbon::parse($instagramProfile->last_media_request)->diffInMinutes(Carbon::now()) > 60) {
-            $instagram = new Instagram();
-            $instagram->getMedia($this);
-        }
-
         if (!is_null($instagramProfile)){
+            if ($instagramProfile->last_media_request && Carbon::parse($instagramProfile->last_media_request)->diffInMinutes(Carbon::now()) > 60) {
+                $instagram = new Instagram();
+                $instagram->getMedia($this);
+            }
+
             return $instagramProfile->media()->orderBy('likes', 'desc')->get();
         }
         return [];

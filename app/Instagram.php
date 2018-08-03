@@ -32,6 +32,7 @@ class Instagram extends Model
                 $user->instagram_auth_code = $request->get('code');
                 $user->save();
                 $request->session()->put('success', 'Instagram account linked!');
+                $this->getAccessToken($user);
                 return redirect()->to('');
             } else {
                 $request->session()->put('error', 'Instagram account link failed. Please try again!');
