@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -64,9 +65,15 @@ class User extends Authenticatable
 
     public function getInstagramMedia()
     {
-        $instagramMedia = $this->getInstagramProfile();
-        if (!is_null($instagramMedia)){
-            return $instagramMedia->media()->orderBy('likes', 'desc')->get();
+        $instagramProfile = $this->getInstagramProfile();
+
+        if ($instagramProfile->last_media_request && Carbon::parse($instagramProfile->last_media_request)->diffInMinutes(Carbon::now()) > 60) {
+            $instagram = new Instagram();
+            $instagram->getMedia($this);
+        }
+
+        if (!is_null($instagramProfile)){
+            return $instagramProfile->media()->orderBy('likes', 'desc')->get();
         }
         return [];
     }

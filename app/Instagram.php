@@ -67,6 +67,10 @@ class Instagram extends Model
                     "is_business"   => $response["user"]["is_business"],
                     "last_request"  => Carbon::now()->toDateTimeString()
                 ]);
+
+                $this->getProfile($user);
+                $this->getMedia($user);
+
             } catch (\Exception $exception) {
                 return false;
             }
@@ -115,6 +119,7 @@ class Instagram extends Model
 
         $likes = $this->getLikes($instagramProfile->id);
         $instagramProfile->likes = $likes;
+        $instagramProfile->last_media_request = Carbon::now()->toDateTimeString();
         $instagramProfile->save();
     }
 
