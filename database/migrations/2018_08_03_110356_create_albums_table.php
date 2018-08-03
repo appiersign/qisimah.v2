@@ -17,12 +17,17 @@ class CreateAlbumsTable extends Migration
             $table->increments('id');
             $table->string('title')->index();
             $table->string('release_year');
-            $table->unsignedInteger('label_id');
+            $table->unsignedInteger('label_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 
             $table->foreign('label_id')
                 ->references('id')
                 ->on('labels')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

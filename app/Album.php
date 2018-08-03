@@ -16,4 +16,16 @@ class Album extends Model
     {
         return $this->belongsTo(Song::class);
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function store(Album $album, User $user, Label $label)
+    {
+        $album->creator()->associate($user);
+        $album->label()->associate($label);
+        $album->save();
+    }
 }

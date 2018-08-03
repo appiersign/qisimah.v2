@@ -8,7 +8,7 @@
                 <a href="{{ url('/') }}" class="nav-link w-nav-link w--current">Dashboard</a>
                 {{--<a href="#" class="nav-link w-nav-link">Ads Dashboard</a>--}}
                 <a href="{{ route('artists.index') }}" class="nav-link w-nav-link">Artists</a>
-                {{--<a href="albums.html" class="nav-link w-nav-link">Albums</a>--}}
+                <a href="albums.html" class="nav-link w-nav-link">Albums</a>
                 {{--<a href="broadcasters.html" class="nav-link w-nav-link">Broadcasters</a>--}}
                 {{--<p class="nav-separator-text">Monitoring</p>--}}
                 {{--<a href="songs.html" class="nav-link w-nav-link">Songs</a>--}}
