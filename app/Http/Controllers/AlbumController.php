@@ -14,7 +14,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        $artists = array();
+        return view('pages.albums.index', compact('artists'));
     }
 
     /**
@@ -24,7 +25,8 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        //
+        $artists = [];
+        return view('pages.albums.create', compact('artists'));
     }
 
     /**
@@ -35,7 +37,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -44,9 +46,10 @@ class AlbumController extends Controller
      * @param  \App\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show(Album $album)
+    public function show($album)
     {
-        //
+        $artists = [];
+        return view('pages.albums.show', compact('artists'));
     }
 
     /**

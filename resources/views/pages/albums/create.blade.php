@@ -294,118 +294,36 @@
             </div>
         </div>
         <div class="qisimah-container-main" data-ix="load-album-modal">
-            <div class="div-block-46">
-                <a href="#" class="link-block-5 w-inline-block">
-                    <div data-ix="upload-broadcaster-modal">add album</div>
-                </a>
-                <div class="text-block-17"></div>
-            </div>
-            <div class="albums-column w-row">
-                <div class="w-col w-col-3 w-col-medium-6">
-                    <div class="album-card" data-ix="load-album-modal">
-                        <div class="product-card-image product-card-1"></div>
-                        <img src="images/sarkodie---mary-album.jpg" srcset="images/sarkodie---mary-album-p-500.jpeg 500w, images/sarkodie---mary-album-p-800.jpeg 800w, images/sarkodie---mary-album.jpg 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
-                        <div class="product-card-description">
-                            <div class="div-block-67">
-                                <div class="div-block-66">
-                                    <div>
-                                        <div class="album-artist-name">SARKODIE</div>
-                                        <h3 class="album-name-title">Highest</h3>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <div>
-                                            <h2 class="track-number">12</h2>
-                                            <div class="text-block-8">Songs</div>
-                                        </div>
-                                        <div class="div-block-69"></div>
-                                        <a href="{{ url('albums/1') }}" class="album-edit-btns w-inline-block">
-                                            <img src="images/view-list.svg" width="20">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="albums-column w-row form-block-7 w-form">
+                <div class="div-block-132">
+                    <div class="text-block-48">Complete form</div>
+                    <h1 class="heading-8">Add Album</h1>
+                    <div class="price-holder">
+                        <div class="div-block-134">
+                            <div class="text-block-49"></div>
+                            <h1 class="how-much"></h1>
                         </div>
+                        <div class="price-warning"></div>
                     </div>
                 </div>
-                <div class="w-col w-col-3 w-col-medium-6">
-                    <div class="album-card" data-ix="load-album-modal">
-                        <div class="product-card-image product-card-1"></div>
-                        <img src="images/sarkodie---mary-album.jpg" srcset="images/sarkodie---mary-album-p-500.jpeg 500w, images/sarkodie---mary-album-p-800.jpeg 800w, images/sarkodie---mary-album.jpg 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
-                        <div class="product-card-description">
-                            <div class="div-block-67">
-                                <div class="div-block-66">
-                                    <div>
-                                        <div class="album-artist-name">SARKODIE</div>
-                                        <h3 class="album-name-title">Highest</h3>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <div>
-                                            <h2 class="track-number">12</h2>
-                                            <div class="text-block-8">Songs</div>
-                                        </div>
-                                        <div class="div-block-69"></div>
-                                        <a href="#" class="album-edit-btns w-inline-block">
-                                            <img src="images/view-list.svg" width="20">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-col w-col-3 w-col-medium-6">
-                    <div class="album-card" data-ix="load-album-modal">
-                        <div class="product-card-image product-card-1"></div>
-                        <img src="images/sarkodie---mary-album.jpg" srcset="images/sarkodie---mary-album-p-500.jpeg 500w, images/sarkodie---mary-album-p-800.jpeg 800w, images/sarkodie---mary-album.jpg 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
-                        <div class="product-card-description">
-                            <div class="div-block-67">
-                                <div class="div-block-66">
-                                    <div>
-                                        <div class="album-artist-name">SARKODIE</div>
-                                        <h3 class="album-name-title">Highest</h3>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <div>
-                                            <h2 class="track-number">12</h2>
-                                            <div class="text-block-8">Songs</div>
-                                        </div>
-                                        <div class="div-block-69"></div>
-                                        <a href="#" class="album-edit-btns w-inline-block">
-                                            <img src="images/view-list.svg" width="20">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-col w-col-3 w-col-medium-6">
-                    <div class="album-card" data-ix="load-album-modal">
-                        <div class="product-card-image product-card-1"></div>
-                        <img src="images/sarkodie---mary-album.jpg" srcset="images/sarkodie---mary-album-p-500.jpeg 500w, images/sarkodie---mary-album-p-800.jpeg 800w, images/sarkodie---mary-album.jpg 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
-                        <div class="product-card-description">
-                            <div class="div-block-67">
-                                <div class="div-block-66">
-                                    <div>
-                                        <div class="album-artist-name">SARKODIE</div>
-                                        <h3 class="album-name-title">Highest</h3>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <div>
-                                            <h2 class="track-number">12</h2>
-                                            <div class="text-block-8">Songs</div>
-                                        </div>
-                                        <div class="div-block-69"></div>
-                                        <a href="#" class="album-edit-btns w-inline-block">
-                                            <img src="images/view-list.svg" width="20">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <form action="{{ route('albums.create') }}" name="add-album" method="post" class="w-clearfix">
+                    <div class="form-separator">
+                        <div class="text-block-46">Title</div>
+                        <div class="text-block-47">Type title of the album</div>
+                        <input type="text" class="payment-form-field-bix w-input" maxlength="256"
+                               name="title" placeholder="eg. the title" required=""></div>
+                    <div class="form-separator">
+                        <div class="text-block-46">Release Year</div>
+                        <div class="text-block-47">Type in year of album was released</div>
+                        <input type="text" class="payment-form-field-bix w-input" maxlength="256"
+                               name="release_year"
+                               placeholder="eg. 2018" required=""></div>
+                    <div class="div-block-133">
+                        <input type="submit" value="Continue" data-wait="Please wait..."
+                                                      class="submit-button-9 w-button"></div>
+                </form>
             </div>
         </div>
+
     </div>
 @endsection

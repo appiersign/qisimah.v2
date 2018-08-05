@@ -1,14 +1,14 @@
 <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease-in-out-quart" data-no-scroll="1" class="navbar w-nav">
     <div class="container w-container">
         <a href="#" class="brand w-nav-brand">
-            <img src="images/Qisimah-logo-qhite.gif" width="726">
+            <img src="{{ asset('images/Qisimah-logo-qhite.gif') }}" width="726">
         </a>
         <nav role="navigation" class="nav-menu w-nav-menu">
             <div class="srcoll-bar-wrap">
                 <a href="{{ url('/') }}" class="nav-link w-nav-link w--current">Dashboard</a>
                 {{--<a href="#" class="nav-link w-nav-link">Ads Dashboard</a>--}}
                 <a href="{{ route('artists.index') }}" class="nav-link w-nav-link">Artists</a>
-                <a href="albums.html" class="nav-link w-nav-link">Albums</a>
+                <a href="{{ route('albums.index') }}" class="nav-link w-nav-link">Albums</a>
                 {{--<a href="broadcasters.html" class="nav-link w-nav-link">Broadcasters</a>--}}
                 {{--<p class="nav-separator-text">Monitoring</p>--}}
                 {{--<a href="songs.html" class="nav-link w-nav-link">Songs</a>--}}

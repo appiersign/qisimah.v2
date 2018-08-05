@@ -27,7 +27,7 @@
         <div class="div-block-14">
             <div data-delay="100" data-hover="1" class="dropdown-4 w-clearfix w-dropdown">
                 <div class="dropdown-toggle w-dropdown-toggle">
-                    <div class="div-block-10"><img src="images/profile-img_1profile-img.jpg" width="75" class="image-4"></div>
+                    <div class="div-block-10"><img src="{{ asset('images/profile-img_1profile-img.jpg') }}" width="75" class="image-4"></div>
                 </div>
                 <nav class="dropdown-list w-dropdown-list">
                     <div class="text-block-20">Hey! <span>Kofi</span></div>
