@@ -13,7 +13,7 @@ class AlbumTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testStore()
     {
         $this->assertTrue(true);
     }
