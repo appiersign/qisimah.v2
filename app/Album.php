@@ -25,6 +25,11 @@ class Album extends Model
         return $this->belongsTo(Label::class);
     }
 
+    public function artist()
+    {
+        return $this->belongsTo(Artist::class);
+    }
+
     public function songs()
     {
         return $this->belongsTo(Song::class);
@@ -35,10 +40,12 @@ class Album extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function store(User $user, Label $label)
+    public function store(User $user, Artist $artist, Label $label)
     {
         $this->user()->associate($user);
         $this->label()->associate($label);
+        $this->artist()->associate($artist);
+
         try {
             $this->save();
             session()->flash('success', 'album created');

@@ -52,7 +52,7 @@ class AlbumController extends Controller
         $album = new Album();
         $album->setTitle($request->input('title'));
         $album->setYear($request->input('year'));
-        return $album->store(User::find(Auth::id()), Label::find($request->input('label')));
+        return $album->store(User::find(Auth::id()), Artist::find($request->input('artist')), Label::find($request->input('label')));
     }
 
     /**
