@@ -28,9 +28,12 @@ Auth::routes();
 Route::get('', 'HomeController@dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('artists', 'ArtistController');
-Route::resource('songs', 'SongController');
-Route::resource('Plays', 'PlayController');
+Route::resources([
+    'artists'   => 'ArtistController',
+    'songs'     => 'SongController',
+    'plays'     => 'PlayController',
+    'albums'    => 'AlbumController'
+]);
 
 Route::get('link.youtube.account', 'SocializationController@linkYoutubeAccount');
 Route::get('link.instagram.account', 'SocializationController@linkInstagramAccount');
