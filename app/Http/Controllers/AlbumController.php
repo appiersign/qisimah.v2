@@ -24,7 +24,8 @@ class AlbumController extends Controller
     public function index()
     {
         $artists = array();
-        return view('pages.albums.index', compact('artists'));
+        $albums = Album::with('songs')->get();
+        return view('pages.albums.index', compact('artists', 'albums'));
     }
 
     /**
@@ -35,7 +36,8 @@ class AlbumController extends Controller
     public function create()
     {
         $artists = [];
-        return view('pages.albums.create', compact('artists'));
+        $labels = Label::all();
+        return view('pages.albums.create', compact('artists', 'labels'));
     }
 
     /**
@@ -61,7 +63,7 @@ class AlbumController extends Controller
     public function show($album)
     {
         $artists = [];
-        return view('pages.albums.show', compact('artists'));
+        return view('pages.albums.show', compact('artists', 'album'));
     }
 
     /**
@@ -72,7 +74,8 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        //
+        $artists = [];
+        return view('pages.albums.create', compact('artists', 'album'));
     }
 
     /**

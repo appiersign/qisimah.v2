@@ -18,9 +18,15 @@ class CreateAlbumsTable extends Migration
             $table->string('title')->index();
             $table->string('search_box')->index();
             $table->year('release_year');
+            $table->unsignedInteger('artist_id');
             $table->unsignedInteger('label_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('artist_id')
+                ->references('id')
+                ->on('artists')
+                ->onDelete('cascade');
 
             $table->foreign('label_id')
                 ->references('id')

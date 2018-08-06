@@ -7,10 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Album extends Model
 {
-    public function label()
-    {
-        return $this->belongsTo(Label::class);
-    }
 
     public function setTitle($title)
     {
@@ -21,12 +17,12 @@ class Album extends Model
 
     public function setYear($year)
     {
-        $this->attributes['year'] = $year;
+        $this->attributes['release_year'] = (int) $year;
     }
 
-    public function setArt($art)
+    public function label()
     {
-        $this->attributes['art'] = $art;
+        return $this->belongsTo(Label::class);
     }
 
     public function songs()
@@ -34,15 +30,23 @@ class Album extends Model
         return $this->belongsTo(Song::class);
     }
 
-    public function creator()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     public function store(User $user, Label $label)
     {
-        $this->creator()->associate($user);
+        $this->user()->associate($user);
         $this->label()->associate($label);
-        $this->save();
+        try {
+            $this->save();
+            session()->flash('success', 'album created');
+            return redirect()->route('albums.index');
+        } catch (\Exception $exception) {
+            session()->flash('error', 'something went wrong, we could not create your album');
+            return redirect()->back();
+        }
+
     }
 }

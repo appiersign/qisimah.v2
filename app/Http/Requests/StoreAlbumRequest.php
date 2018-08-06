@@ -26,7 +26,7 @@ class StoreAlbumRequest extends FormRequest
         return [
             'title' =>  'bail|required|min:2|max:50',
             'year'  =>  'bail|digits:4',
-            'label' =>  'bail|exists:label,id',
+            'label' =>  'bail|exists:labels,id',
             'art'   =>  'bail|img|size:2000000'
         ];
     }

@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AlbumTest extends TestCase
 {
@@ -15,6 +14,10 @@ class AlbumTest extends TestCase
      */
     public function testStore()
     {
-        $this->assertTrue(true);
+        $this->actingAs(User::first())->post('albums', [
+            'title' => 'the reign',
+            'year'  =>  '2018',
+            'label' => '1'
+            ])->assertJson(["title" =>  "The Reign"]);
     }
 }

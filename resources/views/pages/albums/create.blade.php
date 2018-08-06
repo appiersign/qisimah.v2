@@ -293,37 +293,53 @@
                 </div>
             </div>
         </div>
-        <div class="qisimah-container-main" data-ix="load-album-modal">
-            <div class="albums-column w-row form-block-7 w-form">
-                <div class="div-block-132">
-                    <div class="text-block-48">Complete form</div>
-                    <h1 class="heading-8">Add Album</h1>
-                    <div class="price-holder">
-                        <div class="div-block-134">
-                            <div class="text-block-49"></div>
-                            <h1 class="how-much"></h1>
+
+        @include('components.guest.danger-message')
+
+        <div class="form-modal-sub albums-column w-row form-block-7">
+            <h1 class="heading-6">Add Album</h1>
+            <a href="#" class="proper-close-4-modal w-inline-block" data-ix="close-broadcaster-modal">
+                <img src="{{ asset('images/ic_close_white_256dp_1x.png') }}" width="32">
+            </a>
+            <div class="div-block-82">
+                <div class="w-form">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('albums.store') }}" name="albums" data-name="Email Form 2">
+                        {{ csrf_field() }}
+                        <div class="w-row">
+                            <div class="w-col w-col-6">
+                                <label for="album-title" class="form-label">Album Title:</label>
+                                <input id="album-title" value="{{ old('title') }}" type="text" class="text-field-2 w-input" name="title" placeholder="Title">
+                            </div>
+                            <div class="w-col w-col-6">
+                                <label for="album-year" class="form-label">Release Year:</label>
+                                <input id="album-year" value="{{ old('year') }}" type="text" class="text-field-2 w-input" name="year" placeholder="eg. {{ date('Y') }}">
+                            </div>
                         </div>
-                        <div class="price-warning"></div>
-                    </div>
+                        <div class="w-row">
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="album-label" class="form-label">Label:</label>
+                                <select id="album-label" name="label" class="meta-data-field w-select">
+                                    <option value="">Select Label</option>
+                                    @if($labels)
+                                        @foreach($labels as $label)
+                                            <option value="{{ $label->id }}">{{ $label->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="logo" class="form-label">Album art:</label>
+                                <input type="file" class="text-field-2 logo-field w-input" name="art">
+                            </div>
+                        </div>
+                        <div class="form-submit-wrapper">
+                            <div class="div-block-83">
+                                <input type="submit" value="add" data-wait="Please wait..." class="button w-button">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <form action="{{ route('albums.create') }}" name="add-album" method="post" class="w-clearfix">
-                    <div class="form-separator">
-                        <div class="text-block-46">Title</div>
-                        <div class="text-block-47">Type title of the album</div>
-                        <input type="text" class="payment-form-field-bix w-input" maxlength="256"
-                               name="title" placeholder="eg. the title" required=""></div>
-                    <div class="form-separator">
-                        <div class="text-block-46">Release Year</div>
-                        <div class="text-block-47">Type in year of album was released</div>
-                        <input type="text" class="payment-form-field-bix w-input" maxlength="256"
-                               name="year"
-                               placeholder="eg. 2018" required=""></div>
-                    <div class="div-block-133">
-                        <input type="submit" value="Continue" data-wait="Please wait..."
-                                                      class="submit-button-9 w-button"></div>
-                </form>
             </div>
         </div>
-
     </div>
 @endsection
