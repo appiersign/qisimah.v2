@@ -25,7 +25,7 @@ class AlbumController extends Controller
     public function index()
     {
         $artists = array();
-        $albums = Album::with('songs')->get();
+        $albums = Album::with('songs', 'artist')->get();
         return view('pages.albums.index', compact('artists', 'albums'));
     }
 
@@ -61,7 +61,7 @@ class AlbumController extends Controller
      * @param  \App\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show($album)
+    public function show(Album $album)
     {
         $artists = [];
         return view('pages.albums.show', compact('artists', 'album'));

@@ -20,6 +20,11 @@ class Album extends Model
         $this->attributes['release_year'] = (int) $year;
     }
 
+    public function getShortTitle()
+    {
+        return (strlen($this->attributes['title']) > 7)? substr($this->attributes['title'], 0, 7).'...' : $this->attributes['title'];
+    }
+
     public function label()
     {
         return $this->belongsTo(Label::class);

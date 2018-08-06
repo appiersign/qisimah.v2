@@ -311,8 +311,8 @@
                                     <div class="div-block-67">
                                         <div class="div-block-66">
                                             <div>
-                                                <div class="album-artist-name">SARKODIE</div>
-                                                <h3 class="album-name-title">{{ $album->title }}</h3>
+                                                <div class="album-artist-name">{{ $album->artist->nick_name }}</div>
+                                                <h3 class="album-name-title">{{ $album->getShortTitle() }}</h3>
                                             </div>
                                             <div class="price-wrapper">
                                                 <div>
@@ -321,7 +321,7 @@
                                                 </div>
                                                 <div class="div-block-69"></div>
                                                 <a href="{{ route('albums.show', ['id' => $album->id]) }}" class="album-edit-btns w-inline-block">
-                                                    <img src="images/view-list.svg" width="20">
+                                                    <img src="{{ asset('images/view-list.svg') }}" width="20">
                                                 </a>
                                             </div>
                                         </div>

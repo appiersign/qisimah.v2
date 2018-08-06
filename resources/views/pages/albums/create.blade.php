@@ -297,8 +297,8 @@
         @include('components.guest.danger-message')
 
         <div class="form-modal-sub albums-column w-row form-block-7">
-            <h1 class="heading-6">Add Album</h1>
-            <a href="#" class="proper-close-4-modal w-inline-block" data-ix="close-broadcaster-modal">
+            <h1 class="heading-6">add album</h1>
+            <a href="{{ route('albums.index') }}" class="proper-close-4-modal w-inline-block" data-ix="close-broadcaster-modal">
                 <img src="{{ asset('images/ic_close_white_256dp_1x.png') }}" width="32">
             </a>
             <div class="div-block-82">

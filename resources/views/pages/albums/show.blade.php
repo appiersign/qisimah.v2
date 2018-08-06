@@ -295,8 +295,8 @@
         </div>
         <div class="qisimah-container-main" data-ix="load-album-modal">
             <div class="div-block-46">
-                <a href="#" class="link-block-5 w-inline-block">
-                    <div data-ix="upload-broadcaster-modal">add album</div>
+                <a href="{{ route('albums.index') }}" class="link-block-5 w-inline-block">
+                    <div data-ix="upload-broadcaster-modal">back to albums</div>
                 </a>
                 <div class="text-block-17"></div>
             </div>
@@ -307,10 +307,10 @@
                     </div>
                 </div>
                 <div class="w-col w-col-9">
-                    <h2 class="heading-5">Mary</h2>
+                    <h2 class="heading-5">{{ $album->title }}</h2>
                     <div class="artist-details-sub-wrapper">
-                        <div class="album-artist-name-sm">SARKODIE</div>
-                        <div class="number-card-progress">2014</div>
+                        <div class="album-artist-name-sm">{{ $album->artist()->first()->nick_name }}</div>
+                        <div class="number-card-progress">{{ $album->release_year }}</div>
                     </div>
                     <div class="div-block-72">
                         <div class="album-list-row" data-ix="showextra">
