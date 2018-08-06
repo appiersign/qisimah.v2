@@ -27,6 +27,7 @@ class StoreAlbumRequest extends FormRequest
             'title' =>  'bail|required|min:2|max:50',
             'year'  =>  'bail|digits:4',
             'label' =>  'bail|exists:labels,id',
+            'artist'    =>  'bail|required|exists:artists,id',
             'art'   =>  'bail|img|size:2000000'
         ];
     }

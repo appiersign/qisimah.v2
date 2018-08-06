@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Artist;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Label;
 use App\User;
@@ -35,7 +36,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        $artists = [];
+        $artists = Artist::all();
         $labels = Label::all();
         return view('pages.albums.create', compact('artists', 'labels'));
     }

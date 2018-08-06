@@ -295,7 +295,7 @@
         </div>
         <div class="qisimah-container-main" data-ix="load-album-modal">
             <div class="div-block-46">
-                <a href="#" class="link-block-5 w-inline-block">
+                <a href="{{ route('albums.create') }}" class="link-block-5 w-inline-block">
                     <div data-ix="upload-broadcaster-modal">add album</div>
                 </a>
                 <div class="text-block-17"></div>

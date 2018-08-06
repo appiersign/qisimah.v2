@@ -317,6 +317,17 @@
                         </div>
                         <div class="w-row">
                             <div class="w-clearfix w-col w-col-6">
+                                <label for="album-artist" class="form-label">Artist:</label>
+                                <select id="album-artist" name="artist" class="meta-data-field w-select">
+                                    <option value="">Select Artist</option>
+                                    @if($artists)
+                                        @foreach($artists as $artist)
+                                            <option value="{{ $artist->id }}">{{ $artist->nick_name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="w-clearfix w-col w-col-6">
                                 <label for="album-label" class="form-label">Label:</label>
                                 <select id="album-label" name="label" class="meta-data-field w-select">
                                     <option value="">Select Label</option>
@@ -327,15 +338,21 @@
                                     @endif
                                 </select>
                             </div>
+                        </div>
+                        <div class="w-row">
                             <div class="w-clearfix w-col w-col-6">
                                 <label for="logo" class="form-label">Album art:</label>
                                 <input type="file" class="text-field-2 logo-field w-input" name="art">
                             </div>
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="logo" class="form-label"><p></p></label>
+                                <div class="div-block-83">
+                                    <input type="submit" value="add" data-wait="Please wait..." class="button w-button">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-submit-wrapper">
-                            <div class="div-block-83">
-                                <input type="submit" value="add" data-wait="Please wait..." class="button w-button">
-                            </div>
+
                         </div>
                     </form>
                 </div>
