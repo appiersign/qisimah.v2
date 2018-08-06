@@ -12,6 +12,23 @@ class Album extends Model
         return $this->belongsTo(Label::class);
     }
 
+    public function setTitle($title)
+    {
+        $_title = strtolower($title);
+        $this->attributes['title'] = ucwords($_title);
+        $this->attributes['search_box'] = $_title;
+    }
+
+    public function setYear($year)
+    {
+        $this->attributes['year'] = $year;
+    }
+
+    public function setArt($art)
+    {
+        $this->attributes['art'] = $art;
+    }
+
     public function songs()
     {
         return $this->belongsTo(Song::class);
@@ -22,10 +39,10 @@ class Album extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function store(Album $album, User $user, Label $label)
+    public function store(User $user, Label $label)
     {
-        $album->creator()->associate($user);
-        $album->label()->associate($label);
-        $album->save();
+        $this->creator()->associate($user);
+        $this->label()->associate($label);
+        $this->save();
     }
 }

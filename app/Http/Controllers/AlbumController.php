@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Http\Requests\StoreAlbumRequest;
+use App\Label;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller
 {
@@ -35,9 +39,12 @@ class AlbumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAlbumRequest $request)
     {
-        
+        $album = new Album();
+        $album->setTitle($request->input('title'));
+        $album->setYear($request->input('year'));
+        return $album->store(User::find(Auth::id()), Label::find($request->input('label')));
     }
 
     /**

@@ -16,7 +16,8 @@ class CreateAlbumsTable extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->index();
-            $table->string('release_year');
+            $table->string('search_box')->index();
+            $table->year('release_year');
             $table->unsignedInteger('label_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
@@ -25,6 +26,7 @@ class CreateAlbumsTable extends Migration
                 ->references('id')
                 ->on('labels')
                 ->onDelete('cascade');
+
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

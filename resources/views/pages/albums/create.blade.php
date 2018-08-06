@@ -316,7 +316,7 @@
                         <div class="text-block-46">Release Year</div>
                         <div class="text-block-47">Type in year of album was released</div>
                         <input type="text" class="payment-form-field-bix w-input" maxlength="256"
-                               name="release_year"
+                               name="year"
                                placeholder="eg. 2018" required=""></div>
                     <div class="div-block-133">
                         <input type="submit" value="Continue" data-wait="Please wait..."
