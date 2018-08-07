@@ -14,7 +14,7 @@ class SongController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.songs.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class SongController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.songs.create');
     }
 
     /**
@@ -38,15 +38,25 @@ class SongController extends Controller
         //
     }
 
+    public function createMetaData()
+    {
+        return view('pages.songs.metadata');
+    }
+
+    public function storeMetaData()
+    {
+        
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Song  $song
      * @return \Illuminate\Http\Response
      */
-    public function show(Song $song)
+    public function show($id)
     {
-        //
+        return view('pages.songs.show');
     }
 
     /**
