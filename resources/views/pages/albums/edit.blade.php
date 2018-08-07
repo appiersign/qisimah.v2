@@ -293,56 +293,68 @@
                 </div>
             </div>
         </div>
-        <div class="qisimah-container-main" data-ix="load-album-modal">
-            <div class="div-block-46">
-                <a href="{{ route('albums.index') }}" class="link-block-5 w-inline-block">
-                    <div data-ix="upload-broadcaster-modal">back to albums</div>
-                </a>
-                <div class="text-block-17"></div>
-            </div>
-            <div class="albums-column w-row">
-                <div class="w-col w-col-3">
-                    <div class="div-block-78">
-                        <img src="{{ asset($album->art) }}" width="480" srcset="{{ asset($album->art) }} 500w, {{ asset($album->art) }} 800w, {{ asset($album->art) }} 960w" sizes="100vw">
-                    </div>
-                </div>
-                <div class="w-col w-col-9">
-                    <h2 class="heading-5">{{ $album->title }}</h2>
-                    <div class="artist-details-sub-wrapper">
-                        <div class="album-artist-name-sm">{{ $album->artist()->first()->nick_name }}</div>
-                        <div class="number-card-progress">{{ $album->release_year }}</div>
-                    </div>
-                    <div class="div-block-72">
-                        <div class="album-list-row" data-ix="showextra">
-                            <div class="div-block-73">
-                                <div class="text-block-24">TITLE</div>
-                                <div>Adiapena</div>
+
+        @include('components.guest.danger-message')
+
+        <div class="form-modal-sub albums-column w-row form-block-7">
+            <h1 class="heading-6">add album</h1>
+            <a href="{{ route('albums.index') }}" class="proper-close-4-modal w-inline-block" data-ix="close-broadcaster-modal">
+                <img src="{{ asset('images/ic_close_white_256dp_1x.png') }}" width="32">
+            </a>
+            <div class="div-block-82">
+                <div class="w-form">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('albums.update', ['id' => $album->id]) }}" name="albums" data-name="Email Form 2">
+                        {{ csrf_field() }}
+                        <div class="w-row">
+                            <div class="w-col w-col-6">
+                                <label for="album-title" class="form-label">Album Title:</label>
+                                <input id="album-title" value="{{ old('title') ?? $album->title }}" type="text" class="text-field-2 w-input" name="title" placeholder="Title">
                             </div>
-                            <div class="div-block-74">
-                                <div class="text-block-24">FEATURED</div>
-                                <div>Adiapena</div>
+                            <div class="w-col w-col-6">
+                                <label for="album-year" class="form-label">Release Year:</label>
+                                <input id="album-year" value="{{ old('year') ?? $album->release_year }}" type="text" class="text-field-2 w-input" name="year" placeholder="eg. {{ date('Y') }}">
                             </div>
-                            <div class="div-block-76">
-                                <div class="text-block-24">DURATION</div>
-                                <div>3.52</div>
+                        </div>
+                        <div class="w-row">
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="album-artist" class="form-label">Artist:</label>
+                                <select id="album-artist" name="artist" class="meta-data-field w-select">
+                                    <option value="">Select Artist</option>
+                                    @if($artists)
+                                        @foreach($artists as $artist)
+                                            <option value="{{ $artist->id }}" {{ ($album->artist->id == $artist->id)? 'selected' : '' }}>{{ $artist->nick_name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
-                            <div class="div-block-75">
-                                <div class="text-block-24">PLAYS</div>
-                                <div>21452</div>
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="album-label" class="form-label">Label:</label>
+                                <select id="album-label" name="label" class="meta-data-field w-select">
+                                    <option value="">Select Label</option>
+                                    @if($labels)
+                                        @foreach($labels as $label)
+                                            <option value="{{ $label->id }}" {{ ($album->label->id == $label->id)? 'selected' : '' }}>{{ $label->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
-                            <div class="div-block-77">
-                                <div class="text-block-24">ACTIONS</div>
-                                <div class="div-block-79">
-                                    <a href="{{ route('albums.edit', ['id' => $album->id]) }}" class="album-edit-things w-inline-block" data-ix="view-edit-modal">
-                                        <img src="{{ asset('images/edit-interface-sign.svg') }}" width="20">
-                                    </a>
-                                    <a href="{{ route('albums.destroy', ['id' => $album->id]) }}" class="album-edit-things w-inline-block" onclick="">
-                                        <img src="{{ asset('images/rubbish-bin.svg') }}" width="20">
-                                    </a>
+                        </div>
+                        <div class="w-row">
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="logo" class="form-label">Album art:</label>
+                                <input type="file" class="text-field-2 logo-field w-input" name="art">
+                            </div>
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="logo" class="form-label"><p></p></label>
+                                <div class="div-block-83">
+                                    <input type="submit" value="update" data-wait="Please wait..." class="button w-button">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-submit-wrapper">
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
