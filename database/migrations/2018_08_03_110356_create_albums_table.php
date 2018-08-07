@@ -15,9 +15,11 @@ class CreateAlbumsTable extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('qisimah_id')->unique();
             $table->string('title')->index();
             $table->string('search_box')->index();
             $table->year('release_year');
+            $table->string('art')->nullable();
             $table->unsignedInteger('artist_id');
             $table->unsignedInteger('label_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();

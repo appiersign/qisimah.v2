@@ -293,6 +293,7 @@
                 </div>
             </div>
         </div>
+
         <div class="qisimah-container-main" data-ix="load-album-modal">
             <div class="div-block-46">
                 <a href="{{ route('albums.create') }}" class="link-block-5 w-inline-block">
@@ -300,13 +301,16 @@
                 </a>
                 <div class="text-block-17"></div>
             </div>
+
+            @include('components.guest.success-message')
+
             <div class="albums-column w-row">
                 @if($albums)
                     @foreach($albums as $album)
                         <div class="w-col w-col-3 w-col-medium-6">
                             <div class="album-card" data-ix="load-album-modal">
                                 <div class="product-card-image product-card-1"></div>
-                                <img src="{{ asset('images/sarkodie---mary-album.jpg') }}" srcset="{{ asset('images/sarkodie---mary-album-p-500.jpeg') }} 500w, {{ asset('images/sarkodie---mary-album-p-800.jpeg') }} 800w, {{ asset('images/sarkodie---mary-album.jpg') }} 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
+                                <img src="{{ asset($album->art) }}" srcset="{{ asset($album->art) }} 500w, {{ asset($album->art) }} 800w, {{ asset($album->art) }} 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
                                 <div class="product-card-description">
                                     <div class="div-block-67">
                                         <div class="div-block-66">

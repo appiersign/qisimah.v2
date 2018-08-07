@@ -2,11 +2,18 @@
 
 namespace App;
 
+use App\Http\Requests\StoreAlbumRequest;
 use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Album extends Model
 {
+
+    public function __construct()
+    {
+        $this->attributes['qisimah_id'] = strtoupper(str_random());
+    }
 
     public function setTitle($title)
     {
@@ -18,6 +25,17 @@ class Album extends Model
     public function setYear($year)
     {
         $this->attributes['release_year'] = (int) $year;
+    }
+
+    public function setArt(StoreAlbumRequest $request)
+    {
+        if ($request->hasFile('art')) {
+            $art = $request->file('art');
+            $path = $art->store('public/images/art');
+            $this->attributes['art'] = Storage::url($path);
+        } else {
+            $this->attributes['art'] = 'images/default.jpg';
+        }
     }
 
     public function getShortTitle()
@@ -53,7 +71,7 @@ class Album extends Model
 
         try {
             $this->save();
-            session()->flash('success', 'album created');
+            session()->flash('success', 'Album created');
             return redirect()->route('albums.index');
         } catch (\Exception $exception) {
             session()->flash('error', 'something went wrong, we could not create your album');

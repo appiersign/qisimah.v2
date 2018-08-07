@@ -52,6 +52,7 @@ class AlbumController extends Controller
         $album = new Album();
         $album->setTitle($request->input('title'));
         $album->setYear($request->input('year'));
+        $album->setArt($request);
         return $album->store(User::find(Auth::id()), Artist::find($request->input('artist')), Label::find($request->input('label')));
     }
 
@@ -75,8 +76,9 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        $artists = [];
-        return view('pages.albums.create', compact('artists', 'album'));
+        $artists = Artist::all();
+        $labels = Label::all();
+        return view('pages.albums.edit', compact('artists', 'album', 'labels'));
     }
 
     /**
@@ -99,6 +101,13 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        try {
+            $album->delete();
+            session()->flash('success', 'Album deleted!');
+            return redirect()->route('albums.index');
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Album could not be deleted!');
+            return redirect()->back();
+        }
     }
 }
