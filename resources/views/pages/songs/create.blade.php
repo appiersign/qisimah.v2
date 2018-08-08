@@ -19,7 +19,8 @@
 
         <div class="qisimah-container-main">
             <div class="form-block w-form">
-                <form class="modal-upload-song w-clearfix">
+                <form action="{{ route("songs.store") }}" method="post" class="modal-upload-song w-clearfix">
+                    {{ csrf_field() }}
                     <h1 class="upload-modal-title"></h1>
                     <div class="w-row">
                         <div class="column-24 w-col w-col-7">
