@@ -19,15 +19,12 @@
 
         <div class="qisimah-container-main">
             <div class="form-block w-form">
-                <form action="{{ route("songs.store") }}" method="post" class="modal-upload-song w-clearfix">
+                <form action="{{ route("songs.store") }}" method="post" class="modal-upload-song w-clearfix" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <h1 class="upload-modal-title"></h1>
                     <div class="w-row">
-                        <div class="column-24 w-col w-col-7">
-                            <input type="text" class="text-field w-input" maxlength="256" name="audio-file-2" data-name="Audio File 2" placeholder="no audio file selected" id="audio-file-2" required="">
-                        </div>
-                        <div class="column-24 w-col w-col-5">
-                            <a href="#" class="button-3 w-button">Select audio file</a>
+                        <div class="column-24 w-col w-col-12">
+                            <input type="file" class="text-field w-input" maxlength="256" name="song" required="">
                         </div>
                     </div>
                     <div class="text-block-9">* Recommended file type(s): mp3</div>

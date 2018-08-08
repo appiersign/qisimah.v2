@@ -13,7 +13,7 @@ class UploadSongRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UploadSongRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "song"  =>  "bail|required|max:7000000|mimes:mp3"
         ];
     }
 }
