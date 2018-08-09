@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SongTest extends TestCase
 {
@@ -13,8 +13,13 @@ class SongTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testUpload()
     {
-        $this->assertTrue(true);
+        $user = \factory(User::class)->create();
+        $file = UploadedFile::fake()->create('song.mp3', 7000);
+
+        $this->actingAs($user)->post('songs', [
+            "song"  =>  $file
+        ])->assertSeeText('metadata');
     }
 }

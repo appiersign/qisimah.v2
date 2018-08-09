@@ -24,7 +24,7 @@ class UploadSongRequest extends FormRequest
     public function rules()
     {
         return [
-            "song"  =>  "bail|required|max:7000000|mimes:mp3"
+            "song"  =>  "bail|required|file|max:7000|mimetypes:audio/mpeg"
         ];
     }
 }

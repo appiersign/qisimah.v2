@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UploadSongRequest;
 use App\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SongController extends Controller
 {
@@ -32,11 +33,10 @@ class SongController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(UploadSongRequest $request)
     {
-        //
+        return (new Song())->setFile($request)->upload();
     }
 
     public function createMetaData()

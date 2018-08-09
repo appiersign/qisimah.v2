@@ -15,18 +15,21 @@ class CreateSongsTable extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('qisimah_id')->unique();
-            $table->string('acr_id')->unique()->nullable();
-            $table->unsignedInteger('album_id');
-            $table->unsignedInteger('user_id');
-            $table->string('title')->index();
-            $table->string('search_box')->index();
+            $table->string('qisimah_id');
+            $table->string('acr_id')->nullable();
+            $table->unsignedInteger('album_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->string('title')->nullable();
+            $table->string('search_box')->index()->nullable();
             $table->unsignedInteger('duration')->nullable();
-            $table->unsignedTinyInteger('status');
+            $table->unsignedInteger('status')->default(0);
             $table->string('version')->nullable();
             $table->string('art')->nullable();
+            $table->string('audio');
             $table->date('release_date')->nullable();
             $table->timestamps();
+
+            $table->unique(['qisimah_id', 'acr_id']);
         });
     }
 
