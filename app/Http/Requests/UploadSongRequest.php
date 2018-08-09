@@ -24,7 +24,15 @@ class UploadSongRequest extends FormRequest
     public function rules()
     {
         return [
-            "song"  =>  "bail|required|file|max:7000|mimetypes:audio/mpeg"
+            "song"  =>  "bail|required|file|max:7000|mimetypes:audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "song.file" => "Sorry file could not be loaded. Please try again!",
+            "mimetypes" => "The file type does not match the allowed formats"
         ];
     }
 }

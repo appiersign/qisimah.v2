@@ -65,8 +65,7 @@ class Song extends Model
             ->setQisimahId();
         try {
             $this->save();
-            Log::info('done');
-            return redirect()->to('songs/'.$this->qisimah_id.'/metadata');
+            return redirect()->route('songs.metadata', ['qisimah_id' => $this->qisimah_id]);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             session()->flash('error', 'Song could not be uploaded at the is time!');
