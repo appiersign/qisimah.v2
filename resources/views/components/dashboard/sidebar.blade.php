@@ -10,8 +10,8 @@
                 <a href="{{ route('artists.index') }}" class="nav-link w-nav-link">Artists</a>
                 <a href="{{ route('albums.index') }}" class="nav-link w-nav-link">Albums</a>
                 {{--<a href="broadcasters.html" class="nav-link w-nav-link">Broadcasters</a>--}}
-                {{--<p class="nav-separator-text">Monitoring</p>--}}
-                {{--<a href="songs.html" class="nav-link w-nav-link">Songs</a>--}}
+                <p class="nav-separator-text">Monitoring</p>
+                <a href="{{ route('songs.index') }}" class="nav-link w-nav-link">Songs</a>
                 {{--<a href="#" class="nav-link w-nav-link">Ads</a>--}}
                 {{--<a href="charts.html" class="nav-link w-nav-link">Charts</a>--}}
                 {{--<div class="drop-parent">--}}
