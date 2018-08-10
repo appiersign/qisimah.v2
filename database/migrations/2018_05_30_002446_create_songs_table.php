@@ -19,6 +19,7 @@ class CreateSongsTable extends Migration
             $table->string('acr_id')->nullable();
             $table->unsignedInteger('album_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('artist_id')->nullable();
             $table->string('title')->nullable();
             $table->string('search_box')->index()->nullable();
             $table->unsignedInteger('duration')->nullable();
@@ -30,6 +31,11 @@ class CreateSongsTable extends Migration
             $table->timestamps();
 
             $table->unique(['qisimah_id', 'acr_id']);
+
+            $table->foreign('artist_id')
+                ->references('id')
+                ->on('artists')
+                ->onDelete('cascade');
         });
     }
 

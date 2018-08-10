@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Validator;
 
 class SongController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +28,8 @@ class SongController extends Controller
      */
     public function index()
     {
-        return view('pages.songs.index');
+        $songs = Song::with('artist')->get();
+        return view('pages.songs.index', compact('songs'));
     }
 
     /**
@@ -61,18 +67,38 @@ class SongController extends Controller
         return view('pages.songs.metadata', compact('song', 'artists', 'genres', 'producers', 'albums', 'labels'));
     }
 
+    /**
+     * @param StoreMetadataRequest $request
+     * @param string $qisimah_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeMetaData(StoreMetadataRequest $request, string $qisimah_id)
     {
         $song = Song::where('qisimah_id', $qisimah_id)
             ->where('user_id', Auth::id())
             ->first();
-
         if ($song){
-            return $song;
+            return $this->handleSaveMetadata($request, $song);
         }
-
         session()->flash('error', 'Sorry you cannot update metadata. This may be due to non-existence of song or your not authorized to do so!');
         return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @param Song $song
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function handleSaveMetadata(Request $request, Song $song)
+    {
+        return $song
+            ->setTitle($request->title)
+            ->setVersion($request->version)
+            ->setAlbumId($request->album)
+            ->setArtist($request->artist)
+            ->setReleaseDate($request->release)
+            ->setCoverArt($request)
+            ->saveMetadata();
     }
 
     /**
@@ -81,9 +107,10 @@ class SongController extends Controller
      * @param  \App\Song  $song
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        return view('pages.songs.show');
+        $song = Song::with('artist', 'label', 'album')->find($id);
+        return view('pages.songs.show', compact('song'));
     }
 
     /**

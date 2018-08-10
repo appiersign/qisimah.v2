@@ -31,7 +31,7 @@ class StoreMetadataRequest extends FormRequest
             "producers" =>  "bail|required|exists:producers,id",
             "album"     =>  "bail|required|exists:albums,id",
             "label"     =>  "bail|required|exists:labels,id",
-            "release"   =>  "bail|required|date_format:y-m-d",
+            "release"   =>  "bail|required|date_format:Y-m-d",
             "art"       =>  "bail|image|max:2000",
             "version"   =>  "bail|required|in:r,o,c"
         ];

@@ -64,7 +64,7 @@
                     <div class="row-6 w-row">
                         <div class="column-47 w-col w-col-6">
                             <label for="Genre" class="meta-data-label">Genres</label>
-                            <select id="featured-artist" name="genre" class="meta-data-field w-select" multiple>
+                            <select id="featured-artist" name="genres" class="meta-data-field w-select" multiple>
                                 <option value="" selected disabled="">select genre</option>
                                 @if($genres)
                                     @foreach($genres as $genre)
@@ -89,7 +89,7 @@
                         <div class="column-47 w-col w-col-6">
                             <label for="album-name" class="meta-data-label">Album</label>
                             <select id="album-name" name="album" class="meta-data-field w-select">
-                                <option value="" selected disabled="">select producers</option>
+                                <option value="" selected disabled="">select album</option>
                                 @if($albums)
                                     @foreach($albums as $album)
                                         <option value="{{ $album->id }}">{{ $album->title }}</option>

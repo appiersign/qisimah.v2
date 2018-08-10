@@ -19,7 +19,7 @@
                 <div class="div-block-109">
                     <div class="div-block-110">
                         <div class="div-block-114">
-                            <img src="{{ asset('images/adina10.jpg') }}" srcset="{{ asset('images/adina10-p-500.jpeg') }} 500w, {{ asset('images/adina10.jpg') }} 575w" sizes="100vw" class="view-song-album-art">
+                            <img src="{{ asset($song->art) }}" srcset="{{ asset($song->art) }} 500w, {{ asset($song->art) }} 575w" sizes="100vw" class="view-song-album-art">
                             <div class="song-play-wrapper">
                                 <div class="div-block-102">
                                     <img src="{{ asset('images/icon.svg') }}" width="20">
@@ -57,12 +57,12 @@
                     </div>
                     <div class="div-block-111">
                         <div class="text-block-31">
-                            <strong class="bold-text-4">Carry Them Away</strong>
+                            <strong class="bold-text-4">{{ $song->title }}</strong>
                         </div>
                         <div class="row-9 w-row">
                             <div class="w-col w-col-7">
                                 <div>
-                                    <strong class="song-owner">Stonebwoy</strong>
+                                    <strong class="song-owner">{{ $song->artist->nick_name }}</strong>
                                 </div>
                             </div>
                             <div class="w-col w-col-5">
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">Epistles of Mama</div>
+                                <div class="song-things">{{ $song->album->title }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">Lynx Entertainment</div>
+                                <div class="song-things">{{ 'Record Label' }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">

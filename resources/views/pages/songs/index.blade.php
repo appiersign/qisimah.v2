@@ -14,39 +14,55 @@
                 </div>
             </div>
         </div>
+        
+        @include('components.guest.messages')
 
         <div class="qisimah-container-main" data-ix="load-album-modal">
-            <a href="{{ url('songs/1') }}" class="songs-page-wrapper w-inline-block">
-                <div class="div-block-95">
-                    <div class="heading-text">Title</div>
-                    <div class="song-details-table-wrapper">
-                        <img src="images/track-art_1track-art.jpg" class="image-2">
-                        <div class="song-name-artist">
-                            <div class="text-block-2">Wame</div>
+            @if (count($songs))
+                @foreach($songs as $song)
+                    <a href="{{ route('songs.show', ['id' => $song->id]) }}" class="songs-page-wrapper w-inline-block">
+                        <div class="div-block-95">
+                            <div class="heading-text">Title</div>
+                            <div class="song-details-table-wrapper">
+                                <img src="{{ asset($song->art) }}" class="image-2" width="30">
+                                <div class="song-name-artist">
+                                    <div class="text-block-2">{{ $song->title }}</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="div-block-96">
-                    <div class="heading-text">ARTIST</div>
-                    <div>Stonebwoy</div>
-                </div>
-                <div class="div-block-97">
-                    <div class="heading-text">UPLOADER</div>
-                    <div>Cassper Nyovest</div>
-                </div>
-                <div class="div-block-99">
-                    <div class="heading-text">DATE UPLOADED</div>
-                    <div>21.03.2018</div>
-                </div>
-                <div class="div-block-100">
-                    <div class="heading-text">STATUS</div>
-                    <div class="text-block-26">READY</div>
-                </div>
-                <div class="div-block-98">
-                    <div class="heading-text">DURATION</div>
-                    <div>3.20</div>
-                </div>
-            </a>
+                        <div class="div-block-96">
+                            <div class="heading-text">ARTIST</div>
+                            <div>{{ $song->artist->nick_name }}</div>
+                        </div>
+                        <div class="div-block-97">
+                            <div class="heading-text">UPLOADER</div>
+                            <div>{{ $song->user->name }}</div>
+                        </div>
+                        <div class="div-block-99">
+                            <div class="heading-text">DATE UPLOADED</div>
+                            <div>{{ $song->release_date }}</div>
+                        </div>
+                        <div class="div-block-100">
+                            <div class="heading-text">STATUS</div>
+                            @if ($song->status === 0)
+                                <div class="text-block-26">PENDING</div>
+                            @elseif($song->status === 1)
+                                <div class="text-block-26">READY</div>
+                            @else
+                                <div class="text-block-26">LISTENING</div>
+                            @endif
+                        </div>
+                        <div class="div-block-98">
+                            <div class="heading-text">DURATION</div>
+                            <div>{{ $song->duration }}</div>
+                        </div>
+                    </a>
+                @endforeach
+            @else
+                <a href="{{ route('songs.create') }}" class="songs-page-wrapper w-inline-block">
+                    click to upload first song
+                </a>
+            @endif
         </div>
     </div>
 @endsection
