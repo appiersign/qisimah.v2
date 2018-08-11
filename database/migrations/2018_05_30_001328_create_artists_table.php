@@ -19,6 +19,8 @@ class CreateArtistsTable extends Migration
             $table->string('full_name')->nullable();
             $table->string('nick_name');
             $table->string('search_box');
+            $table->string('type', 5)->default('solo');
+            $table->string('members')->nullable();
             $table->unsignedInteger('label_id')->nullable()->index();
             $table->unsignedInteger('manager_id')->nullable()->index();
             $table->string('avatar')->nullable();
