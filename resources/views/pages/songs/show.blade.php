@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">{{ 'Record Label' }}</div>
+                                <div class="song-things">{{ $song->label->name }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">

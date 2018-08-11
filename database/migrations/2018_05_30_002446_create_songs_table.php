@@ -20,6 +20,7 @@ class CreateSongsTable extends Migration
             $table->unsignedInteger('album_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('artist_id')->nullable();
+            $table->unsignedInteger('label_id')->nullable();
             $table->string('title')->nullable();
             $table->string('search_box')->index()->nullable();
             $table->unsignedInteger('duration')->nullable();
