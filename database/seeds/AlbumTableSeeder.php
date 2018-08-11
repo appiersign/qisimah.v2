@@ -11,14 +11,12 @@ class AlbumTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Album::create([
-            "title" => "Single",
-            "search_box" => "single",
-            "art"   => "/storage/images/default.jpg",
-            "artist_id" => 1,
-            "label_id" => 1,
-            "user_id" => 1,
-            "release_year" => 2018
-        ]);
+        $album = new \App\Album();
+        $album->setTitle("Single");
+        $album->setYear(2018);
+        $album->label()->associate(1);
+        $album->artist()->associate(1);
+        $album->user()->associate(1);
+        $album->save();
     }
 }

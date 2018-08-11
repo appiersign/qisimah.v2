@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-5">
-                                <div class="text-block-32">2014</div>
+                                <div class="text-block-32">{{ $song->getReleaseYear() }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -76,7 +76,17 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">Mega 12, Yaa Pono, Yaa Pono, Yaa Pono, Yaa Pono, Yaa Pono, Yaa Pono</div>
+                                <div class="song-things">{{ $song->getFeatured() }}</div>
+                            </div>
+                        </div>
+                        <div class="row-8 w-row">
+                            <div class="w-col w-col-4">
+                                <div>
+                                    <strong class="bold-text-5">Producers:</strong>
+                                </div>
+                            </div>
+                            <div class="w-col w-col-8">
+                                <div class="song-things">{{ $song->getProducers() }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -86,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">Afrobeat, Dance Hall, Hip Life</div>
+                                <div class="song-things">{{ $song->getGenres() }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">

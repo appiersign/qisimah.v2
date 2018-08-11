@@ -96,6 +96,10 @@ class SongController extends Controller
             ->setVersion($request->version)
             ->setAlbumId($request->album)
             ->setArtist($request->artist)
+            ->setLabel($request->label)
+            ->setProducers($request->producers)
+            ->setGenres($request->genres)
+            ->setFeatured($request->featured)
             ->setReleaseDate($request->release)
             ->setCoverArt($request)
             ->saveMetadata();

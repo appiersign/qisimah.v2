@@ -102,6 +102,51 @@ class Song extends Model
         return $this;
     }
 
+    public function setProducers(array $producers)
+    {
+        $this->producers()->attach($producers);
+        return $this;
+    }
+
+    public function getProducers()
+    {
+        return implode(" / ", $this->producers->pluck('nick_name')->toArray());
+    }
+
+    public function setFeatured(array $featured_artists)
+    {
+        $this->featured()->attach($featured_artists);
+        return $this;
+    }
+
+    public function getFeatured()
+    {
+        $artists = $this->featured->pluck('nick_name')->toArray();
+        return implode(" / ", $artists);
+    }
+
+    public function setGenres(array $genres)
+    {
+        $this->genres()->attach($genres);
+        return $this;
+    }
+
+    public function getGenres()
+    {
+        return implode(", ", $this->genres->pluck('name')->toArray());
+    }
+
+    public function getReleaseYear()
+    {
+        return substr($this->attributes['release_date'], 0, 4);
+    }
+
+    public function setLabel(int $label)
+    {
+        $this->label()->associate($label);
+        return $this;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -125,6 +170,16 @@ class Song extends Model
     public function featured()
     {
         return $this->belongsToMany(Artist::class);
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
+
+    public function producers()
+    {
+        return $this->belongsToMany(Producer::class);
     }
 
     /**
