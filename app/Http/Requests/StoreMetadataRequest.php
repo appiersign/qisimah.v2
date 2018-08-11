@@ -33,7 +33,7 @@ class StoreMetadataRequest extends FormRequest
             "label"     =>  "bail|required|exists:labels,id",
             "release"   =>  "bail|required|date_format:Y-m-d",
             "art"       =>  "bail|image|max:2000",
-            "version"   =>  "bail|required|in:r,o,c"
+            "version"   =>  "bail|required|in:remix,original,cover"
         ];
     }
 }

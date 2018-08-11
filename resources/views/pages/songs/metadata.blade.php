@@ -25,15 +25,15 @@
                     <div class="row-6 w-row">
                         <div class="column-47 w-col w-col-6">
                             <label for="Song-Title" class="meta-data-label">Title</label>
-                            <input type="text" class="meta-data-field w-input" maxlength="100" name="title" placeholder="song title" id="Song-Title" required="">
+                            <input type="text" value="{{ old('title') }}" class="meta-data-field w-input" maxlength="100" name="title" placeholder="song title" id="Song-Title" required="">
                         </div>
                         <div class="column-48 w-col w-col-6">
                             <label for="Song-Version" class="meta-data-label">Version</label>
                             <select id="Song-Version" name="version" class="meta-data-field w-select">
                                 <option value="" selected disabled="">select version</option>
-                                <option value="o">Original</option>
-                                <option value="r">Remix</option>
-                                <option value="c">Cover</option>
+                                <option value="original" @if (old('version') === 'original') selected @endif>Original</option>
+                                <option value="remix" @if (old('version') === 'remix') selected @endif>Remix</option>
+                                <option value="cover" @if (old('version') === 'cover') selected @endif>Cover</option>
                             </select>
                         </div>
                     </div>
@@ -44,18 +44,18 @@
                                 <option value="" selected disabled="">select artist</option>
                                 @if($artists)
                                     @foreach($artists as $artist)
-                                        <option value="{{ $artist->id }}">{{ $artist->nick_name }}</option>
+                                        <option value="{{ $artist->id }}" @if (old('artist') == $artist->id) selected @endif>{{ $artist->nick_name }}</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="column-48 w-col w-col-6">
                             <label for="featured-artist" class="meta-data-label">Featured</label>
-                            <select id="featured-artist" name="featured" class="meta-data-field w-select" multiple>
-                                <option value="" selected disabled="">select featured artists</option>
+                            <select id="featured-artist" name="featured[]" class="meta-data-field w-select" multiple>
+                                <option value="" @if(!$errors->any()) selected @endif disabled="">select featured artists</option>
                                 @if($artists)
                                     @foreach($artists as $artist)
-                                        <option value="{{ $artist->id }}">{{ $artist->nick_name }}</option>
+                                        <option value="{{ $artist->id }}" @if ($errors->any() && in_array($artist->id, old('featured'))) selected @endif>{{ $artist->nick_name }}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -64,22 +64,22 @@
                     <div class="row-6 w-row">
                         <div class="column-47 w-col w-col-6">
                             <label for="Genre" class="meta-data-label">Genres</label>
-                            <select id="featured-artist" name="genres" class="meta-data-field w-select" multiple>
-                                <option value="" selected disabled="">select genre</option>
+                            <select id="featured-artist" name="genres[]" class="meta-data-field w-select" multiple required>
+                                <option value="" @if(!$errors->any()) selected @endif disabled="">select genre</option>
                                 @if($genres)
                                     @foreach($genres as $genre)
-                                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                        <option value="{{ $genre->id }}" @if ($errors->any() && in_array($genre->id, old('genres'))) selected @endif>{{ $genre->name }}</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="column-48 w-col w-col-6">
                             <label for="producer" class="meta-data-label">Producers</label>
-                            <select id="producer" name="producers" class="meta-data-field w-select" multiple>
-                                <option value="" selected disabled="">select producers</option>
+                            <select id="producer" name="producers[]" class="meta-data-field w-select" multiple required>
+                                <option value="" @if(!$errors->any()) selected @endif disabled="">select producers</option>
                                 @if($producers)
                                     @foreach($producers as $producer)
-                                        <option value="{{ $producer->id }}">{{ $producer->nick_name }}</option>
+                                        <option value="{{ $producer->id }}" @if ($errors->any() && in_array($producer->id, old('producers'))) selected @endif>{{ $producer->nick_name }}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -88,22 +88,22 @@
                     <div class="row-6 w-row">
                         <div class="column-47 w-col w-col-6">
                             <label for="album-name" class="meta-data-label">Album</label>
-                            <select id="album-name" name="album" class="meta-data-field w-select">
+                            <select id="album-name" name="album" class="meta-data-field w-select" required>
                                 <option value="" selected disabled="">select album</option>
                                 @if($albums)
                                     @foreach($albums as $album)
-                                        <option value="{{ $album->id }}">{{ $album->title }}</option>
+                                        <option value="{{ $album->id }}" @if ($album->id == old('album')) selected @endif>{{ $album->title }}</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="column-48 w-clearfix w-col w-col-6">
                             <label for="label-name" class="meta-data-label">Label</label>
-                            <select id="label-name" name="label" class="meta-data-field w-select">
+                            <select id="label-name" name="label" class="meta-data-field w-select" required>
                                 <option value="" selected disabled="">select label</option>
                                 @if($labels)
                                     @foreach($labels as $label)
-                                        <option value="{{ $label->id }}">{{ $label->name }}</option>
+                                        <option value="{{ $label->id }}" @if ($label->id == old('label')) selected @endif>{{ $label->name }}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -112,7 +112,7 @@
                     <div class="row-6 w-row">
                         <div class="column-47 w-col w-col-6">
                             <label for="release-date" class="meta-data-label">Released</label>
-                            <input type="text" value="{{ date('Y-m-d') }}" class="meta-data-field w-input" maxlength="10" name="release" placeholder="" id="release-date" required="">
+                            <input type="text" value="{{ old('release') ?? date('Y-m-d') }}" class="meta-data-field w-input" maxlength="10" name="release" placeholder="" id="release-date" required="">
                         </div>
 
                         <div class="column-48 w-col w-col-6">
