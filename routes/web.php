@@ -35,6 +35,9 @@ Route::resources([
     'albums'    => 'AlbumController'
 ]);
 
+Route::get('songs/{qisimah_id}/metadata', 'SongController@createMetaData')->name('songs.metadata');
+Route::post('songs/{qisimah_id}/metadata', 'SongController@storeMetaData')->name('songs.metadata.update');
+
 Route::get('link.youtube.account', 'SocializationController@linkYoutubeAccount');
 Route::get('link.instagram.account', 'SocializationController@linkInstagramAccount');
 

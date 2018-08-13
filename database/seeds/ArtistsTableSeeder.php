@@ -31,5 +31,26 @@ class ArtistsTableSeeder extends Seeder
             'search_box' => 'stonebwoy',
             'qisimah_id' => uniqid()
         ]);
+
+        \App\Artist::create([
+            'full_name' => 'Yaw Sarpong',
+            'nick_name' => 'Yaw Berk',
+            'search_box' => 'yaw berk',
+            'qisimah_id' => uniqid()
+        ]);
+
+        \App\Artist::create([
+            'full_name' => 'Kuami Eugene Olege',
+            'nick_name' => 'Kuami Eugene',
+            'search_box' => 'kuami eugene',
+            'qisimah_id' => uniqid()
+        ]);
+
+        \App\Artist::create([
+            'full_name' => 'Alfred Quaye',
+            'nick_name' => 'Smokey Beatz',
+            'search_box' => 'smokey beatz',
+            'qisimah_id' => uniqid()
+        ]);
     }
 }

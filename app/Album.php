@@ -3,12 +3,12 @@
 namespace App;
 
 use App\Http\Requests\StoreAlbumRequest;
-use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Album extends Model
 {
+//    protected $fillable = ['title'];
 
     public function __construct()
     {
