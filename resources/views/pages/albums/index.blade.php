@@ -324,7 +324,7 @@
                                                     <div class="text-block-8">Songs</div>
                                                 </div>
                                                 <div class="div-block-69"></div>
-                                                <a href="{{ route('albums.show', ['id' => $album->id]) }}" class="album-edit-btns w-inline-block">
+                                                <a href="{{ route('albums.show', ['qisimah_id' => $album->qisimah_id]) }}" class="album-edit-btns w-inline-block">
                                                     <img src="{{ asset('images/view-list.svg') }}" width="20">
                                                 </a>
                                             </div>

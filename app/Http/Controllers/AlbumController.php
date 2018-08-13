@@ -62,8 +62,9 @@ class AlbumController extends Controller
      * @param  \App\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show(Album $album)
+    public function show(string $qisimah_id)
     {
+        $album = Album::with('songs')->where('qisimah_id', $qisimah_id)->first();
         $artists = [];
         return view('pages.albums.show', compact('artists', 'album'));
     }
