@@ -14,6 +14,9 @@
                 </div>
             </div>
         </div>
+
+        @include('components.guest.messages')
+
         <div class="qisimah-container-main" data-ix="load-album-modal">
             <div class="div-block-82">
                 <div class="div-block-109">
@@ -141,12 +144,16 @@
                         </div>
                         <div class="div-block-108">
                             <div class="div-block-113">
-                                <a href="#" class="edit-song w-inline-block" data-ix="view-edit-modal">
+                                <a href="{{ route('songs.edit', ["qisimah_id" => $song->qisimah_id]) }}" class="edit-song w-inline-block" data-ix="view-edit-modal">
                                     <img src="{{ asset('images/icons8-pencil-20.png') }}" class="image-11">
                                 </a>
-                                <a href="#" class="delete-song w-inline-block">
-                                    <img src="{{ asset('images/icons8-close-window-20.png') }}">
-                                </a>
+                                <form action="{{ route('songs.destroy', ["qisimah_id" => $song->qisimah_id]) }}" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="delete-song w-inline-block">
+                                        <img src="{{ asset('images/icons8-close-window-20.png') }}">
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

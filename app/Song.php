@@ -85,10 +85,12 @@ class Song extends Model
         return $this;
     }
 
-    public function setCoverArt(Request $request)
+    public function setCoverArt(Request $request, bool $update = false)
     {
         if ($request->hasFile('art')) {
             $path = Storage::url($request->file('art')->store('public/images/arts'));
+        } elseif ($update) {
+            $path = $this->art;
         } else {
             $path = '/images/default.jpg';
         }
@@ -102,9 +104,9 @@ class Song extends Model
         return $this;
     }
 
-    public function setProducers(array $producers)
+    public function setProducers(array $producers, bool $update = false)
     {
-        $this->producers()->attach($producers);
+        ($update)? $this->producers()->sync($producers) : $this->producers()->attach($producers);
         return $this;
     }
 
@@ -113,22 +115,45 @@ class Song extends Model
         return implode(" / ", $this->producers->pluck('nick_name')->toArray());
     }
 
-    public function setFeatured(array $featured_artists)
+    public function getProducerIds()
     {
-        $this->featured()->attach($featured_artists);
+        return $this->producers()->pluck('producers.id')->toArray();
+    }
+
+    public function setFeatured(array $featured_artists, bool $update = false)
+    {
+        ($update)? $this->featured()->sync($featured_artists) : $this->featured()->attach($featured_artists);
         return $this;
     }
 
     public function getFeatured()
     {
-        $artists = $this->featured->pluck('nick_name')->toArray();
-        return implode(" / ", $artists);
+        $artists = $this->getFeaturedArtists();
+        if (count($artists)){
+            return implode(" / ", $artists);
+        }
+        return '----';
     }
 
-    public function setGenres(array $genres)
+    public function getFeaturedArtists()
     {
-        $this->genres()->attach($genres);
+        return $this->featured->pluck('nick_name')->toArray();
+    }
+
+    public function getFeaturedIds()
+    {
+        return $this->featured()->pluck('artists.id')->toArray();
+    }
+
+    public function setGenres(array $genres, bool $update = false)
+    {
+        ($update)? $this->genres()->sync($genres) : $this->genres()->attach($genres);
         return $this;
+    }
+
+    public function getGenreIds()
+    {
+        return $this->genres()->pluck('genres.id')->toArray();
     }
 
     public function getGenres()
@@ -204,16 +229,33 @@ class Song extends Model
         }
     }
 
-    public function saveMetadata()
+    public function saveMetadata(bool $update = false, string $qisimah_id = '')
     {
         try {
             $this->save();
-            session()->flash('success', 'Song Saved!');
-            return redirect()->route('songs.index');
+            ($update)? session()->flash('success', 'Song Updated!') : session()->flash('success', 'Song Saved!');
+            return ($update)? redirect()->route('songs.show', ["qisimah_id" => $qisimah_id]) : redirect()->route('songs.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             session()->flash('error', 'Song could not be saved. Please try again!');
-            return redirect()->route('songs');
+            return ($update)? redirect()->route('songs.show', ["qisimah_id" => $qisimah_id]) : redirect()->route('songs');
         }
+    }
+
+    public function remove()
+    {
+        if ($this->user->id == Auth::id()) {
+            try {
+                $this->delete();
+                session()->flash('success', 'Song Removed!');
+                return redirect()->route('songs.index');
+            } catch (\Exception $exception) {
+                session()->flash('error', 'Song could not be removed!');
+                return redirect()->back();
+            }
+        }
+        session()->flash('error', 'You are not allowed to perform this action!');
+        return redirect()->back();
+
     }
 }
