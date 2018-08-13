@@ -320,7 +320,7 @@
                                             </div>
                                             <div class="price-wrapper">
                                                 <div>
-                                                    <h2 class="track-number">{{ $album->songs()->count() }}</h2>
+                                                    <h2 class="track-number">{{ $album->songs->count() }}</h2>
                                                     <div class="text-block-8">Songs</div>
                                                 </div>
                                                 <div class="div-block-69"></div>
