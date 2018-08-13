@@ -14,6 +14,9 @@
                 </div>
             </div>
         </div>
+
+        @include('components.guest.messages')
+
         <div class="qisimah-container-main" data-ix="load-album-modal">
             <div class="div-block-82">
                 <div class="div-block-109">
@@ -66,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-5">
-                                <div class="text-block-32">2014</div>
+                                <div class="text-block-32">{{ $song->getReleaseYear() }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -76,7 +79,17 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">Mega 12, Yaa Pono, Yaa Pono, Yaa Pono, Yaa Pono, Yaa Pono, Yaa Pono</div>
+                                <div class="song-things">{{ $song->getFeatured() }}</div>
+                            </div>
+                        </div>
+                        <div class="row-8 w-row">
+                            <div class="w-col w-col-4">
+                                <div>
+                                    <strong class="bold-text-5">Producers:</strong>
+                                </div>
+                            </div>
+                            <div class="w-col w-col-8">
+                                <div class="song-things">{{ $song->getProducers() }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -86,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">Afrobeat, Dance Hall, Hip Life</div>
+                                <div class="song-things">{{ $song->getGenres() }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -106,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="w-col w-col-8">
-                                <div class="song-things">{{ 'Record Label' }}</div>
+                                <div class="song-things">{{ $song->label->name }}</div>
                             </div>
                         </div>
                         <div class="row-8 w-row">
@@ -131,12 +144,16 @@
                         </div>
                         <div class="div-block-108">
                             <div class="div-block-113">
-                                <a href="#" class="edit-song w-inline-block" data-ix="view-edit-modal">
+                                <a href="{{ route('songs.edit', ["qisimah_id" => $song->qisimah_id]) }}" class="edit-song w-inline-block" data-ix="view-edit-modal">
                                     <img src="{{ asset('images/icons8-pencil-20.png') }}" class="image-11">
                                 </a>
-                                <a href="#" class="delete-song w-inline-block">
-                                    <img src="{{ asset('images/icons8-close-window-20.png') }}">
-                                </a>
+                                <form action="{{ route('songs.destroy', ["qisimah_id" => $song->qisimah_id]) }}" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="delete-song w-inline-block">
+                                        <img src="{{ asset('images/icons8-close-window-20.png') }}">
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -20,7 +20,7 @@
         <div class="qisimah-container-main" data-ix="load-album-modal">
             @if (count($songs))
                 @foreach($songs as $song)
-                    <a href="{{ route('songs.show', ['id' => $song->id]) }}" class="songs-page-wrapper w-inline-block">
+                    <a href="{{ route('songs.show', ['qisimah_id' => $song->qisimah_id]) }}" class="songs-page-wrapper w-inline-block">
                         <div class="div-block-95">
                             <div class="heading-text">Title</div>
                             <div class="song-details-table-wrapper">
@@ -58,6 +58,7 @@
                         </div>
                     </a>
                 @endforeach
+                {{ $songs->links() }}
             @else
                 <a href="{{ route('songs.create') }}" class="songs-page-wrapper w-inline-block">
                     click to upload first song

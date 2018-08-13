@@ -85,10 +85,12 @@ class Song extends Model
         return $this;
     }
 
-    public function setCoverArt(Request $request)
+    public function setCoverArt(Request $request, bool $update = false)
     {
         if ($request->hasFile('art')) {
             $path = Storage::url($request->file('art')->store('public/images/arts'));
+        } elseif ($update) {
+            $path = $this->art;
         } else {
             $path = '/images/default.jpg';
         }
@@ -99,6 +101,74 @@ class Song extends Model
     public function setReleaseDate(string $release_date)
     {
         $this->attributes['release_date'] = $release_date;
+        return $this;
+    }
+
+    public function setProducers(array $producers, bool $update = false)
+    {
+        ($update)? $this->producers()->sync($producers) : $this->producers()->attach($producers);
+        return $this;
+    }
+
+    public function getProducers()
+    {
+        return implode(" / ", $this->producers->pluck('nick_name')->toArray());
+    }
+
+    public function getProducerIds()
+    {
+        return $this->producers()->pluck('producers.id')->toArray();
+    }
+
+    public function setFeatured(array $featured_artists, bool $update = false)
+    {
+        ($update)? $this->featured()->sync($featured_artists) : $this->featured()->attach($featured_artists);
+        return $this;
+    }
+
+    public function getFeatured()
+    {
+        $artists = $this->getFeaturedArtists();
+        if (count($artists)){
+            return implode(" / ", $artists);
+        }
+        return '----';
+    }
+
+    public function getFeaturedArtists()
+    {
+        return $this->featured->pluck('nick_name')->toArray();
+    }
+
+    public function getFeaturedIds()
+    {
+        return $this->featured()->pluck('artists.id')->toArray();
+    }
+
+    public function setGenres(array $genres, bool $update = false)
+    {
+        ($update)? $this->genres()->sync($genres) : $this->genres()->attach($genres);
+        return $this;
+    }
+
+    public function getGenreIds()
+    {
+        return $this->genres()->pluck('genres.id')->toArray();
+    }
+
+    public function getGenres()
+    {
+        return implode(", ", $this->genres->pluck('name')->toArray());
+    }
+
+    public function getReleaseYear()
+    {
+        return substr($this->attributes['release_date'], 0, 4);
+    }
+
+    public function setLabel(int $label)
+    {
+        $this->label()->associate($label);
         return $this;
     }
 
@@ -127,6 +197,16 @@ class Song extends Model
         return $this->belongsToMany(Artist::class);
     }
 
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
+
+    public function producers()
+    {
+        return $this->belongsToMany(Producer::class);
+    }
+
     /**
      * @param Request $request
      *
@@ -149,16 +229,33 @@ class Song extends Model
         }
     }
 
-    public function saveMetadata()
+    public function saveMetadata(bool $update = false, string $qisimah_id = '')
     {
         try {
             $this->save();
-            session()->flash('success', 'Song Saved!');
-            return redirect()->route('songs.index');
+            ($update)? session()->flash('success', 'Song Updated!') : session()->flash('success', 'Song Saved!');
+            return ($update)? redirect()->route('songs.show', ["qisimah_id" => $qisimah_id]) : redirect()->route('songs.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             session()->flash('error', 'Song could not be saved. Please try again!');
-            return redirect()->route('songs');
+            return ($update)? redirect()->route('songs.show', ["qisimah_id" => $qisimah_id]) : redirect()->route('songs');
         }
+    }
+
+    public function remove()
+    {
+        if ($this->user->id == Auth::id()) {
+            try {
+                $this->delete();
+                session()->flash('success', 'Song Removed!');
+                return redirect()->route('songs.index');
+            } catch (\Exception $exception) {
+                session()->flash('error', 'Song could not be removed!');
+                return redirect()->back();
+            }
+        }
+        session()->flash('error', 'You are not allowed to perform this action!');
+        return redirect()->back();
+
     }
 }

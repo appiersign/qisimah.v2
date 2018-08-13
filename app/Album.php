@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Album extends Model
 {
+//    protected $fillable = ['title'];
 
     public function __construct()
     {
