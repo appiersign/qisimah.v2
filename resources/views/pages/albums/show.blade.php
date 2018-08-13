@@ -313,35 +313,43 @@
                         <div class="number-card-progress">{{ $album->release_year }}</div>
                     </div>
                     <div class="div-block-72">
-                        <div class="album-list-row" data-ix="showextra">
-                            <div class="div-block-73">
-                                <div class="text-block-24">TITLE</div>
-                                <div>Adiapena</div>
-                            </div>
-                            <div class="div-block-74">
-                                <div class="text-block-24">FEATURED</div>
-                                <div>Adiapena</div>
-                            </div>
-                            <div class="div-block-76">
-                                <div class="text-block-24">DURATION</div>
-                                <div>3.52</div>
-                            </div>
-                            <div class="div-block-75">
-                                <div class="text-block-24">PLAYS</div>
-                                <div>21452</div>
-                            </div>
-                            <div class="div-block-77">
-                                <div class="text-block-24">ACTIONS</div>
-                                <div class="div-block-79">
-                                    <a href="{{ route('albums.edit', ['id' => $album->id]) }}" class="album-edit-things w-inline-block" data-ix="view-edit-modal">
-                                        <img src="{{ asset('images/edit-interface-sign.svg') }}" width="20">
-                                    </a>
-                                    <a href="{{ route('albums.destroy', ['id' => $album->id]) }}" class="album-edit-things w-inline-block" onclick="">
-                                        <img src="{{ asset('images/rubbish-bin.svg') }}" width="20">
-                                    </a>
+                        @if ($album->songs)
+                            @foreach ($album->songs as $song)
+                                <div class="album-list-row" data-ix="showextra">
+                                    <div class="div-block-73">
+                                        <div class="text-block-24">TITLE</div>
+                                        <div>{{ $song->title }}</div>
+                                    </div>
+                                    <div class="div-block-74">
+                                        <div class="text-block-24">FEATURED</div>
+                                        <div>{{ $song->getFeatured() }}</div>
+                                    </div>
+                                    <div class="div-block-76">
+                                        <div class="text-block-24">DURATION</div>
+                                        <div>{{ $song->duration }}</div>
+                                    </div>
+                                    <div class="div-block-75">
+                                        <div class="text-block-24">PLAYS</div>
+                                        <div>21452</div>
+                                    </div>
+                                    <div class="div-block-77">
+                                        <div class="text-block-24">ACTIONS</div>
+                                        <div class="div-block-79">
+                                            <a href="{{ route('songs.edit', ['qisimah_id' => $song->qisimah_id]) }}"
+                                               class="album-edit-things w-inline-block" data-ix="view-edit-modal">
+                                                <img src="{{ asset('images/edit-interface-sign.svg') }}" width="20">
+                                            </a>
+                                            <a href="{{ route('songs.destroy', ['qisimah_id' => $song->qisimah_id]) }}"
+                                               class="album-edit-things w-inline-block" onclick="">
+                                                <img src="{{ asset('images/rubbish-bin.svg') }}" width="20">
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="album-list-row" data-ix="showextra">There are no songs on album</div>
+                        @endif
                     </div>
                 </div>
             </div>
