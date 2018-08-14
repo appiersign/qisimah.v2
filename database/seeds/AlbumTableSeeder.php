@@ -14,6 +14,7 @@ class AlbumTableSeeder extends Seeder
         $album = new \App\Album();
         $album->setTitle("Single");
         $album->setYear(2018);
+        $album->art = 'images/default.jpg';
         $album->label()->associate(1);
         $album->artist()->associate(1);
         $album->user()->associate(1);

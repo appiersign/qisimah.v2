@@ -208,8 +208,6 @@ class Song extends Model
     }
 
     /**
-     * @param Request $request
-     *
      * @return string
      */
     public function upload()
