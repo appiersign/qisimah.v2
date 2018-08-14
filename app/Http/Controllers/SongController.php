@@ -12,7 +12,6 @@ use App\Producer;
 use App\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class SongController extends Controller
 {
@@ -54,6 +53,9 @@ class SongController extends Controller
     }
 
     /**
+     * Display form for Song Metadata
+     *
+     * @param $qisimah_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function createMetaData($qisimah_id)
@@ -108,7 +110,7 @@ class SongController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Song  $song
+     * @param string $qisimah_id
      * @return \Illuminate\Http\Response
      */
     public function show(string $qisimah_id)
@@ -120,7 +122,7 @@ class SongController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Song  $song
+     * @param string $qisimah_id
      * @return \Illuminate\Http\Response
      */
     public function edit(string $qisimah_id)
@@ -145,7 +147,7 @@ class SongController extends Controller
      * Update the specified resource in storage.
      *
      * @param StoreMetadataRequest $request
-     * @param  \App\Song $song
+     * @param string $qisimah_id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StoreMetadataRequest $request, string $qisimah_id)
@@ -156,7 +158,7 @@ class SongController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Song  $song
+     * @param string $qisimah_id
      * @return \Illuminate\Http\Response
      */
     public function destroy(string $qisimah_id)
