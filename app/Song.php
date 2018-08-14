@@ -73,7 +73,7 @@ class Song extends Model
         return $this;
     }
 
-    public function setStatus(bool $status)
+    public function setStatus(int $status)
     {
         $this->attributes['status'] = $status;
         return $this;
@@ -108,6 +108,27 @@ class Song extends Model
     {
         ($update)? $this->producers()->sync($producers) : $this->producers()->attach($producers);
         return $this;
+    }
+
+    public function getDuration()
+    {
+        $minutes = ($this->attributes['duration'] / 1000) / 60;
+        return number_format($minutes, 2);
+    }
+
+    public function getAudioPath()
+    {
+        return substr($this->attributes['audio'], 8);
+    }
+
+    public function getFullAudioPath()
+    {
+        return storage_path('app/public' . $this->getAudioPath());
+    }
+
+    public function getArtistAndTitle()
+    {
+        return $this->artist->nick_name . ' - ' . $this->title;
     }
 
     public function getProducers()

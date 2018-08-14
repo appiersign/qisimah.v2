@@ -54,7 +54,7 @@
                         </div>
                         <div class="div-block-98">
                             <div class="heading-text">DURATION</div>
-                            <div>{{ $song->duration }}</div>
+                            <div>{{ $song->getDuration() }}</div>
                         </div>
                     </a>
                 @endforeach
