@@ -29,7 +29,7 @@ class FingerPrint
         return $this->file;
     }
 
-    public function do(): bool 
+    public function do(): bool
     {
         $this->song->setStatus(2)->save();
         $request_url = env('ACR_FINGER_PRINT_URL');
