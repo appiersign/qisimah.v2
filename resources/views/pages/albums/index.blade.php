@@ -304,106 +304,37 @@
 
             @include('components.guest.success-message')
 
-            <div data-duration-in="300" data-duration-out="100" class="w-tabs">
-                <div class="tabs-menu-3 w-tab-menu">
-                    <a data-w-tab="Tab 1" class="broadcast-tab-link w-inline-block w-tab-link">
-                        <div class="text-block-57">Radio</div>
-                    </a>
-                    <a data-w-tab="Tab 2" class="broadcast-tab-link w-inline-block w-tab-link w--current">
-                        <div class="text-block-56">Television</div>
-                    </a>
-                </div>
-                <div class="w-tab-content">
-                    <div data-w-tab="Tab 1" class="broadcast-tab-content w-tab-pane">
-                        <div class="section-heading-main-wrapper w-hidden-small w-hidden-tiny">
-                            <div class="heading-text-proper">LOGO</div>
-                            <div class="heading-text-proper proper-name">NAME</div>
-                            <div class="heading-text-proper proper-location">LOCATION</div>
-                            <div class="heading-text-proper proper-status">STATUS</div>
-                            <div class="heading-text-proper proper-action">ACTION</div>
-                        </div>
-                        <div class="section-heading-main-wrapper hidden w-hidden-main w-hidden-medium"></div>
-                        <div class="broadcasters-list-wrapper">
-                            <div class="station-logo">
-                                <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                <img src="images/joy-fm-logo.png" class="station-logo">
-                            </div>
-                            <div class="station-name">
-                                <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
-                                <div class="text-block-25">Joy FM</div>
-                            </div>
-                            <div class="station-location">
-                                <div class="heading-text-proper proper-location give-space w-hidden-main w-hidden-medium">LOCATION</div>
-                                <div class="text-block-25">Accra, Ghana</div>
-                            </div>
-                            <div class="station-status">
-                                <div class="heading-text-proper proper-status give-space w-hidden-main w-hidden-medium">STATUS</div>
-                                <div class="text-block-26">LISTENING</div>
-                            </div>
-                            <div class="station-action">
-                                <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
-                                <div class="div-block-81">
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-eye-24.png" width="20" height="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-close-window-20.png" width="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-icon w-inline-block">
-                                        <img src="images/icons8-pencil-20.png">
-                                    </a>
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-hearing-20.png">
-                                    </a>
+            <div class="albums-column w-row">
+                @if($albums)
+                    @foreach($albums as $album)
+                        <div class="w-col w-col-3 w-col-medium-6">
+                            <div class="album-card" data-ix="load-album-modal">
+                                <div class="product-card-image product-card-1"></div>
+                                <img src="{{ asset($album->art) }}" srcset="{{ asset($album->art) }} 500w, {{ asset($album->art) }} 800w, {{ asset($album->art) }} 960w" sizes="(max-width: 479px) 87vw, (max-width: 767px) 90vw, (max-width: 991px) 45vw, 24vw" class="image-8">
+                                <div class="product-card-description">
+                                    <div class="div-block-67">
+                                        <div class="div-block-66">
+                                            <div>
+                                                <div class="album-artist-name">{{ $album->artist->nick_name }}</div>
+                                                <h3 class="album-name-title">{{ $album->getShortTitle() }}</h3>
+                                            </div>
+                                            <div class="price-wrapper">
+                                                <div>
+                                                    <h2 class="track-number">{{ $album->songs->count() }}</h2>
+                                                    <div class="text-block-8">Songs</div>
+                                                </div>
+                                                <div class="div-block-69"></div>
+                                                <a href="{{ route('albums.show', ['qisimah_id' => $album->qisimah_id]) }}" class="album-edit-btns w-inline-block">
+                                                    <img src="{{ asset('images/view-list.svg') }}" width="20">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div data-w-tab="Tab 2" class="broadcast-tab-content w-tab-pane w--tab-active">
-                        <div class="section-heading-main-wrapper w-hidden-small w-hidden-tiny">
-                            <div class="heading-text-proper">LOGO</div>
-                            <div class="heading-text-proper proper-name">NAME</div>
-                            <div class="heading-text-proper proper-location">LOCATION</div>
-                            <div class="heading-text-proper proper-status">STATUS</div>
-                            <div class="heading-text-proper proper-action">ACTION</div>
-                        </div>
-                        <div class="broadcasters-list-wrapper">
-                            <div class="station-logo">
-                                <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                <img src="images/joy-fm-logo.png" class="station-logo">
-                            </div>
-                            <div class="station-name">
-                                <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
-                                <div class="text-block-25">Adom TV</div>
-                            </div>
-                            <div class="station-location">
-                                <div class="heading-text-proper proper-location give-space w-hidden-main w-hidden-medium">LOCATION</div>
-                                <div class="text-block-25">Accra, Ghana</div>
-                            </div>
-                            <div class="station-status">
-                                <div class="heading-text-proper proper-status give-space w-hidden-main w-hidden-medium">STATUS</div>
-                                <div class="text-block-26">MONITORING</div>
-                            </div>
-                            <div class="station-action">
-                                <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
-                                <div class="div-block-81">
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-eye-24.png" width="20" height="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons delete-1 w-inline-block">
-                                        <img src="images/icons8-close-window-20.png" width="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-1 w-inline-block">
-                                        <img src="images/icons8-pencil-20.png">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-icon w-inline-block">
-                                        <img src="images/icons8-hearing-20.png">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

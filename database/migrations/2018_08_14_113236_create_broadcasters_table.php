@@ -20,11 +20,13 @@ class CreateBroadcastersTable extends Migration
             $table->unsignedInteger('region_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->string('name')->index();
+            $table->string('frequency');
             $table->string('type')->index();
             $table->string('logo')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('telephone')->nullable();
+            $table->string('tag_line')->nullable();
             $table->smallInteger('status')->default(0);;
             $table->string('stream_url')->nullable();
             $table->timestamps();

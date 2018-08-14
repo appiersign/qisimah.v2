@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Broadcaster;
+use App\Country;
+use App\Http\Requests\StoreBroadcasterRequest;
+use App\Region;
+use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BroadcasterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +35,10 @@ class BroadcasterController extends Controller
      */
     public function create()
     {
-        //
+        $countries = Country::all();
+        $regions = Region::all();
+        $tags = Tag::all();
+        return view('pages.broadcaster.create', compact('countries', 'regions', 'tags'));
     }
 
     /**
@@ -34,9 +47,22 @@ class BroadcasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBroadcasterRequest $request)
     {
-        //
+        $broadcaster = new Broadcaster();
+        return $broadcaster
+            ->setQisimahId()
+            ->setName($request->input('name'))
+            ->setFrequency($request->input('frequency'))
+            ->setCity($request->input('city'))
+            ->setRegion($request->input('region'))
+            ->setUser(Auth::id())
+            ->setStreamUrl($request)
+            ->setAddress($request->input('address'))
+            ->setTagLine($request->input('tag.line'))
+            ->setType($request->input('type'))
+            ->setTelephone($request->input('telephone'))
+            ->store();
     }
 
     /**
