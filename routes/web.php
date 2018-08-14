@@ -32,7 +32,8 @@ Route::resources([
     'artists'   => 'ArtistController',
     'songs'     => 'SongController',
     'plays'     => 'PlayController',
-    'albums'    => 'AlbumController'
+    'albums'    => 'AlbumController',
+    'broadcasters'  =>  'BroadcasterController'
 ]);
 
 Route::get('songs/{qisimah_id}/metadata', 'SongController@createMetaData')->name('songs.metadata');

@@ -294,115 +294,67 @@
             </div>
         </div>
 
-        <div class="qisimah-container-main" data-ix="load-album-modal">
-            <div class="div-block-46">
-                <a href="{{ route('albums.create') }}" class="link-block-5 w-inline-block">
-                    <div data-ix="upload-broadcaster-modal">add album</div>
-                </a>
-                <div class="text-block-17"></div>
-            </div>
+        @include('components.guest.danger-message')
 
-            @include('components.guest.success-message')
-
-            <div data-duration-in="300" data-duration-out="100" class="w-tabs">
-                <div class="tabs-menu-3 w-tab-menu">
-                    <a data-w-tab="Tab 1" class="broadcast-tab-link w-inline-block w-tab-link">
-                        <div class="text-block-57">Radio</div>
-                    </a>
-                    <a data-w-tab="Tab 2" class="broadcast-tab-link w-inline-block w-tab-link w--current">
-                        <div class="text-block-56">Television</div>
-                    </a>
-                </div>
-                <div class="w-tab-content">
-                    <div data-w-tab="Tab 1" class="broadcast-tab-content w-tab-pane">
-                        <div class="section-heading-main-wrapper w-hidden-small w-hidden-tiny">
-                            <div class="heading-text-proper">LOGO</div>
-                            <div class="heading-text-proper proper-name">NAME</div>
-                            <div class="heading-text-proper proper-location">LOCATION</div>
-                            <div class="heading-text-proper proper-status">STATUS</div>
-                            <div class="heading-text-proper proper-action">ACTION</div>
+        <div class="form-modal-sub albums-column w-row form-block-7">
+            <h1 class="heading-6">add album</h1>
+            <a href="{{ route('albums.index') }}" class="proper-close-4-modal w-inline-block" data-ix="close-broadcaster-modal">
+                <img src="{{ asset('images/ic_close_white_256dp_1x.png') }}" width="32">
+            </a>
+            <div class="div-block-82">
+                <div class="w-form">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('albums.update', ['id' => $album->id]) }}" name="albums" data-name="Email Form 2">
+                        {{ csrf_field() }}
+                        <div class="w-row">
+                            <div class="w-col w-col-6">
+                                <label for="album-title" class="form-label">Album Title:</label>
+                                <input id="album-title" value="{{ old('title') ?? $album->title }}" type="text" class="text-field-2 w-input" name="title" placeholder="Title">
+                            </div>
+                            <div class="w-col w-col-6">
+                                <label for="album-year" class="form-label">Release Year:</label>
+                                <input id="album-year" value="{{ old('year') ?? $album->release_year }}" type="text" class="text-field-2 w-input" name="year" placeholder="eg. {{ date('Y') }}">
+                            </div>
                         </div>
-                        <div class="section-heading-main-wrapper hidden w-hidden-main w-hidden-medium"></div>
-                        <div class="broadcasters-list-wrapper">
-                            <div class="station-logo">
-                                <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                <img src="images/joy-fm-logo.png" class="station-logo">
+                        <div class="w-row">
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="album-artist" class="form-label">Artist:</label>
+                                <select id="album-artist" name="artist" class="meta-data-field w-select">
+                                    <option value="">Select Artist</option>
+                                    @if($artists)
+                                        @foreach($artists as $artist)
+                                            <option value="{{ $artist->id }}" {{ ($album->artist->id == $artist->id)? 'selected' : '' }}>{{ $artist->nick_name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
-                            <div class="station-name">
-                                <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
-                                <div class="text-block-25">Joy FM</div>
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="album-label" class="form-label">Label:</label>
+                                <select id="album-label" name="label" class="meta-data-field w-select">
+                                    <option value="">Select Label</option>
+                                    @if($labels)
+                                        @foreach($labels as $label)
+                                            <option value="{{ $label->id }}" {{ ($album->label->id == $label->id)? 'selected' : '' }}>{{ $label->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
-                            <div class="station-location">
-                                <div class="heading-text-proper proper-location give-space w-hidden-main w-hidden-medium">LOCATION</div>
-                                <div class="text-block-25">Accra, Ghana</div>
+                        </div>
+                        <div class="w-row">
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="logo" class="form-label">Album art:</label>
+                                <input type="file" class="text-field-2 logo-field w-input" name="art">
                             </div>
-                            <div class="station-status">
-                                <div class="heading-text-proper proper-status give-space w-hidden-main w-hidden-medium">STATUS</div>
-                                <div class="text-block-26">LISTENING</div>
-                            </div>
-                            <div class="station-action">
-                                <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
-                                <div class="div-block-81">
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-eye-24.png" width="20" height="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-close-window-20.png" width="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-icon w-inline-block">
-                                        <img src="images/icons8-pencil-20.png">
-                                    </a>
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-hearing-20.png">
-                                    </a>
+                            <div class="w-clearfix w-col w-col-6">
+                                <label for="logo" class="form-label"><p></p></label>
+                                <div class="div-block-83">
+                                    <input type="submit" value="update" data-wait="Please wait..." class="button w-button">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div data-w-tab="Tab 2" class="broadcast-tab-content w-tab-pane w--tab-active">
-                        <div class="section-heading-main-wrapper w-hidden-small w-hidden-tiny">
-                            <div class="heading-text-proper">LOGO</div>
-                            <div class="heading-text-proper proper-name">NAME</div>
-                            <div class="heading-text-proper proper-location">LOCATION</div>
-                            <div class="heading-text-proper proper-status">STATUS</div>
-                            <div class="heading-text-proper proper-action">ACTION</div>
+                        <div class="form-submit-wrapper">
+
                         </div>
-                        <div class="broadcasters-list-wrapper">
-                            <div class="station-logo">
-                                <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                <img src="images/joy-fm-logo.png" class="station-logo">
-                            </div>
-                            <div class="station-name">
-                                <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
-                                <div class="text-block-25">Adom TV</div>
-                            </div>
-                            <div class="station-location">
-                                <div class="heading-text-proper proper-location give-space w-hidden-main w-hidden-medium">LOCATION</div>
-                                <div class="text-block-25">Accra, Ghana</div>
-                            </div>
-                            <div class="station-status">
-                                <div class="heading-text-proper proper-status give-space w-hidden-main w-hidden-medium">STATUS</div>
-                                <div class="text-block-26">MONITORING</div>
-                            </div>
-                            <div class="station-action">
-                                <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
-                                <div class="div-block-81">
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-eye-24.png" width="20" height="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons delete-1 w-inline-block">
-                                        <img src="images/icons8-close-window-20.png" width="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-1 w-inline-block">
-                                        <img src="images/icons8-pencil-20.png">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-icon w-inline-block">
-                                        <img src="images/icons8-hearing-20.png">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
