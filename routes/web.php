@@ -32,9 +32,11 @@ Route::resources([
     'artists'   => 'ArtistController',
     'songs'     => 'SongController',
     'plays'     => 'PlayController',
-    'albums'    => 'AlbumController'
+    'albums'    => 'AlbumController',
+    'broadcasters'  =>  'BroadcasterController'
 ]);
 
+Route::get('broadcasters/create/{country}', 'BroadcasterController@getRegions');
 Route::get('songs/{qisimah_id}/metadata', 'SongController@createMetaData')->name('songs.metadata');
 Route::post('songs/{qisimah_id}/metadata', 'SongController@storeMetaData')->name('songs.metadata.update');
 

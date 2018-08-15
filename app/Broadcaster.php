@@ -1,0 +1,126 @@
+<?php
+
+namespace App;
+
+use App\Http\Requests\StoreBroadcasterRequest;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+
+class Broadcaster extends Model
+{
+
+    public function setQisimahId()
+    {
+        $this->attributes['qisimah_id'] = str_random();
+        return $this;
+    }
+
+    public function setName(string $name)
+    {
+        $_name = strtolower($name);
+        $this->attributes['name'] = ucwords($_name);
+        $this->attributes['search_box'] = $_name;
+        return $this;
+    }
+
+    public function setFrequency(string $frequency)
+    {
+        $this->attributes['frequency'] = $frequency;
+        return $this;
+    }
+
+    public function setCity(string $city)
+    {
+        $this->attributes['city'] = ucwords(strtolower($city));
+        return $this;
+    }
+
+    public function setTagLine(string $tag_line)
+    {
+        $this->attributes['tag_line'] = ucwords(strtolower($tag_line));
+        return $this;
+    }
+
+    public function setType(string $type)
+    {
+        $this->attributes['type'] = $type;
+        return $this;
+    }
+
+    public function setLogo(StoreBroadcasterRequest $request)
+    {
+        if ($request->hasFile('logo')){
+            $path = str_replace('public', 'storage', $request->file('logo')->store('public/images/broadcasters'));
+//            $path = substr($path, 6);
+        } else {
+            $path = 'images/default.jpg';
+        }
+        $this->attributes['logo'] = $path;
+        return $this;
+    }
+
+    public function setAddress(string $address)
+    {
+        $this->attributes['address'] = $address;
+        return $this;
+    }
+
+    public function setStreamUrl(string $url)
+    {
+        $this->attributes['stream_url'] = $url;
+        return $this;
+    }
+
+    public function setTelephone(string $telephone)
+    {
+        $this->attributes['telephone'] = $telephone;
+        return $this;
+    }
+
+    public function setStreamId(string $stream_id)
+    {
+        $this->attributes['stream_id'] = $stream_id;
+        return $this;
+    }
+
+    public function setRegion(int $region)
+    {
+        $this->region()->associate($region);
+        return $this;
+    }
+
+    public function setUser(int $user)
+    {
+        $this->user()->associate($user);
+        return $this;
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getLocation()
+    {
+        $region = $this->region()->with('country')->first();
+        return $this->attributes['city'] . ', '. $region->country->name;
+    }
+
+    public function store()
+    {
+        try {
+            $this->save();
+            session()->flash('success', 'Broadcaster created!');
+            return redirect()->route('broadcasters.index');
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Something went wrong, we could not create broadcaster');
+            Log::error($exception->getMessage());
+            return redirect()->back()->withInput();
+        }
+    }
+}
