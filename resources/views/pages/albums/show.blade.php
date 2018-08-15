@@ -326,7 +326,7 @@
                                     </div>
                                     <div class="div-block-76">
                                         <div class="text-block-24">DURATION</div>
-                                        <div>{{ $song->duration }}</div>
+                                        <div>{{ $song->getDuration() }}</div>
                                     </div>
                                     <div class="div-block-75">
                                         <div class="text-block-24">PLAYS</div>
