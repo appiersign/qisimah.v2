@@ -24,8 +24,9 @@ class BroadcasterController extends Controller
      */
     public function index()
     {
-        $broadcasters = Broadcaster::all();
-        return view('pages.broadcaster.index', compact('broadcasters'));
+        $radios = Broadcaster::where('type', 'radio')->get();
+        $tvs = Broadcaster::where('type', 'tv')->get();
+        return view('pages.broadcaster.index', compact('radios', 'tvs'));
     }
 
     /**
