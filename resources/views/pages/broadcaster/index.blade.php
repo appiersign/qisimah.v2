@@ -66,17 +66,21 @@
                                     <div class="station-action">
                                         <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
                                         <div class="div-block-81">
-                                            <a href="#" class="station-action-icons w-inline-block">
-                                                <img src="images/icons8-eye-24.png" width="20" height="20">
+                                            <a href="{{ route('broadcasters.show', ["qisimah_id" => $radio->qisimah_id]) }}" class="station-action-icons w-inline-block">
+                                                <img src="{{ asset('images/icons8-eye-24.png') }}" width="20" height="20">
                                             </a>
-                                            <a href="#" class="station-action-icons w-inline-block">
-                                                <img src="images/icons8-close-window-20.png" width="20">
+                                            <form action="{{ route('broadcasters.destroy', ["qisimah_id" => $radio->qisimah_id]) }}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" value="delete" name="_method">
+                                                <button type="submit" class="station-action-icons w-inline-block">
+                                                    <img src="{{ asset('images/icons8-close-window-20.png') }}" width="20">
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('broadcasters.edit', ["qisimah_id" => $radio->qisimah_id]) }}" class="station-action-icons edit-icon w-inline-block">
+                                                <img src="{{ asset('images/icons8-pencil-20.png') }}">
                                             </a>
-                                            <a href="#" class="station-action-icons edit-icon w-inline-block">
-                                                <img src="images/icons8-pencil-20.png">
-                                            </a>
-                                            <a href="#" class="station-action-icons w-inline-block">
-                                                <img src="images/icons8-hearing-20.png">
+                                            <a href="" class="station-action-icons w-inline-block">
+                                                <img src="{{ asset('images/icons8-hearing-20.png') }}">
                                             </a>
                                         </div>
                                     </div>
@@ -118,9 +122,13 @@
                                             <a href="{{ route('broadcasters.show', ["qisimah_id" => $tv->qisimah_id]) }}" class="station-action-icons w-inline-block">
                                                 <img src="{{ asset('images/icons8-eye-24.png') }}" width="20" height="20">
                                             </a>
-                                            <a href="{{ route('broadcasters.destroy', ["qisimah_id" => $tv->qisimah_id]) }}" class="station-action-icons w-inline-block">
-                                                <img src="{{ asset('images/icons8-close-window-20.png') }}" width="20">
-                                            </a>
+                                            <form action="{{ route('broadcasters.destroy', ["qisimah_id" => $tv->qisimah_id]) }}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" value="delete" name="_method">
+                                                <button type="submit" class="station-action-icons w-inline-block">
+                                                    <img src="{{ asset('images/icons8-close-window-20.png') }}" width="20">
+                                                </button>
+                                            </form>
                                             <a href="{{ route('broadcasters.edit', ["qisimah_id" => $tv->qisimah_id]) }}" class="station-action-icons edit-icon w-inline-block">
                                                 <img src="{{ asset('images/icons8-pencil-20.png') }}">
                                             </a>

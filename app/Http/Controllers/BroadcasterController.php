@@ -107,13 +107,14 @@ class BroadcasterController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove specified resource.
      *
-     * @param  \App\Broadcaster  $broadcaster
-     * @return \Illuminate\Http\Response
+     * @param string $qisimah_id
+     * @return mixed
      */
-    public function destroy(Broadcaster $broadcaster)
+    public function destroy(string $qisimah_id)
     {
-        //
+        $broadcaster = Broadcaster::where('qisimah_id', $qisimah_id)->first();
+        return $broadcaster->remove();
     }
 }

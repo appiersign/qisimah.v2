@@ -123,4 +123,16 @@ class Broadcaster extends Model
             return redirect()->back()->withInput();
         }
     }
+
+    public function remove()
+    {
+        try {
+            $this->delete();
+            session()->flash('success', 'Broadcaster destroyed');
+            return redirect()->route('broadcasters.index');
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Broadcaster could not be destroyed');
+            return redirect()->back();
+        }
+    }
 }
