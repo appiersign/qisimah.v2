@@ -16,6 +16,8 @@ class CreateRegionsTable extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('qisimah_id')->unique()->index();
+            $table->string('name');
+            $table->string('search_box')->index();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('country_id');
             $table->string('latitude');

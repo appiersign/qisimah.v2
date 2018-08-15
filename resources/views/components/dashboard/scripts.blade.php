@@ -6,3 +6,15 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/qisimahfinal.js') }}" type="text/javascript"></script>
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+<script>
+    function getRegions(){
+        $.get('/broadcasters/create/'+document.getElementById('broadcaster-country').value, function (data, status) {
+            if (status === 'success') {
+                data.map(function (obj) {
+                    option = "<option value='"+obj.id+"'>"+obj.name+"</option>";
+                    $('#broadcaster-region').append(option);
+                });
+            }
+        });
+    }
+</script>

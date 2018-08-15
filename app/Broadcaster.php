@@ -4,6 +4,7 @@ namespace App;
 
 use App\Http\Requests\StoreBroadcasterRequest;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Broadcaster extends Model
 {
@@ -30,13 +31,13 @@ class Broadcaster extends Model
 
     public function setCity(string $city)
     {
-        $this->attributes['city'] = strtolower(ucwords($city));
+        $this->attributes['city'] = ucwords(strtolower($city));
         return $this;
     }
 
     public function setTagLine(string $tag_line)
     {
-        $this->attributes['tag_line'] = strtolower(ucwords($tag_line));
+        $this->attributes['tag_line'] = ucwords(strtolower($tag_line));
         return $this;
     }
 
@@ -49,9 +50,10 @@ class Broadcaster extends Model
     public function setLogo(StoreBroadcasterRequest $request)
     {
         if ($request->hasFile('logo')){
-            $path = storage_path($request->file('logo')->store('public/images/broadcasters'));
+            $path = str_replace('public', 'storage', $request->file('logo')->store('public/images/broadcasters'));
+//            $path = substr($path, 6);
         } else {
-            $path = 'images/default.jgp';
+            $path = 'images/default.jpg';
         }
         $this->attributes['logo'] = $path;
         return $this;
@@ -103,6 +105,12 @@ class Broadcaster extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getLocation()
+    {
+        $region = $this->region()->with('country')->first();
+        return $this->attributes['city'] . ', '. $region->country->name;
+    }
+
     public function store()
     {
         try {
@@ -111,6 +119,7 @@ class Broadcaster extends Model
             return redirect()->route('broadcasters.index');
         } catch (\Exception $exception) {
             session()->flash('error', 'Something went wrong, we could not create broadcaster');
+            Log::error($exception->getMessage());
             return redirect()->back()->withInput();
         }
     }

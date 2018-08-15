@@ -44,41 +44,46 @@
                             <div class="heading-text-proper proper-action">ACTION</div>
                         </div>
                         <div class="section-heading-main-wrapper hidden w-hidden-main w-hidden-medium"></div>
-                        <div class="broadcasters-list-wrapper">
-                            <div class="station-logo">
-                                <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                <img src="images/joy-fm-logo.png" class="station-logo">
-                            </div>
-                            <div class="station-name">
-                                <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
-                                <div class="text-block-25">Joy FM</div>
-                            </div>
-                            <div class="station-location">
-                                <div class="heading-text-proper proper-location give-space w-hidden-main w-hidden-medium">LOCATION</div>
-                                <div class="text-block-25">Accra, Ghana</div>
-                            </div>
-                            <div class="station-status">
-                                <div class="heading-text-proper proper-status give-space w-hidden-main w-hidden-medium">STATUS</div>
-                                <div class="text-block-26">LISTENING</div>
-                            </div>
-                            <div class="station-action">
-                                <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
-                                <div class="div-block-81">
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-eye-24.png" width="20" height="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-close-window-20.png" width="20">
-                                    </a>
-                                    <a href="#" class="station-action-icons edit-icon w-inline-block">
-                                        <img src="images/icons8-pencil-20.png">
-                                    </a>
-                                    <a href="#" class="station-action-icons w-inline-block">
-                                        <img src="images/icons8-hearing-20.png">
-                                    </a>
+                        @if ($broadcasters)
+                            @foreach ($broadcasters as $broadcaster)
+                                <div class="broadcasters-list-wrapper">
+                                    <div class="station-logo">
+                                        <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
+                                        <img src="{{ asset($broadcaster->logo) }}" class="station-logo">
+                                    </div>
+                                    <div class="station-name">
+                                        <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
+                                        <div class="text-block-25">{{ $broadcaster->name }}</div>
+                                    </div>
+                                    <div class="station-location">
+                                        <div class="heading-text-proper proper-location give-space w-hidden-main w-hidden-medium">LOCATION</div>
+                                        <div class="text-block-25">{{ $broadcaster->getLocation() }}</div>
+                                    </div>
+                                    <div class="station-status">
+                                        <div class="heading-text-proper proper-status give-space w-hidden-main w-hidden-medium">STATUS</div>
+                                        <div class="text-block-26">LISTENING</div>
+                                    </div>
+                                    <div class="station-action">
+                                        <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
+                                        <div class="div-block-81">
+                                            <a href="#" class="station-action-icons w-inline-block">
+                                                <img src="images/icons8-eye-24.png" width="20" height="20">
+                                            </a>
+                                            <a href="#" class="station-action-icons w-inline-block">
+                                                <img src="images/icons8-close-window-20.png" width="20">
+                                            </a>
+                                            <a href="#" class="station-action-icons edit-icon w-inline-block">
+                                                <img src="images/icons8-pencil-20.png">
+                                            </a>
+                                            <a href="#" class="station-action-icons w-inline-block">
+                                                <img src="images/icons8-hearing-20.png">
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            @endforeach
+
+                        @endif
                     </div>
                     <div data-w-tab="Tab 2" class="broadcast-tab-content w-tab-pane w--tab-active">
                         <div class="section-heading-main-wrapper w-hidden-small w-hidden-tiny">

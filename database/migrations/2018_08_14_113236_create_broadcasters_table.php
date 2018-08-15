@@ -20,6 +20,7 @@ class CreateBroadcastersTable extends Migration
             $table->unsignedInteger('region_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->string('name')->index();
+            $table->string('search_box')->index();
             $table->string('frequency');
             $table->string('type')->index();
             $table->string('logo')->nullable();

@@ -36,9 +36,14 @@ class BroadcasterController extends Controller
     public function create()
     {
         $countries = Country::all();
-        $regions = Region::all();
+        $regions = [];
         $tags = Tag::all();
         return view('pages.broadcaster.create', compact('countries', 'regions', 'tags'));
+    }
+
+    public function getRegions($country)
+    {
+        return Region::where('country_id', $country)->get(['id', 'name']);
     }
 
     /**
@@ -57,11 +62,12 @@ class BroadcasterController extends Controller
             ->setCity($request->input('city'))
             ->setRegion($request->input('region'))
             ->setUser(Auth::id())
-            ->setStreamUrl($request)
+            ->setStreamUrl($request->input('stream'))
             ->setAddress($request->input('address'))
-            ->setTagLine($request->input('tag.line'))
+            ->setTagLine($request->input('tag_line'))
             ->setType($request->input('type'))
             ->setTelephone($request->input('telephone'))
+            ->setLogo($request)
             ->store();
     }
 

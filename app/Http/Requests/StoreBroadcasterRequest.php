@@ -25,14 +25,14 @@ class StoreBroadcasterRequest extends FormRequest
     {
         return [
             "name"      =>  "bail|required|min:2|max:30",
-            "frequency" =>  "bail|required|min:4|max:6|numeric",
+            "frequency" =>  "bail|required|min:4|max:6",
             "tags"      =>  "bail|required|exists:tags,id",
             "country"   =>  "bail|required|exists:countries,id",
             "region"    =>  "bail|required|exists:regions,id",
             "tag.ling"  =>  "bail|min:3",
             "type"      =>  "bail|required|in:radio,tv",
             "stream"    =>  "url",
-            "city"      =>  "bail|required|alpha|min:2",
+            "city"      =>  "bail|required|min:2",
             "logo"      =>  "bail|image|max:2000"
         ];
     }

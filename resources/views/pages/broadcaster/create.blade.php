@@ -37,7 +37,7 @@
                         <div class="w-row">
                             <div class="w-col w-col-6">
                                 <label for="broadcaster-country" class="form-label">Country: *</label>
-                                <select name="country" id="broadcaster-country" class="text-field-2 w-input" required>
+                                <select name="country" id="broadcaster-country" class="text-field-2 w-input" required onchange="getRegions()">
                                     <option value="" disabled selected>select country</option>
                                     @foreach($countries as $country)
                                         <option value="{{ $country->id }}" {{ (old('country') == $country->id)? 'selected' : '' }}>{{ $country->name }}</option>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="w-col w-col-6">
                                 <label for="broadcaster-url" class="form-label">Stream url: *</label>
-                                <input type="text" value="{{ old('broadcaster.url') }}" class="text-field-2 w-input" maxlength="256" name="broadcaster.url" placeholder="https://stream.url" id="broadcaster-url">
+                                <input type="text" value="{{ old('stream') }}" class="text-field-2 w-input" maxlength="256" name="stream" placeholder="https://stream.url" id="broadcaster-url">
                             </div>
                         </div>
                         <div class="w-row">
@@ -80,14 +80,14 @@
                                 <select name="tags" id="broadcaster-region" class="text-field-2 w-input" required multiple>
                                     <option value="" disabled selected>select tags</option>
                                     @foreach($tags as $tag)
-                                        <option value="{{ $tag->id }}" {{ (old('tags') && in_array($tag->id, old('tags')))? 'selected' : '' }}>{{ $tag->name }}</option>
+                                        <option value="{{ $tag->id }}" {{ (old('tags') && in_array($tag->id, explode(',', old('tags'))))? 'selected' : '' }}>{{ $tag->name }}</option>
                                     @endforeach
                                 </select>
                                 {{--<input type="text" class="text-field-2 w-input" maxlength="256" name="tags" data-name="tags" placeholder="music, entertainment, showbiz" id="tags">--}}
                             </div>
                             <div class="w-col w-col-6">
                                 <label for="Tagline" class="form-label">Tag line:</label>
-                                <input type="text" value="{{ old('tag.line') }}" class="text-field-2 w-input" maxlength="256" name="tag.line" data-name="Tagline" placeholder="broadcaster slogan" id="Tagline">
+                                <input type="text" value="{{ old('tag_line') }}" class="text-field-2 w-input" maxlength="256" name="tag_line" data-name="Tagline" placeholder="broadcaster slogan" id="Tagline">
                             </div>
                         </div>
                         <div class="w-row">
@@ -95,8 +95,8 @@
                                 <label for="broadcaster-type" class="form-label">Type:</label>
                                 <select name="type" id="broadcaster-type" class="text-field-2 w-input" required>
                                     <option value="" disabled selected>select type</option>
-                                    <option value="radio">radio</option>
-                                    <option value="tv">tv</option>
+                                    <option value="radio" {{ (old('type') == 'radio')? 'selected' : '' }}>radio</option>
+                                    <option value="tv" {{ (old('type') == 'tv')? 'selected' : '' }}>tv</option>
                             </div>
                             <div class="w-col w-col-6">
                                 <label for="logo" class="form-label">Logo:</label>
