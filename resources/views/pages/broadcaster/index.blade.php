@@ -115,7 +115,7 @@
                                     <div class="station-action">
                                         <div class="heading-text-proper proper-action give-space w-hidden-main w-hidden-medium">ACTION</div>
                                         <div class="div-block-81">
-                                            <a href="{{ route('broadcasters.edit', ["qisimah_id" => $tv->qisimah_id]) }}" class="station-action-icons w-inline-block">
+                                            <a href="{{ route('broadcasters.show', ["qisimah_id" => $tv->qisimah_id]) }}" class="station-action-icons w-inline-block">
                                                 <img src="{{ asset('images/icons8-eye-24.png') }}" width="20" height="20">
                                             </a>
                                             <a href="{{ route('broadcasters.destroy', ["qisimah_id" => $tv->qisimah_id]) }}" class="station-action-icons w-inline-block">
