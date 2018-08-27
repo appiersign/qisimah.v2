@@ -34,6 +34,22 @@
                                 <input type="text" value="{{ old('frequency') }}" class="text-field-2 w-input" maxlength="256" name="frequency" data-name="Frequency" placeholder="123.45" id="frequency" required>
                             </div>
                         </div>
+
+                        <div class="w-row">
+                            <div class="w-col w-col-6">
+                                <label for="broadcaster-type" class="form-label">Type:</label>
+                                <select name="type" id="broadcaster-type" class="text-field-2 w-input" required>
+                                    <option value="" disabled selected>select type</option>
+                                    <option value="radio" {{ (old('type') == 'radio')? 'selected' : '' }}>radio</option>
+                                    <option value="tv" {{ (old('type') == 'tv')? 'selected' : '' }}>tv</option>
+                                </select>
+                            </div>
+                            <div class="w-col w-col-6">
+                                <label for="stream-id" class="form-label">Stream ID: </label>
+                                <input type="text" placeholder="stream id" class="text-field-2 w-input" name="stream_id" id="stream-id" value="{{ old('stream_id') ?? '' }}">
+                            </div>
+                        </div>
+
                         <div class="w-row">
                             <div class="w-col w-col-6">
                                 <label for="broadcaster-country" class="form-label">Country: *</label>
@@ -90,21 +106,12 @@
                                 <input type="text" value="{{ old('tag_line') }}" class="text-field-2 w-input" maxlength="256" name="tag_line" data-name="Tagline" placeholder="broadcaster slogan" id="Tagline">
                             </div>
                         </div>
+
                         <div class="w-row">
-                            <div class="w-col w-col-6">
-                                <label for="broadcaster-type" class="form-label">Type:</label>
-                                <select name="type" id="broadcaster-type" class="text-field-2 w-input" required>
-                                    <option value="" disabled selected>select type</option>
-                                    <option value="radio" {{ (old('type') == 'radio')? 'selected' : '' }}>radio</option>
-                                    <option value="tv" {{ (old('type') == 'tv')? 'selected' : '' }}>tv</option>
-                            </div>
                             <div class="w-col w-col-6">
                                 <label for="logo" class="form-label">Logo:</label>
                                 <input type="file" class="text-field-2 logo-field w-input" maxlength="256" name="logo" data-name="logo" id="logo">
                             </div>
-                        </div>
-                        <div class="w-row">
-                            <div class="w-col w-col-10"></div>
                             <div class="w-col w-col-2">
                                 <label for=""><p></p></label>
                                 <input type="submit" value="Save" class="button w-button">
