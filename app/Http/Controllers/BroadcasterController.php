@@ -115,9 +115,43 @@ class BroadcasterController extends Controller
      * @param  \App\Broadcaster  $broadcaster
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Broadcaster $broadcaster)
+    public function update(StoreBroadcasterRequest $request, string $qisimah_id)
     {
-        //
+        $data = $request->except('tags', 'country', 'region');
+
+        try {
+            $broadcaster = Broadcaster::where('qisimah_id', $qisimah_id)->first();
+
+            if (is_null($broadcaster)) {
+
+                throw new \Exception();
+
+            }
+
+            $broadcaster->region()->associate($request->region);
+
+            $broadcaster->tags()->sync(explode(',', $request->tags));
+
+            if ($request->hasFile('logo')) {
+
+                $broadcaster->setLogo($request);
+
+            }
+
+            $broadcaster->update($data);
+
+            session()->flash('success', 'Broadcaster updated!');
+
+            return redirect()->route('broadcasters.index');
+
+        } catch (\Exception $exception) {
+
+            logger($exception->getMessage());
+
+            session()->flash('error', 'We could not update broadcaster. Please try again!');
+
+            return back()->withInput();
+        }
     }
 
     /**
@@ -134,7 +168,7 @@ class BroadcasterController extends Controller
             if (is_null($broadcaster)) {
 
                 throw new \Exception();
-                
+
             }
 
             $broadcaster->delete();
