@@ -7,6 +7,7 @@ use App\Country;
 use App\Http\Requests\StoreBroadcasterRequest;
 use App\Region;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,21 +56,28 @@ class BroadcasterController extends Controller
      */
     public function store(StoreBroadcasterRequest $request)
     {
-        $broadcaster = new Broadcaster();
-        return $broadcaster
-            ->setQisimahId()
-            ->setName($request->input('name'))
-            ->setFrequency($request->input('frequency'))
-            ->setCity($request->input('city'))
-            ->setRegion($request->input('region'))
-            ->setUser(Auth::id())
-            ->setStreamUrl($request->input('stream'))
-            ->setAddress($request->input('address'))
-            ->setTagLine($request->input('tag_line'))
-            ->setType($request->input('type'))
-            ->setTelephone($request->input('telephone'))
-            ->setLogo($request)
-            ->store();
+        $data = $request->validated();
+
+        try {
+            $broadcaster = new Broadcaster($data);
+
+            $user = User::findOrFail(Auth::id());
+
+            $broadcaster->user()->associate($user->id);
+
+            $broadcaster->setLogo($request)->save();
+
+            session()->flash('success', 'Broadcaster created!');
+
+            return redirect()->route('broadcasters.index');
+
+        } catch (\Exception $exception) {
+
+            session()->flash('error', 'We could not create broadcaster. Please try again!');
+
+            return back()->withInput();
+        }
+
     }
 
     /**
