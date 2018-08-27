@@ -46,7 +46,7 @@
                             </div>
                             <div class="w-col w-col-6">
                                 <label for="stream-id" class="form-label">Stream ID: </label>
-                                <input type="text" placeholder="stream id" class="text-field-2 w-input" name="stream_id" id="stream-id" value="{{ old('stream_id') ?? '' }}">
+                                <input type="text" placeholder="stream id" class="text-field-2 w-input" name="stream_id" id="stream-id" value="{{ old('stream_id') ?? '' }}" required>
                             </div>
                         </div>
 
@@ -86,8 +86,8 @@
                                 <input type="tel" value="{{ old('telephone') }}" class="text-field-2 w-input" maxlength="256" name="telephone" placeholder="123 456 789">
                             </div>
                             <div class="w-col w-col-6">
-                                <label for="broadcaster-url" class="form-label">Stream url: *</label>
-                                <input type="text" value="{{ old('stream') }}" class="text-field-2 w-input" maxlength="256" name="stream" placeholder="https://stream.url" id="broadcaster-url">
+                                <label for="Tagline" class="form-label">Tag line:</label>
+                                <input type="text" value="{{ old('tag_line') }}" class="text-field-2 w-input" maxlength="256" name="tag_line" data-name="Tagline" placeholder="broadcaster slogan" id="Tagline">
                             </div>
                         </div>
                         <div class="w-row">
@@ -102,15 +102,14 @@
                                 {{--<input type="text" class="text-field-2 w-input" maxlength="256" name="tags" data-name="tags" placeholder="music, entertainment, showbiz" id="tags">--}}
                             </div>
                             <div class="w-col w-col-6">
-                                <label for="Tagline" class="form-label">Tag line:</label>
-                                <input type="text" value="{{ old('tag_line') }}" class="text-field-2 w-input" maxlength="256" name="tag_line" data-name="Tagline" placeholder="broadcaster slogan" id="Tagline">
+                                <label for="logo" class="form-label">Logo:</label>
+                                <input type="file" class="text-field-2 logo-field w-input" maxlength="256" name="logo" data-name="logo" id="logo">
                             </div>
                         </div>
 
                         <div class="w-row">
                             <div class="w-col w-col-6">
-                                <label for="logo" class="form-label">Logo:</label>
-                                <input type="file" class="text-field-2 logo-field w-input" maxlength="256" name="logo" data-name="logo" id="logo">
+
                             </div>
                             <div class="w-col w-col-2">
                                 <label for=""><p></p></label>
