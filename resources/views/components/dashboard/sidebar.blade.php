@@ -14,19 +14,19 @@
                 <a href="{{ route('songs.index') }}" class="nav-link w-nav-link">Songs</a>
                 {{--<a href="#" class="nav-link w-nav-link">Ads</a>--}}
                 {{--<a href="charts.html" class="nav-link w-nav-link">Charts</a>--}}
-                {{--<div class="drop-parent">--}}
-                    {{--<div class="drop-triger" data-ix="open-drop-menu">--}}
-                        {{--<div class="div-block-19" data-ix="open-drop-menu">--}}
-                            {{--<div class="reports-head" data-ix="open-drop-menu">Reports</div>--}}
-                            {{--<div class="open-and-close-drop">+</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="drop-child">--}}
-                        {{--<a href="summary-report.html" class="dropnav-links w-nav-link">Summary</a>--}}
-                        {{--<a href="compare.html" class="dropnav-links w-nav-link">Compare</a>--}}
-                        {{--<a href="general-reports.html" class="dropnav-links w-nav-link">General Reports</a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <div class="drop-parent">
+                    <div class="drop-triger" data-ix="open-drop-menu">
+                        <div class="div-block-19" data-ix="open-drop-menu">
+                            <div class="reports-head" data-ix="open-drop-menu">Reports</div>
+                            <div class="open-and-close-drop">+</div>
+                        </div>
+                    </div>
+                    <div class="drop-child">
+                        <a href="summary-report.html" class="dropnav-links w-nav-link">Summary</a>
+                        <a href="compare.html" class="dropnav-links w-nav-link">Compare</a>
+                        <a href="general-reports.html" class="dropnav-links w-nav-link">General Reports</a>
+                    </div>
+                </div>
                 {{--<p class="nav-separator-text">Account</p>--}}
                 {{--<a href="settings.html" class="nav-link w-nav-link">Settings</a>--}}
                 {{--<div class="drop-parent-2">--}}
