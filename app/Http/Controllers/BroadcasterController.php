@@ -56,22 +56,28 @@ class BroadcasterController extends Controller
      */
     public function store(StoreBroadcasterRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->except('tags', 'country', 'region');
 
         try {
-            $broadcaster = new Broadcaster($data);
+            $broadcaster = (new Broadcaster($data))->setQisimahId();
 
             $user = User::findOrFail(Auth::id());
 
             $broadcaster->user()->associate($user->id);
 
+            $broadcaster->region()->associate($request->region);
+
             $broadcaster->setLogo($request)->save();
+
+            $broadcaster->tags()->sync(explode(',', $request->tags));
 
             session()->flash('success', 'Broadcaster created!');
 
             return redirect()->route('broadcasters.index');
 
         } catch (\Exception $exception) {
+
+            logger($exception->getMessage());
 
             session()->flash('error', 'We could not create broadcaster. Please try again!');
 
@@ -122,7 +128,27 @@ class BroadcasterController extends Controller
      */
     public function destroy(string $qisimah_id)
     {
-        $broadcaster = Broadcaster::where('qisimah_id', $qisimah_id)->first();
-        return $broadcaster->remove();
+        try {
+            $broadcaster = Broadcaster::where('qisimah_id', $qisimah_id)->first();
+
+            if (is_null($broadcaster)) {
+
+                throw new \Exception();
+                
+            }
+
+            $broadcaster->delete();
+
+            session()->flash('success', 'Broadcaster deleted!');
+
+            return redirect()->route('broadcasters.index');
+
+        } catch (\Exception $exception) {
+
+            session()->flash('error', 'Broadcaster could not be deleted!');
+
+            return back();
+        }
+
     }
 }
