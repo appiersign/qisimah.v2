@@ -376,7 +376,6 @@ body {
     border-bottom-color: #fff;
     background-color: transparent;
     opacity: 1;
-    color: #ffffff !important;
 }
 
 .text-block-2 {
@@ -478,9 +477,9 @@ body {
 }
 
 .qisimah-container-main {
+    position: relative;
     margin-right: 50px;
     margin-left: 50px;
-    position: relative;
 }
 
 .qisimah-container-main.compare-wrapper-no-boarder {
@@ -1170,8 +1169,8 @@ body {
     right: 0px;
     bottom: 0px;
     z-index: 10000000;
-    overflow: auto;
     display: none;
+    overflow: auto;
     padding-top: 60px;
     padding-bottom: 60px;
     background-color: rgba(0, 0, 0, .75);
@@ -1224,8 +1223,7 @@ body {
 
 .meta-data-form-block {
     position: relative;
-    width: 100%;
-    display: ;
+    width: 80%;
     padding: 25px;
     border-radius: 4px;
     background-color: #fff;
@@ -1262,11 +1260,9 @@ body {
 .upload-modal-title {
     margin-top: 0px;
     margin-bottom: 36px;
-
-    /* color: #ffffff !important */
+    color: rgba(39, 26, 26, .6);
     font-weight: 300;
     letter-spacing: -2px;
-    border-bottom-right-radius: 4px;
 }
 
 .column-47 {
@@ -1312,7 +1308,7 @@ body {
 
 .form-block {
     position: relative;
-    width: 50%;
+    width: 80%;
     padding: 25px;
     border-radius: 4px;
     background-color: #fff;
@@ -2250,7 +2246,6 @@ body {
     border-bottom-color: #fff;
     background-color: transparent;
     opacity: 1;
-    color: #ffffff !important;
 }
 
 .text-block-18 {
@@ -2642,7 +2637,6 @@ body {
 .reports-tab-link.w--current {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    color: #ffffff !important;
 }
 
 .div-block-12 {
@@ -3081,7 +3075,7 @@ body {
     right: 0px;
     bottom: 0px;
     z-index: 50000;
-    display: ;
+    display: none;
     overflow: auto;
     padding: 80px;
     background-color: #fff;
@@ -3729,8 +3723,6 @@ body {
 
 .div-block-82 {
     padding: 18px;
-    background-color: #ffffff !important;
-    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, .1);
 }
 
 .proper-close-4-modal {
@@ -5584,10 +5576,7 @@ body {
     transition: all 350ms ease;
     font-weight: 500;
     cursor: pointer;
-    color: #000 !important;
 }
-
-color: #000;
 
 .div-block-139:hover {
     background-color: #e7e4e4;
@@ -5751,7 +5740,7 @@ color: #000;
 .plan-selection-wrapper {
     position: relative;
     display: block;
-    width: 100%;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-align: center;
@@ -5766,7 +5755,7 @@ color: #000;
 .review-plan-wrapper {
     position: relative;
     display: block;
-    width: 100%;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-align: center;
@@ -5780,7 +5769,8 @@ color: #000;
 
 .payment-wrapper {
     position: relative;
-    width: 100%;
+    display: none;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-align: center;
@@ -5794,7 +5784,8 @@ color: #000;
 
 .confirmation-wrapper {
     position: relative;
-    width: 100%;
+    display: none;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-align: center;
@@ -5906,7 +5897,7 @@ color: #000;
 .mobile-money-holder {
     position: relative;
     display: block;
-    width: 100%;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-align: center;
@@ -5921,7 +5912,7 @@ color: #000;
 .money-money {
     position: relative;
     display: block;
-    width: 100%;
+    width: 40%;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-align: center;
@@ -5936,10 +5927,9 @@ color: #000;
 .modal-view-wrapper {
     position: relative;
     display: block;
-    width: 100%;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 67px;
 }
 
 .streams-wrapper {
@@ -10189,107 +10179,4 @@ undefined: undefined;
     .tabs-menu-admin-user {
         margin-top: 166px;
     }
-}
-
-.albumdetails-bg {
-    background-color: #ffffff !important;
-}
-
-.div-block-111 {
-    padding-left: 28px;
-    -webkit-flex-basis: 50%;
-    -ms-flex-preferred-size: 50%;
-    flex-basis: 50%;
-}
-
-.div-block-110 {
-    position: relative;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-basis: 50%;
-    -ms-flex-preferred-size: 50%;
-    flex-basis: 50%;
-}
-
-.div-block-109 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
-.song-play-wrapper {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    padding-right: 36px;
-    padding-left: 36px;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-flex-basis: 50%;
-    -ms-flex-preferred-size: 50%;
-    flex-basis: 50%;
-    background-color: rgba(22, 16, 54, .56);
-    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, .1);
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.w--current {
-    outline: 0;
-    background-color: rgba(73, 100, 159, .58);
-    color: #ffc300;
-}
-
-.upload-wait {
-    position: relative;
-    width: 30%;
-    padding: 25px;
-    background-color: #161036 !important;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .29);
-    border-radius: 10px;
-    margin-left: 30%;
-}
-
-.verifying-title {
-    text-align: center;
-    font-size: 25px;
-    color: #ffffff !important;
-}
-
-.back-arrow {
-    transform: rotate(180deg);
-    margin-bottom: 1px;
-}
-
-.back {
-    color: rgba(51, 51, 51, .44);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
 }

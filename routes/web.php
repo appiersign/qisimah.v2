@@ -36,6 +36,10 @@ Route::resources([
     'broadcasters'  =>  'BroadcasterController'
 ]);
 
+Route::get('reports/summary', function () {
+    return view('pages.report.summary');
+});
+
 Route::get('broadcasters/create/{country}', 'BroadcasterController@getRegions');
 Route::get('songs/{qisimah_id}/metadata', 'SongController@createMetaData')->name('songs.metadata');
 Route::post('songs/{qisimah_id}/metadata', 'SongController@storeMetaData')->name('songs.metadata.update');
