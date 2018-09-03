@@ -11,14 +11,9 @@ class Play extends Model
 {
     protected $guarded = ['id'];
 
-    public function songs()
+    public function song()
     {
-        return $this->hasMany(Song::class, 'qisimah_id', 'audio_id');
-    }
-
-    public function artists()
-    {
-        return $this->hasManyThrough(Artist::class, Song::class, 'qisimah_id');
+        return $this->belongsTo(Song::class, 'qisimah_id', 'audio_id');
     }
 
     public function broadcaster()
