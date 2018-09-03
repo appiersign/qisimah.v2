@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Play;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -226,6 +227,11 @@ class Song extends Model
     public function producers()
     {
         return $this->belongsToMany(Producer::class);
+    }
+
+    public function plays()
+    {
+        return $this->hasMany(Play::class);
     }
 
     /**

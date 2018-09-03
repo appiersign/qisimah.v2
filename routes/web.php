@@ -33,11 +33,16 @@ Route::resources([
     'songs'     => 'SongController',
     'plays'     => 'PlayController',
     'albums'    => 'AlbumController',
-    'broadcasters'  =>  'BroadcasterController'
+    'broadcasters'  =>  'BroadcasterController',
+    'artists.songs' =>  'ArtistSongController'
 ]);
 
-Route::get('reports/summary', function () {
-    return view('pages.report.summary');
+Route::name('reports.')->prefix('reports')->group( function (){
+    Route::get('summary', 'ReportController@createSummary')->name('summary');
+    Route::post('summary', 'ReportController@summary')->name('summary');
+    Route::get('summary/{artist}/{song}/{from}/{to}', 'ReportController@getSummary')->name('get.summary');
+    Route::get('compare', 'ReportController@compare')->name('compare');
+    Route::get('general', 'ReportController@general')->name('general');
 });
 
 Route::get('broadcasters/create/{country}', 'BroadcasterController@getRegions');

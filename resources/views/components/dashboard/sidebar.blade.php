@@ -22,8 +22,8 @@
                         </div>
                     </div>
                     <div class="drop-child">
-                        <a href="summary-report.html" class="dropnav-links w-nav-link">Summary</a>
-                        <a href="compare.html" class="dropnav-links w-nav-link">Compare</a>
+                        <a href="{{ route('reports.summary') }}" class="dropnav-links w-nav-link">Summary</a>
+                        <a href="{{ route('reports.compare') }}" class="dropnav-links w-nav-link">Compare</a>
                         <a href="general-reports.html" class="dropnav-links w-nav-link">General Reports</a>
                     </div>
                 </div>

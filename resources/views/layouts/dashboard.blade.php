@@ -17,5 +17,7 @@
     @yield('content')
 </div>
 @include('components.dashboard.scripts')
+
+@yield('custom-scripts')
 </body>
 </html>

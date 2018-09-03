@@ -29,4 +29,14 @@ class Artist extends Model
     {
         $this->attributes['search_box'] = strtolower($value);
     }
+
+    public function songs()
+    {
+        return $this->hasMany(Song::class);
+    }
+
+    public function features()
+    {
+        return $this->belongsToMany(Song::class);
+    }
 }

@@ -7,3 +7,4 @@
 
 <link href="{{ asset('images/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
 <link href="{{ asset('images/webclip.png') }}" rel="apple-touch-icon">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
