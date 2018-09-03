@@ -11,6 +11,15 @@ class PlayTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
+        factory(\App\Models\Play::class)->create();
     }
 }

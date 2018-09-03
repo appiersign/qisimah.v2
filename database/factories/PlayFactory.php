@@ -8,6 +8,7 @@ $factory->define(App\Play::class, function (Faker $faker) {
     return [
         'stream_id' =>  \App\Broadcaster::inRandomOrder()->first()->stream_id,
         'audio_id'  =>  $song->qisimah_id,
-        'acr_id'    =>  $song->acr_id
+        'acr_id'    =>  $song->acr_id,
+        'played_at' =>  $faker->dateTimeBetween('-1 month')
     ];
 });
