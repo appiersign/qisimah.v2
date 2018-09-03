@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Artist;
 use App\Broadcaster;
 use App\Song;
 use Illuminate\Database\Eloquent\Model;
