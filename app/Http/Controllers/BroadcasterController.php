@@ -92,20 +92,20 @@ class BroadcasterController extends Controller
      * @param  \App\Broadcaster  $broadcaster
      * @return \Illuminate\Http\Response
      */
-    public function show(Broadcaster $broadcaster)
+    public function show(string $qisimah_id)
     {
-        //
+        return Broadcaster::with('region')->where('qisimah_id', $qisimah_id)->first();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Broadcaster  $broadcaster
-     * @return \Illuminate\Http\Response
+     * @param string $qisimah_id
+     * @return Broadcaster|\Illuminate\Database\Eloquent\Builder
      */
-    public function edit(Broadcaster $broadcaster)
+    public function edit(string $qisimah_id)
     {
-        //
+        return Broadcaster::with('region')->where('qisimah_id', $qisimah_id);
     }
 
     /**

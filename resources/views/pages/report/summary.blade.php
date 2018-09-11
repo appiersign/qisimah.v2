@@ -91,75 +91,75 @@
                         </div>
                     </div>
                     <div class="w-col w-col-6 w-col-stack">
-                        <h1 class="cards-heading">Top 5 Radio Stations</h1>
+                        {{--<h1 class="cards-heading">Top 5 Broadcasters</h1>--}}
                         <div class="w-embed">
-                            <div id="top_x_div" style="width: 100%; height: 500px;"></div>
+                            <div id="barchart_values" style="height: 500px;"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="div-block-122">
-                <div class="w-row">
-                    <div class="w-col w-col-6 w-col-stack">
-                        <h1 class="cards-heading">Social Report</h1>
-                        <div class="social-report-table">
-                            <table class="social-report-table table table-hover mb-0">
-                                <thead>
-                                <tr>
-                                    <th style="width: 10%; text-align: center; font-size: 13px;">Channel</th>
-                                    <th style="width: 40%;text-align: center;font-size: 13px;">New Fans</th>
-                                    <th style="width: 25%;text-align: center;font-size: 13px;">Total Fans</th>
-                                    <!-- <th style="width:25%">Up/Down</th> -->
-                                </tr>
-                                </thead>
-                                <tbody id="top-5-broadcaster">
-                                <tr>
-                                    <td class="social-report-td">
-                                        <img src="{{ asset('images/001-youtube.svg') }}" style="text-align: center;"
-                                             class="social-report-logo">
-                                    </td>
-                                    <td class="social-report-td">234</td>
-                                    <td class="social-report-td">21k</td>
-                                </tr>
-                                <tr>
-                                    <td class="social-report-td">
-                                        <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade2f6c4682eaa5b7e28353_036-facebook.svg"
-                                             class="social-report-logo">
-                                    </td>
-                                    <td class="social-report-td">3.2k</td>
-                                    <td class="social-report-td">44k</td>
-                                </tr>
-                                <tr>
-                                    <td class="social-report-td">
-                                        <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade301a4682ea0de0e283b8_008-twitter.svg"
-                                             style="text-align: center;" class="social-report-logo">
-                                    </td>
-                                    <td class="social-report-td">123</td>
-                                    <td class="social-report-td">2k</td>
-                                </tr>
-                                <tr>
-                                    <td class="social-report-td">
-                                        <img src="{{ asset('images/029-instagram.sv') }}g" style="text-align: center;"
-                                             class="social-report-logo">
-                                    </td>
-                                    <td class="social-report-td">323</td>
-                                    <td class="social-report-td">45k</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="w-col w-col-6 w-col-stack">
-                        <h1 class="cards-heading">Top TV Stations</h1>
-                        <div>
-                            <div class="w-embed">
-                                <div id="top_tv_div" style="width: 100%; height: 500px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{--<div class="div-block-122">--}}
+                {{--<div class="w-row">--}}
+                    {{--<div class="w-col w-col-6 w-col-stack">--}}
+                        {{--<h1 class="cards-heading">Social Report</h1>--}}
+                        {{--<div class="social-report-table">--}}
+                            {{--<table class="social-report-table table table-hover mb-0">--}}
+                                {{--<thead>--}}
+                                {{--<tr>--}}
+                                    {{--<th style="width: 10%; text-align: center; font-size: 13px;">Channel</th>--}}
+                                    {{--<th style="width: 40%;text-align: center;font-size: 13px;">New Fans</th>--}}
+                                    {{--<th style="width: 25%;text-align: center;font-size: 13px;">Total Fans</th>--}}
+                                    {{--<!-- <th style="width:25%">Up/Down</th> -->--}}
+                                {{--</tr>--}}
+                                {{--</thead>--}}
+                                {{--<tbody id="top-5-broadcaster">--}}
+                                {{--<tr>--}}
+                                    {{--<td class="social-report-td">--}}
+                                        {{--<img src="{{ asset('images/001-youtube.svg') }}" style="text-align: center;"--}}
+                                             {{--class="social-report-logo">--}}
+                                    {{--</td>--}}
+                                    {{--<td class="social-report-td">234</td>--}}
+                                    {{--<td class="social-report-td">21k</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr>--}}
+                                    {{--<td class="social-report-td">--}}
+                                        {{--<img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade2f6c4682eaa5b7e28353_036-facebook.svg"--}}
+                                             {{--class="social-report-logo">--}}
+                                    {{--</td>--}}
+                                    {{--<td class="social-report-td">3.2k</td>--}}
+                                    {{--<td class="social-report-td">44k</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr>--}}
+                                    {{--<td class="social-report-td">--}}
+                                        {{--<img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade301a4682ea0de0e283b8_008-twitter.svg"--}}
+                                             {{--style="text-align: center;" class="social-report-logo">--}}
+                                    {{--</td>--}}
+                                    {{--<td class="social-report-td">123</td>--}}
+                                    {{--<td class="social-report-td">2k</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr>--}}
+                                    {{--<td class="social-report-td">--}}
+                                        {{--<img src="{{ asset('images/029-instagram.sv') }}g" style="text-align: center;"--}}
+                                             {{--class="social-report-logo">--}}
+                                    {{--</td>--}}
+                                    {{--<td class="social-report-td">323</td>--}}
+                                    {{--<td class="social-report-td">45k</td>--}}
+                                {{--</tr>--}}
+                                {{--</tbody>--}}
+                            {{--</table>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="w-col w-col-6 w-col-stack">--}}
+                        {{--<h1 class="cards-heading">Top TV Stations</h1>--}}
+                        {{--<div>--}}
+                            {{--<div class="w-embed">--}}
+                                {{--<div id="top_tv_div" style="width: 100%; height: 500px;"></div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
 @endsection
@@ -170,7 +170,7 @@
 
         var pathname = window.location.pathname.split('/');
 
-        if (pathname.length === 7 && pathname[1] === 'reports' && pathname[2] === 'summary') {
+        if (pathname.length === 8 && pathname[1] === 'reports' && pathname[2] === 'summary') {
             google.charts.load('current', {'packages':['corechart', 'bar']});
             google.charts.setOnLoadCallback(drawChart);
 
@@ -209,6 +209,18 @@
                     };
                     let column_chart = new google.charts.Bar(document.getElementById('column_chart_material'));
                     column_chart.draw(column_data, google.charts.Bar.convertOptions(column_options));
+
+                    // Top 5 Broadcasters
+                    let broadcasters = response['broadcasters'];
+                    broadcasters[0].push({ role: 'style' });
+                    let bar_data = google.visualization.arrayToDataTable(broadcasters);
+                    let bar_options = {
+                        chart: {
+                            title: 'Top 5 Broadcasters'
+                        }
+                    };
+                    let bar_chart = new google.charts.Bar(document.getElementById("barchart_values"));
+                    bar_chart.draw(bar_data, bar_options);
                 });
             }
         }

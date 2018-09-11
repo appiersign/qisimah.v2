@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
          $this->call(RegionTableSeeder::class);
          $this->call(TagTableSeeder::class);
          $this->call(PlayTableSeeder::class);
+
+         $this->call(BroadcasterTableSeeder::class);
     }
 }

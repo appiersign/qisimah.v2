@@ -24,7 +24,7 @@
                     <h1 class="upload-modal-title"></h1>
                     <div class="w-row">
                         <div class="column-24 w-col w-col-12">
-                            <input type="file" class="text-field w-input" name="song" required="">
+                            <input type="file" class="text-field w-input" name="song" required>
                         </div>
                     </div>
                     <div class="text-block-9">* Recommended file type(s): mp3</div>

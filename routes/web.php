@@ -28,6 +28,7 @@ Auth::routes();
 Route::get('', 'HomeController@dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resources([
     'artists'   => 'ArtistController',
     'songs'     => 'SongController',
@@ -40,7 +41,7 @@ Route::resources([
 Route::name('reports.')->prefix('reports')->group( function (){
     Route::get('summary', 'ReportController@createSummary')->name('summary');
     Route::post('summary', 'ReportController@summary')->name('summary');
-    Route::get('summary/{artist}/{song}/{from}/{to}', 'ReportController@getSummary')->name('get.summary');
+    Route::get('summary/{artist}/{country}/{song}/{from}/{to}', 'ReportController@getSummary')->name('get.summary');
     Route::get('compare', 'ReportController@compare')->name('compare');
     Route::get('general', 'ReportController@general')->name('general');
 });
