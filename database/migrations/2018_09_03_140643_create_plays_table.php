@@ -18,7 +18,7 @@ class CreatePlaysTable extends Migration
             $table->string('audio_id')->index();
             $table->string('acr_id')->index();
             $table->string('stream_id')->index();
-            $table->smallInteger('duration');
+            $table->smallInteger('duration')->nullable();
             $table->timestamp('played_at');
             $table->timestamps();
 
