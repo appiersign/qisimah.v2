@@ -28,13 +28,23 @@ Auth::routes();
 Route::get('', 'HomeController@dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resources([
     'artists'   => 'ArtistController',
     'songs'     => 'SongController',
     'plays'     => 'PlayController',
     'albums'    => 'AlbumController',
-    'broadcasters'  =>  'BroadcasterController'
+    'broadcasters'  =>  'BroadcasterController',
+    'artists.songs' =>  'ArtistSongController'
 ]);
+
+Route::name('reports.')->prefix('reports')->group( function (){
+    Route::get('summary', 'ReportController@createSummary')->name('summary');
+    Route::post('summary', 'ReportController@summary')->name('summary');
+    Route::get('summary/{artist}/{country}/{song}/{from}/{to}', 'ReportController@getSummary')->name('get.summary');
+    Route::get('compare', 'ReportController@compare')->name('compare');
+    Route::get('general', 'ReportController@general')->name('general');
+});
 
 Route::get('broadcasters/create/{country}', 'BroadcasterController@getRegions');
 Route::get('songs/{qisimah_id}/metadata', 'SongController@createMetaData')->name('songs.metadata');

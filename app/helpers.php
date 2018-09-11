@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 function generateVerificationCode($code = '')
@@ -27,4 +28,11 @@ function sendRequest($url, $headers = ['Content-Type: application/json'], $field
         Log::info('Instagram SendRequest Error');
         Log::error($exception->getCode() . ' => ' . $exception->getMessage());
     }
+}
+
+function getDateDiff(string $from, string $to)
+{
+    $from = Carbon::parse($from);
+    $to = Carbon::parse($to);
+    return $to->diffInDays($from);
 }

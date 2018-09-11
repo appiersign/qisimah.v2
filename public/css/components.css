@@ -46,6 +46,9 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: Rubrik, sans-serif;
+    font-size: 16;
+    text-align: left;
 }
 
 html {
@@ -66,7 +69,6 @@ img {
     max-width: 100%;
     vertical-align: middle;
     display: inline-block;
-    transform: rotateX(2deg);
 }
 
 html.w-mod-touch * {
@@ -110,7 +112,6 @@ html.w-mod-touch * {
 
 input.w-button {
     -webkit-appearance: button;
-    text-align: center;
 }
 
 html[data-w-dynpage] [data-w-cloak] {

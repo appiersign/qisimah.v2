@@ -7,6 +7,7 @@ use App\Country;
 use App\Http\Requests\StoreBroadcasterRequest;
 use App\Region;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,21 +56,34 @@ class BroadcasterController extends Controller
      */
     public function store(StoreBroadcasterRequest $request)
     {
-        $broadcaster = new Broadcaster();
-        return $broadcaster
-            ->setQisimahId()
-            ->setName($request->input('name'))
-            ->setFrequency($request->input('frequency'))
-            ->setCity($request->input('city'))
-            ->setRegion($request->input('region'))
-            ->setUser(Auth::id())
-            ->setStreamUrl($request->input('stream'))
-            ->setAddress($request->input('address'))
-            ->setTagLine($request->input('tag_line'))
-            ->setType($request->input('type'))
-            ->setTelephone($request->input('telephone'))
-            ->setLogo($request)
-            ->store();
+        $data = $request->except('tags', 'country', 'region');
+
+        try {
+            $broadcaster = (new Broadcaster($data))->setQisimahId();
+
+            $user = User::findOrFail(Auth::id());
+
+            $broadcaster->user()->associate($user->id);
+
+            $broadcaster->region()->associate($request->region);
+
+            $broadcaster->setLogo($request)->save();
+
+            $broadcaster->tags()->sync(explode(',', $request->tags));
+
+            session()->flash('success', 'Broadcaster created!');
+
+            return redirect()->route('broadcasters.index');
+
+        } catch (\Exception $exception) {
+
+            logger($exception->getMessage());
+
+            session()->flash('error', 'We could not create broadcaster. Please try again!');
+
+            return back()->withInput();
+        }
+
     }
 
     /**
@@ -78,20 +92,20 @@ class BroadcasterController extends Controller
      * @param  \App\Broadcaster  $broadcaster
      * @return \Illuminate\Http\Response
      */
-    public function show(Broadcaster $broadcaster)
+    public function show(string $qisimah_id)
     {
-        //
+        return Broadcaster::with('region')->where('qisimah_id', $qisimah_id)->first();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Broadcaster  $broadcaster
-     * @return \Illuminate\Http\Response
+     * @param string $qisimah_id
+     * @return Broadcaster|\Illuminate\Database\Eloquent\Builder
      */
-    public function edit(Broadcaster $broadcaster)
+    public function edit(string $qisimah_id)
     {
-        //
+        return Broadcaster::with('region')->where('qisimah_id', $qisimah_id);
     }
 
     /**
@@ -101,19 +115,74 @@ class BroadcasterController extends Controller
      * @param  \App\Broadcaster  $broadcaster
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Broadcaster $broadcaster)
+    public function update(StoreBroadcasterRequest $request, string $qisimah_id)
     {
-        //
+        $data = $request->except('tags', 'country', 'region');
+
+        try {
+            $broadcaster = Broadcaster::where('qisimah_id', $qisimah_id)->first();
+
+            if (is_null($broadcaster)) {
+
+                throw new \Exception();
+
+            }
+
+            $broadcaster->region()->associate($request->region);
+
+            $broadcaster->tags()->sync(explode(',', $request->tags));
+
+            if ($request->hasFile('logo')) {
+
+                $broadcaster->setLogo($request);
+
+            }
+
+            $broadcaster->update($data);
+
+            session()->flash('success', 'Broadcaster updated!');
+
+            return redirect()->route('broadcasters.index');
+
+        } catch (\Exception $exception) {
+
+            logger($exception->getMessage());
+
+            session()->flash('error', 'We could not update broadcaster. Please try again!');
+
+            return back()->withInput();
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove specified resource.
      *
-     * @param  \App\Broadcaster  $broadcaster
-     * @return \Illuminate\Http\Response
+     * @param string $qisimah_id
+     * @return mixed
      */
-    public function destroy(Broadcaster $broadcaster)
+    public function destroy(string $qisimah_id)
     {
-        //
+        try {
+            $broadcaster = Broadcaster::where('qisimah_id', $qisimah_id)->first();
+
+            if (is_null($broadcaster)) {
+
+                throw new \Exception();
+
+            }
+
+            $broadcaster->delete();
+
+            session()->flash('success', 'Broadcaster deleted!');
+
+            return redirect()->route('broadcasters.index');
+
+        } catch (\Exception $exception) {
+
+            session()->flash('error', 'Broadcaster could not be deleted!');
+
+            return back();
+        }
+
     }
 }

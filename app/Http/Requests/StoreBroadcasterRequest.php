@@ -29,10 +29,11 @@ class StoreBroadcasterRequest extends FormRequest
             "tags"      =>  "bail|required|exists:tags,id",
             "country"   =>  "bail|required|exists:countries,id",
             "region"    =>  "bail|required|exists:regions,id",
-            "tag.ling"  =>  "bail|min:3",
+            "tag_line"  =>  "bail|string|min:3",
             "type"      =>  "bail|required|in:radio,tv",
-            "stream"    =>  "url",
+            "stream_id" =>  "bail|required|string|min:4|max:16",
             "city"      =>  "bail|required|min:2",
+            "telephone" =>  "min:10|max:12",
             "logo"      =>  "bail|image|max:2000"
         ];
     }
