@@ -32,11 +32,17 @@ class ReportController extends Controller
 
     private $relationships = [];
 
+    /**
+     * ReportController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function createSummary()
     {
         $countries = Country::all();
@@ -45,6 +51,10 @@ class ReportController extends Controller
         return view('pages.report.summaryForm', compact('countries', 'artists'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function summary(Request $request)
     {
         $this->validate($request, [
@@ -89,6 +99,14 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * @param string $artist
+     * @param string $country
+     * @param string $song
+     * @param string $from
+     * @param string $to
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getSummary(string $artist, string $country, string $song, string $from, string $to)
     {
         $curve_data = [];
@@ -155,11 +173,17 @@ class ReportController extends Controller
         return $this->getPlayData($artist_songs, $song, $country_broadcasters, $from, $to, $date_difference, $plays);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function compare()
     {
         return view('pages.report.compare');
     }
 
+    /**
+     * @param Collection $plays
+     */
     private function getCountryPlays(Collection $plays)
     {
         $country_data = $plays->groupBy(function ( $play ) {
@@ -171,6 +195,10 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * @param Collection $plays
+     * @param Collection $plays_data
+     */
     private function getTop5Songs(Collection $plays, Collection $plays_data)
     {
         if ($plays->count()) {
@@ -195,6 +223,9 @@ class ReportController extends Controller
 
     }
 
+    /**
+     * @param Collection $plays
+     */
     private function getRegionalPlays(Collection $plays)
     {
         $limit = 5; $count = 0;
@@ -211,6 +242,13 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * @param array $artist_songs
+     * @param string $song
+     * @param array $country_broadcasters
+     * @param string $from
+     * @param string $to
+     */
     private function getTop5Broadcasters(array $artist_songs, string $song, array $country_broadcasters, string $from, string $to)
     {
         $query = Play::with('broadcaster')
@@ -241,6 +279,11 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * @param Collection $plays
+     * @param int $date_difference
+     * @return Collection
+     */
     private function groupPlaysByDateDiff(Collection $plays, int $date_difference)
     {
         if ( $date_difference <= 7 ) { // date range is seven days or less
@@ -262,6 +305,16 @@ class ReportController extends Controller
         return $plays_data;
     }
 
+    /**
+     * @param array $artist
+     * @param string $song
+     * @param array $country_broadcasters
+     * @param string $from
+     * @param string $to
+     * @param int $date_difference
+     * @param Collection $plays
+     * @return array
+     */
     private function getPlayData(array $artist, string $song, array $country_broadcasters, string $from, string $to, int $date_difference, Collection $plays)
     {
         $this->getRegionalPlays($plays); // Get Regional Plays
@@ -269,5 +322,14 @@ class ReportController extends Controller
         $this->getTop5Songs($plays, $this->groupPlaysByDateDiff($plays, $date_difference)); // Get Top Five
         $this->getTop5Broadcasters($artist, $song, $country_broadcasters, $from, $to); // Get top 5 broadcasters
         return $this->curve_data;
+    }
+
+    public function general()
+    {
+        $artists = Artist::orderBy('nick_name')->get();
+        $countries = Country::all();
+        $broadcasters = Broadcaster::orderBy('name')->get();
+
+        return view('pages.report.general', compact('artists', 'countries', 'broadcasters'));
     }
 }
