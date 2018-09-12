@@ -18,6 +18,7 @@ class CreateBroadcastersTable extends Migration
             $table->string('qisimah_id')->index();
             $table->string('stream_id')->index()->nullable();
             $table->unsignedInteger('region_id')->nullable();
+            $table->unsignedInteger('country_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->string('name')->index();
             $table->string('search_box')->index();

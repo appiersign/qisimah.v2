@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
+use App\Broadcaster;
 use App\Country;
 use App\Play;
 use App\Song;
@@ -28,6 +29,8 @@ class ReportController extends Controller
             ['Songs', 'Plays']
         ]
     ];
+
+    private $relationships = [];
 
     public function __construct()
     {
@@ -68,7 +71,8 @@ class ReportController extends Controller
             if ($request->song <> 'all') {
                 if ($request->artist <> 'all') {
                     if (!$artist->songs()->where('qisimah_id', $request->song)->exists()) {
-                        throw new \Exception('Song does not exist!');
+                        if (!$artist->features()->where('qisimah_id', $request->song)->exists())
+                            throw new \Exception('Song does not exist!');
                     }
                 }
             }
@@ -87,18 +91,10 @@ class ReportController extends Controller
 
     public function getSummary(string $artist, string $country, string $song, string $from, string $to)
     {
-        if ($artist == 'all' && $song == 'all' && $country == 'all'){
-            $curve_data = $this->getAllPlaysOfAllSongsOfAllArtistsFromAllCountries(getDateDiff($from, $to), $from, $to);
-        }
-
-        if ($artist <> 'all') {
-            $curve_data = $this->getAllPlaysOfAllSongsOfArtist(getDateDiff($from, $to), $artist, $from, $to);
-        }
-
-//        return $curve_data;
+        $curve_data = [];
 
         if (\request()->ajax()){
-            return $curve_data;
+            return $this->fetchSummaryData($artist, $country, $song, getDateDiff($from, $to), $from, $to);;
         }
 
         $artists = Artist::all();
@@ -109,36 +105,54 @@ class ReportController extends Controller
     }
 
     /**
+     * @param string $artist
+     * @param string $country
+     * @param string $song
      * @param int $date_difference
      * @param string $from
      * @param string $to
      * @return array
      */
-    public function getAllPlaysOfAllSongsOfAllArtistsFromAllCountries(int $date_difference, string $from, string $to)
+    public function fetchSummaryData(string $artist, string $country, string $song, int $date_difference, string $from, string $to)
     {
-        $plays = Play::with([
-            'broadcaster.region.country'
-        ])->whereBetween('played_at', [
+        $this->relationships = [ 'broadcaster.region.country', 'song.artist' ];
+
+        $query = Play::with($this->relationships);
+        $artist_songs = [];
+
+        if ($artist <> 'all') {
+            $songs = Artist::with('songs', 'features') // Get Artist
+                ->where('qisimah_id', $artist)
+                ->first();
+
+            $artist_songs = array_merge($artist_songs, $songs->songs()->pluck('songs.qisimah_id')->toArray()); // Get all songs of artist
+            $artist_songs = array_merge($artist_songs, $songs->features()->pluck('songs.qisimah_id')->toArray()); // Get all features of artists
+
+            $query->whereIn('audio_id', $artist_songs);
+        }
+
+        $country_broadcasters = [];
+
+        if ($country <> 'all'){
+            $country_id = Country::where('qisimah_id', $country)->first()->id;
+            $country_broadcasters = Broadcaster::with([])
+                ->where('country_id', $country_id)
+                ->pluck('stream_id')
+                ->toArray();
+            $query->whereIn('stream_id', $country_broadcasters);
+        }
+
+        if ($song <> 'all'){
+            $query->where('audio_id', $song);
+        }
+
+        $query->whereBetween('played_at', [
             Carbon::parse($from)->startOfDay()->toDateTimeString(),
             Carbon::parse($to)->endOfDay()->toDateTimeString()
-        ])->orderBy('played_at')
-            ->get();
+        ]);
 
-        return $this->getPlayData($from, $to, $date_difference, $plays);
-    }
-
-    public function getAllPlaysOfAllSongsOfArtist(int $date_difference, string $artist, string $from, string $to)
-    {
-        $plays = Play::with([
-            'song.artist' => function($query) use($artist) {
-            $query->where('qisimah_id', $artist)->get();
-        }])->whereBetween('played_at', [
-            Carbon::parse($from)->startOfDay()->toDateTimeString(),
-            Carbon::parse($to)->endOfDay()->toDateTimeString()
-        ])->orderBy('played_at')
-            ->get();
-
-        return $this->getPlayData($from, $to, $date_difference, $plays);
+        $plays = $query->orderBy('played_at')->get();
+        return $this->getPlayData($artist_songs, $song, $country_broadcasters, $from, $to, $date_difference, $plays);
     }
 
     public function compare()
@@ -159,23 +173,26 @@ class ReportController extends Controller
 
     private function getTop5Songs(Collection $plays, Collection $plays_data)
     {
-        $top_five = $plays->groupBy(function ($play) {
-            return $play->song->artist->nick_name. ' - '. $play->song->title;
-        });
+        if ($plays->count()) {
+            $top_five = $plays->groupBy(function ($play) {
+                return $play->song->artist->nick_name. ' - '. $play->song->title;
+            });
 
-        $limit = 5; $count = 0;
-        foreach ($top_five as $song => $top_five_datum) {
-            array_push($this->curve_data['top_5'], [$song, $top_five_datum->count()]);
-            $count ++;
-            if ($count === $limit) {
-                break;
+            $limit = 5; $count = 0;
+            foreach ($top_five as $song => $top_five_datum) {
+                array_push($this->curve_data['top_5'], [$song, $top_five_datum->count()]);
+                $count ++;
+                if ($count === $limit) {
+                    break;
+                }
+            }
+
+            foreach ($plays_data as $played_at => $play) {
+                array_push($this->curve_data['plays'], [$played_at, $play->count()]);
+
             }
         }
 
-        foreach ($plays_data as $played_at => $play) {
-            array_push($this->curve_data['plays'], [$played_at, $play->count()]);
-
-        }
     }
 
     private function getRegionalPlays(Collection $plays)
@@ -194,11 +211,24 @@ class ReportController extends Controller
         }
     }
 
-    private function getTop5Broadcasters(string $from, string $to)
+    private function getTop5Broadcasters(array $artist_songs, string $song, array $country_broadcasters, string $from, string $to)
     {
-        $broadcasters = Play::with('broadcaster')
-            ->select(DB::raw('stream_id, count(*) as plays'))
-            ->whereBetween('played_at', [
+        $query = Play::with('broadcaster')
+            ->select(DB::raw('stream_id, count(*) as plays'));
+
+        if (count($artist_songs)){
+            $query->whereIn('audio_id', $artist_songs);
+        }
+
+        if ($song <> 'all'){
+            $query->where('audio_id', $song);
+        }
+
+        if (count($country_broadcasters)){
+            $query->whereIn('stream_id', $country_broadcasters);
+        }
+
+        $broadcasters = $query->whereBetween('played_at', [
                 Carbon::parse($from)->startOfDay()->toDateTimeString(),
                 Carbon::parse($to)->endOfDay()->toDateTimeString()
             ])->orderBy('plays', 'desc')
@@ -232,12 +262,12 @@ class ReportController extends Controller
         return $plays_data;
     }
 
-    private function getPlayData(string $from, string $to, int $date_difference, Collection $plays)
+    private function getPlayData(array $artist, string $song, array $country_broadcasters, string $from, string $to, int $date_difference, Collection $plays)
     {
         $this->getRegionalPlays($plays); // Get Regional Plays
         $this->getCountryPlays($plays); // Get Country Plays
         $this->getTop5Songs($plays, $this->groupPlaysByDateDiff($plays, $date_difference)); // Get Top Five
-        $this->getTop5Broadcasters($from, $to); // Get top 5 broadcasters
+        $this->getTop5Broadcasters($artist, $song, $country_broadcasters, $from, $to); // Get top 5 broadcasters
         return $this->curve_data;
     }
 }

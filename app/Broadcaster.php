@@ -53,6 +53,11 @@ class Broadcaster extends Model
         return $this;
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function region()
     {
         return $this->belongsTo(Region::class);
