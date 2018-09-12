@@ -18,6 +18,11 @@ class AlterBroadcasterTableAddForeignKeyRegionId extends Migration
                 ->references('id')
                 ->on('regions')
                 ->onDelete('cascade');
+
+            $table->foreign('country_id')
+                ->references('id')
+                ->on('countries')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,6 +35,7 @@ class AlterBroadcasterTableAddForeignKeyRegionId extends Migration
     {
         Schema::table('broadcasters', function (Blueprint $table){
             $table->dropForeign('broadcasters_region_id_foreign');
+            $table->dropForeign('broadcasters_country_id_foreign');
         });
     }
 }
