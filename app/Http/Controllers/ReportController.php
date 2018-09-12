@@ -329,7 +329,9 @@ class ReportController extends Controller
         $artists = Artist::orderBy('nick_name')->get();
         $countries = Country::all();
         $broadcasters = Broadcaster::orderBy('name')->get();
+        $plays = Play::with('broadcaster.region.country', 'song')
+            ->get();
 
-        return view('pages.report.general', compact('artists', 'countries', 'broadcasters'));
+        return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays'));
     }
 }

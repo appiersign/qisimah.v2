@@ -23,17 +23,17 @@
             <div class="top-sum">
                 <div class="w-row">
                     <div class="w-col w-col-4">
-                        <div class="text-block-23">0</div>
+                        <div class="text-block-23">{{ $plays->count() }}</div>
                         <div class="number-card-divider-dark"></div>
                         <div class="number-card-cedis">Total number fetched</div>
                     </div>
                     <div class="w-col w-col-4">
-                        <div class="text-block-23">0</div>
+                        <div class="text-block-23">{{ $plays->broadcaster_count }}</div>
                         <div class="number-card-divider-dark"></div>
                         <div class="number-card-cedis">Total number of Broadcasters</div>
                     </div>
                     <div class="w-col w-col-4">
-                        <div class="text-block-23">0</div>
+                        <div class="text-block-23">{{ $plays->broadcaster->region_count }}</div>
                         <div class="number-card-divider-dark"></div>
                         <div class="number-card-cedis">Locations</div>
                     </div>
