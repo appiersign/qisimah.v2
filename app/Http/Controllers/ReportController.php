@@ -326,12 +326,23 @@ class ReportController extends Controller
 
     public function general()
     {
+        $broadcaster_count = $region_count = $play_count = 0;
         $artists = Artist::orderBy('nick_name')->get();
         $countries = Country::all();
         $broadcasters = Broadcaster::orderBy('name')->get();
-        $plays = Play::with('broadcaster.region.country', 'song')
+        $plays = Play::with('broadcaster.region', 'song.artist')
             ->get();
 
-        return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays'));
+        $play_count = $plays->count();
+
+        $broadcaster_count = $plays->groupBy('stream_id')->count();
+        $region_count = $plays->groupBy(['broadcaster.region' => function ($play) {
+            return $play->broadcaster->region->qisimah_id;
+        }])->count();
+
+        $plays = Play::with('broadcaster.region', 'song.artist')
+            ->paginate(20);
+
+        return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays', 'broadcaster_count', 'region_count', 'play_count'));
     }
 }
