@@ -45,28 +45,8 @@
                     <div class="w-form">
                         <form id="email-form" method="post" action="{{ route('reports.summary') }}" name="email-form" data-name="Email Form" class="plays-summary-report">
                             {{ csrf_field() }}
-                            <select id="field-2" name="broadcaster" class="select-field-summary w-select">
-                                <option value="">Select Broadcaster</option>
-                                <option value="all">All</option>
-                                @if(isset($broadcasters))
-                                    @foreach($broadcasters as $broadcaster)
-                                        <option value="{{ $broadcaster->qisimah_id }}">{{ $broadcaster->name. ' - ' .$broadcaster->frequency }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-
-                            <select id="summary-artist" name="artist" class="select-field-summary w-select">
-                                <option value="" disabled selected>Select Artist</option>
-                                <option value="all">All</option>
-                                @if(isset($artists))
-                                    @foreach($artists as $artist)
-                                        <option value="{{ $artist->qisimah_id }}">{{ $artist->nick_name }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-
-                            <select id="summary-country" name="country" class="select-field-summary w-select">
-                                <option value="" disabled selected>Select Country</option>
+                            <select id="general-country" name="country" class="select-field w-select">
+                                <option value="" disabled selected>Country</option>
                                 <option value="all">All</option>
                                 @if(isset($countries))
                                     @foreach($countries as $country)
@@ -75,8 +55,28 @@
                                 @endif
                             </select>
 
-                            <select id="summary-song" name="song" class="select-field-summary w-select">
-                                <option value="Select Artist" disabled selected>Select Song</option>
+                            <select id="general-broadcaster" name="broadcaster" class="select-field w-select">
+                                <option value="">Broadcaster</option>
+                                <option value="all">All</option>
+                                @if(isset($broadcasters))
+                                    @foreach($broadcasters as $broadcaster)
+                                        <option value="{{ $broadcaster->qisimah_id }}">{{ $broadcaster->name. ' - ' .$broadcaster->frequency }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+
+                            <select id="summary-artist" name="artist" class="select-field w-select">
+                                <option value="" disabled selected>Artist</option>
+                                <option value="all">All</option>
+                                @if(isset($artists))
+                                    @foreach($artists as $artist)
+                                        <option value="{{ $artist->qisimah_id }}">{{ $artist->nick_name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+
+                            <select id="summary-song" name="song" class="select-field w-select">
+                                <option value="Select Artist" disabled selected>Song</option>
                                 <option value="all">All</option>
                                 @if(isset($songs))
                                     @foreach($songs as $song)
@@ -85,10 +85,10 @@
                                 @endif
                             </select>
                             <input id="reportrange" name="dates" data-name="Field 2"
-                                   class="select-field-summary w-select daterange-select">
+                                   class="select-field w-select daterange-select">
 
-                            <input type="submit" value="Generate" data-wait="Please wait..."
-                                   class="submit-button-4 w-button summary-search">
+                            <input id="get-general-report-button" type="submit" value="Generate" data-wait="Please wait..."
+                                   class="submit-button-4 w-button">
                         </form>
 
 
@@ -111,37 +111,44 @@
                     </div>
                     <div class="w-tab-content">
                         <div data-w-tab="Logs" class="reports-tab-content w-tab-pane w--tab-active">
+                            <div class="section-heading w-hidden-medium w-hidden-small w-hidden-tiny w-row">
+                                <div class="column-42 w-col w-col-3">
+                                    <div class="heading-text">SONG</div>
+                                </div>
+                                <div class="w-col w-col-4">
+                                    <div class="heading-text">RADIO STATION</div>
+                                </div>
+                                <div class="w-col w-col-3">
+                                    <div class="heading-text">TIME PLAYED</div>
+                                </div>
+                                <div class="column-2 w-col w-col-1">
+                                    <div class="heading-text">DURATION</div>
+                                </div>
+                            </div>
                             @if(isset($plays) && count($plays))
                                 @foreach($plays as $play)
                                     <div class="div-block-27">
                                         <div class="row-7 w-row">
                                             <div class="column-4 w-col w-col-3">
                                                 <div class="track-details-wrapper">
-                                                    <img width="40" src="{{ $play->song->art }}">
                                                     <div class="song-name-artist">
                                                         <div class="text-block-2">{{ $play->song->title }}</div>
                                                         <div class="text-block-3">{{ $play->song->artist->nick_name }}</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="w-col w-col-3">
+                                            <div class="w-col w-col-4">
                                                 <div>
                                                     <span class="station-name">{{ $play->broadcaster->name }}</span> -
                                                     <span>{{ $play->broadcaster->frequency }} </span>
                                                     <span>{{ $play->broadcaster->country->name }}</span>
                                                 </div>
                                             </div>
-                                            <div class="w-col w-col-2">
-                                                <div>{{ $play->played_at->toDateString() }}</div>
+                                            <div class="w-col w-col-3">
+                                                <div>{{ $play->played_at->toDateTimeString() }}</div>
                                             </div>
                                             <div class="w-col w-col-2">
-                                                <div>100</div>
-                                            </div>
-                                            <div class="w-col w-col-1">
-                                                <div>300</div>
-                                            </div>
-                                            <div class="w-col w-col-1">
-                                                <div>50:00 m</div>
+                                                <div>{{ $play->duration }}</div>
                                             </div>
                                         </div>
                                     </div>
