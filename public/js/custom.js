@@ -18,9 +18,22 @@ $(document).ready(function () {
         var id = $(this).val();
         $.get('/artists/' + id + '/songs', function (data, status) {
             $that.empty();
-            $that.append("<option value='all' selected>All Songs</option>");
+            $that.append("<option value='all' selected>All</option>");
             data.map( function (obj) {
                 $that.append("<option value='"+ obj.qisimah_id +"'>"+ obj.title +"</option>");
+            });
+        });
+    });
+
+    $('#general-country').on('change', function (e) {
+        var $that = $("#general-broadcaster");
+        var id = $(this).val();
+        $.get('/countries/' + id + '/broadcasters', function (data, status) {
+            console.log(data);
+            $that.empty();
+            $that.append("<option value='all' selected>All</option>");
+            data.map( function (obj) {
+                $that.append("<option value='"+ obj.stream_id +"'>"+ obj.name +' '+ obj.frequency+"</option>");
             });
         });
     });

@@ -324,25 +324,74 @@ class ReportController extends Controller
         return $this->curve_data;
     }
 
-    public function general()
+    public function general(string $broadcaster = null, string $artist = null, string $song = null, string $from = null, string $to = null)
     {
+
         $broadcaster_count = $region_count = $play_count = 0;
         $artists = Artist::orderBy('nick_name')->get();
         $countries = Country::all();
-        $broadcasters = Broadcaster::orderBy('name')->get();
-        $plays = Play::with('broadcaster.region', 'song.artist')
-            ->get();
+        $broadcasters = [];
 
-        $play_count = $plays->count();
+        $plays = Play::with('broadcaster.region', 'song.artist');
 
-        $broadcaster_count = $plays->groupBy('stream_id')->count();
-        $region_count = $plays->groupBy(['broadcaster.region' => function ($play) {
-            return $play->broadcaster->region->qisimah_id;
-        }])->count();
+        try {
 
-        $plays = Play::with('broadcaster.region', 'song.artist')
-            ->paginate(20);
+            if ($broadcaster && $broadcaster <> 'all') {
+                $broadcaster = Broadcaster::with([])->where('stream_id', $broadcaster)->first();
+                if (is_null($broadcaster)) {
+                    throw new \Exception('Broadcaster does not exist!');
+                }
+                $plays->whereIn('stream_id', [$broadcaster->stream_id]);
+            }
 
-        return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays', 'broadcaster_count', 'region_count', 'play_count'));
+            if ($artist && $artist <> 'all') {
+
+                if ($song && $song <> 'all') {
+                    $artist = Artist::with([])->where('qisimah_id', $artist)->first();
+                    $song = $artist->songs()->where('qisimah_id', $song)->first();
+
+                    if (is_null($song)) {
+                        throw new \Exception('Song does not exist!');
+                    }
+                    $plays->whereIn('audio_id', [$song->qisimah_id]);
+
+                } else {
+                    $artist = Artist::with(['songs'])->where('qisimah_id', $artist)->first();
+
+                    if (is_null($artist)) {
+                        throw new \Exception('Artist does not exist!');
+                    }
+                    $plays->whereIn('audio_id', $artist->songs()->pluck('qisimah_id')->toArray());
+                }
+
+
+            }
+
+//            return $plays->count();
+
+
+            $play_count = $plays->count();
+
+            return $region_count = $plays->groupBy(['broadcaster.region' => function ($play) {
+                return $play->broadcaster->region->qisimah_id;
+            }])->count();
+
+            $broadcaster_count = $plays->groupBy('stream_id')->count();
+
+            return $plays->toSql();
+
+
+            $plays = Play::with('broadcaster.region', 'song.artist')
+                ->paginate(20);
+
+            return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays', 'broadcaster_count', 'region_count', 'play_count'));
+
+        } catch (\Exception $exception) {
+
+            logger($exception);
+            return $exception->getMessage();
+        }
+
+
     }
 }

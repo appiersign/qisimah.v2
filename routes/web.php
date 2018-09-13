@@ -35,7 +35,8 @@ Route::resources([
     'plays'     => 'PlayController',
     'albums'    => 'AlbumController',
     'broadcasters'  =>  'BroadcasterController',
-    'artists.songs' =>  'ArtistSongController'
+    'artists.songs' =>  'ArtistSongController',
+    'countries.broadcasters' => 'CountryBroadcasterController'
 ]);
 
 Route::name('reports.')->prefix('reports')->group( function (){
@@ -43,7 +44,7 @@ Route::name('reports.')->prefix('reports')->group( function (){
     Route::post('summary', 'ReportController@summary')->name('summary');
     Route::get('summary/{artist}/{country}/{song}/{from}/{to}', 'ReportController@getSummary')->name('get.summary');
     Route::get('compare', 'ReportController@compare')->name('compare');
-    Route::get('general', 'ReportController@general')->name('general');
+    Route::get('general/{broadcaster?}/{artist?}/{song?}/{from?}/{to?}', 'ReportController@general')->name('general');
 });
 
 Route::get('broadcasters/create/{country}', 'BroadcasterController@getRegions');
