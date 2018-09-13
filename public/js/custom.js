@@ -37,4 +37,18 @@ $(document).ready(function () {
             });
         });
     });
+
+    $('#get-general-report-button').on('click', function (e) {
+        e.preventDefault();
+        let broadcaster = $('#general-broadcaster').val();
+        let artist = $('#summary-artist').val();
+        let song = $('#summary-song').val();
+
+        let broadcaster_id = (broadcaster)? broadcaster : 'all';
+        let artist_id = (artist)? artist : 'all';
+        let song_id = (song)? song : 'all';
+        let range = $('#reportrange').val().split(' - ');
+
+        window.location.pathname = 'reports/general/'+ broadcaster_id +'/'+ artist_id +'/'+ song_id +'/'+ new Date(range[0]).toISOString().split('T')[0] +'/'+ new Date(range[1]).toISOString().split('T')[0];
+    });
 });

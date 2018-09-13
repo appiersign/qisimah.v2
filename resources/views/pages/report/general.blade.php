@@ -87,7 +87,7 @@
                             <input id="reportrange" name="dates" data-name="Field 2"
                                    class="select-field w-select daterange-select">
 
-                            <input type="submit" value="Generate" data-wait="Please wait..."
+                            <input id="get-general-report-button" type="submit" value="Generate" data-wait="Please wait..."
                                    class="submit-button-4 w-button">
                         </form>
 
