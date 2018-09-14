@@ -324,44 +324,46 @@ class ReportController extends Controller
         return $this->curve_data;
     }
 
+    /**
+     * @param string|null $broadcaster
+     * @param string|null $artist
+     * @param string|null $song
+     * @param string|null $from
+     * @param string|null $to
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function general(string $broadcaster = null, string $artist = null, string $song = null, string $from = null, string $to = null)
     {
         $broadcaster_count = $region_count = $play_count = 0;
         $artists = Artist::orderBy('nick_name')->get();
         $countries = Country::all();
         $broadcasters = [];
-
         $to = Carbon::parse($to)->toDateTimeString();
         $from = Carbon::parse($from)->toDateTimeString();
-
         $plays = Play::with(['broadcaster.region', 'song.artist'])->whereBetween('played_at', [$from, $to]);
 
         try {
             $where = [];
 
             if ($broadcaster && $broadcaster <> 'all') {
-                $broadcaster = Broadcaster::with([])->where('stream_id', $broadcaster)->first();
-                if (is_null($broadcaster)) {
+                $_broadcaster = Broadcaster::with([])->where('stream_id', $broadcaster)->first();
+                if (is_null($_broadcaster)) {
                     throw new \Exception('Broadcaster does not exist!');
                 }
-                array_push($where, ['stream_id', '=', $broadcaster->stream_id]);
+                array_push($where, ['stream_id', '=', $_broadcaster->stream_id]);
             }
 
             if ($artist && $artist <> 'all') {
 
-                $artist = Artist::with('songs')->where('qisimah_id', $artist)->first();
-                if (is_null($artist)) {
+                $_artist = Artist::with([])->where('qisimah_id', $artist)->first();
+                if (is_null($_artist)) {
                     throw new \Exception('Artist does not exist!');
                 }
 
                 if ($song && $song <> 'all') {
-                    if (is_null($artist)){
-                        throw new \Exception('Artist does not exist!');
-                    }
-                    $song = $artist->songs()->where('qisimah_id', $song)->first();
-
+                    $song = $_artist->songs()->where('qisimah_id', $song)->first();
                     if (is_null($song)) {
-                        $song = $artist->features()->where('qisimah_id', $song)->first();
+                        $song = $_artist->features()->where('qisimah_id', $song)->first();
                         if (is_null($song)){
                             throw new \Exception('Song does not exist!');
                         }
@@ -369,14 +371,17 @@ class ReportController extends Controller
                     array_push($where, ['audio_id', '=', $song->qisimah_id]);
 
                 } else {
-                    $all_songs = array_merge($artist->songs()->pluck('qisimah_id')->toArray(), $artist->features()->pluck('qisimah_id')->toArray());
+                    $all_songs = array_merge($_artist->songs()->pluck('qisimah_id')->toArray(), $_artist->features()->pluck('qisimah_id')->toArray());
                     $plays->whereIn('audio_id', $all_songs);
                 }
+            }
 
+            if (\request()->ajax()) {
+                $plays = Play::with(['broadcaster.region'])->where($where)->whereBetween('played_at', [$from, $to])->get();
             }
             
             $play_count = $plays->count();
-            $broadcaster_count = $plays->groupBy('stream_id')->count();
+            $broadcaster_count = ($broadcaster == 'all')? Play::with([])->where($where)->whereBetween('played_at', [$from, $to])->orderBy('stream_id')->groupBy(['stream_id'])->count() : 1;
             $region_count = Play::with('broadcaster.region')->where($where)->whereBetween('played_at', [$from, $to])->get()->groupBy('broadcaster.region.qisimah_id')->count();
             $plays = Play::with(['broadcaster.region', 'song.artist'])->where($where)->whereBetween('played_at', [$from, $to])->paginate(20);
             return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays', 'broadcaster_count', 'region_count', 'play_count'));
