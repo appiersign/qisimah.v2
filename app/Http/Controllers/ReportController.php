@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class ReportController extends Controller
 {
@@ -335,58 +336,57 @@ class ReportController extends Controller
     public function general(string $broadcaster = null, string $artist = null, string $song = null, string $from = null, string $to = null)
     {
         $broadcaster_count = $region_count = $play_count = 0;
-        $artists = Artist::orderBy('nick_name')->get();
-        $countries = Country::all();
-        $broadcasters = [];
-        $to = Carbon::parse($to)->toDateTimeString();
-        $from = Carbon::parse($from)->toDateTimeString();
-        $plays = Play::with(['broadcaster.region', 'song.artist'])->whereBetween('played_at', [$from, $to]);
+        $where = [];
+
+        $_to = Carbon::parse($to)->endOfDay()->toDateTimeString();
+        $_from = Carbon::parse($from)->startOfDay()->toDateTimeString();
+        $playQuery = Play::with(['broadcaster.region']);
 
         try {
-            $where = [];
-
-            if ($broadcaster && $broadcaster <> 'all') {
-                $_broadcaster = Broadcaster::with([])->where('stream_id', $broadcaster)->first();
-                if (is_null($_broadcaster)) {
+            if ($broadcaster && !in_array($broadcaster, [null, 'all'])){
+                $_broadcaster = Broadcaster::where('stream_id', $broadcaster)->first();
+                if (is_null($_broadcaster)){
                     throw new \Exception('Broadcaster does not exist!');
                 }
-                array_push($where, ['stream_id', '=', $_broadcaster->stream_id]);
+                array_push($where, ['stream_id', $broadcaster]);
             }
 
-            if ($artist && $artist <> 'all') {
-
+            if ($artist <> null && $artist <> 'all'){
                 $_artist = Artist::with([])->where('qisimah_id', $artist)->first();
-                if (is_null($_artist)) {
+                if (is_null($_artist)){
                     throw new \Exception('Artist does not exist!');
                 }
 
-                if ($song && $song <> 'all') {
-                    $song = $_artist->songs()->where('qisimah_id', $song)->first();
-                    if (is_null($song)) {
-                        $song = $_artist->features()->where('qisimah_id', $song)->first();
-                        if (is_null($song)){
+                if ($song <> null && $song <> 'all'){
+                    $_song = $_artist->songs()->where('qisimah_id', $song)->first();
+                    if (is_null($_song)){
+                        $_song = $_artist->features()->where('qisimah_id', $song)->first();
+                        if (is_null($_song)){
                             throw new \Exception('Song does not exist!');
                         }
                     }
-                    array_push($where, ['audio_id', '=', $song->qisimah_id]);
-
+                    $all_songs = [$_song->qisimah_id];
                 } else {
-                    $all_songs = array_merge($_artist->songs()->pluck('qisimah_id')->toArray(), $_artist->features()->pluck('qisimah_id')->toArray());
-                    $plays->whereIn('audio_id', $all_songs);
+                    $all_songs = array_merge(
+                        $_artist->songs()->pluck('qisimah_id')->toArray(),
+                        $_artist->features()->pluck('qisimah_id')->toArray()
+                        );
                 }
+                $playQuery->whereIn('audio_id', $all_songs);
             }
 
-            if (\request()->ajax()) {
-                $plays = Play::with(['broadcaster.region'])->where($where)->whereBetween('played_at', [$from, $to])->get();
-            }
-            
-            $play_count = $plays->count();
-            $broadcaster_count = ($broadcaster == 'all')? Play::with([])->where($where)->whereBetween('played_at', [$from, $to])->orderBy('stream_id')->groupBy(['stream_id'])->count() : 1;
-            $region_count = Play::with('broadcaster.region')->where($where)->whereBetween('played_at', [$from, $to])->get()->groupBy('broadcaster.region.qisimah_id')->count();
-            $plays = Play::with(['broadcaster.region', 'song.artist'])->where($where)->whereBetween('played_at', [$from, $to])->paginate(20);
-            return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays', 'broadcaster_count', 'region_count', 'play_count'));
+            $broadcaster_count = $region_count = 0;
+            $countries = Country::orderBy('name')->get(['qisimah_id', 'name']);
+            $artists = Artist::orderBy('nick_name')->get(['id', 'nick_name', 'qisimah_id']);
 
+            $playables = $playQuery->where($where)->whereBetween('played_at', [$_from, $_to])->get();
+            $broadcaster_count = $playables->groupBy('stream_id')->count();
+            $region_count = $playables->groupBy('broadcaster.region.qisimah_id')->count();
+            $plays = Play::with('broadcaster.country', 'song.artist')->where($where)->whereBetween('played_at', [$_from, $_to])->paginate(20);
+
+            return view('pages.report.general', compact('countries', 'artists', 'plays', 'broadcaster_count', 'region_count'));
         } catch (\Exception $exception) {
+            return $exception->getMessage();
             session()->flash('error', $exception->getMessage());
             return back();
         }

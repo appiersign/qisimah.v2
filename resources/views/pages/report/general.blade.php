@@ -23,7 +23,7 @@
             <div class="top-sum">
                 <div class="w-row">
                     <div class="w-col w-col-4">
-                        <div class="text-block-23">{{ $play_count }}</div>
+                        <div class="text-block-23">{{ $plays->total() }}</div>
                         <div class="number-card-divider-dark"></div>
                         <div class="number-card-cedis">Total number fetched</div>
                     </div>
