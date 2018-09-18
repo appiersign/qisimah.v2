@@ -157,7 +157,7 @@
                             {{ $plays->links() }}
                         </div>
                         <div data-w-tab="heat map" class="reports-tab-content w-tab-pane">
-                            <div class="map w-widget w-widget-map" style="overflow: hidden;"><div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);"><div class="gm-err-container"><div class="gm-err-content"><div class="gm-err-icon"><img src="https://maps.gstatic.com/mapfiles/api-3/images/icon_error.png" draggable="false" style="user-select: none;"></div><div class="gm-err-title">Sorry! Something went wrong.</div><div class="gm-err-message">This page didn't load Google Maps correctly. See the JavaScript console for technical details.</div></div></div></div></div>
+                            <div id="map_div" style="height: 500px"></div>
                         </div>
                     </div>
                 </div>
@@ -171,5 +171,77 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
         $('input[name="dates"]').daterangepicker();
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['map'] });
+        google.charts.setOnLoadCallback(drawMap);
+
+        function drawMap() {
+            var data = google.visualization.arrayToDataTable([
+                ['Country', 'Population'],
+                ['Ghana', 'Nigeria: 173,615,000'],
+            ]);
+
+            var options = {
+                mapType: 'styledMap',
+                zoomLevel: 7,
+                showTooltip: true,
+                showInfoWindow: true,
+                useMapTypeControl: true,
+                // User will only be able to view/select custom styled maps.
+                mapTypeIds: ['styledMap', 'redEverything', 'imBlue'],
+                maps: {
+                    styledMap: {
+                        name: 'Styled Map',
+                        styles: [
+                            {featureType: 'poi.attraction',
+                                stylers: [{color: '#fce8b2'}]},
+                            {featureType: 'road.highway',
+                                stylers: [{hue: '#0277bd'}, {saturation: -50}]},
+                            {featureType: 'road.highway', elementType: 'labels.icon',
+                                stylers: [{hue: '#000'}, {saturation: 100}, {lightness: 50}]},
+                            {featureType: 'landscape',
+                                stylers: [{hue: '#259b24'}, {saturation: 10},{lightness: -22}]}
+                        ]},
+                    redEverything: {
+                        name: 'Redden All The Things',
+                        styles: [
+                            {featureType: 'landscape',
+                                stylers: [{color: '#fde0dd'}]},
+                            {featureType: 'road.highway',
+                                stylers: [{color: '#67000d'}]},
+                            {featureType: 'road.highway', elementType: 'labels',
+                                stylers: [{visibility: 'off'}]},
+                            {featureType: 'poi',
+                                stylers: [{hue: '#ff0000'}, {saturation: 50}, {lightness: 0}]},
+                            {featureType: 'water',
+                                stylers: [{color: '#67000d'}]},
+                            {featureType: 'transit.station.airport',
+                                stylers: [{color: '#ff0000'}, {saturation: 50}, {lightness: -50}]}
+                        ]},
+                    imBlue: {
+                        name: 'All Your Blues are Belong to Us',
+                        styles: [
+                            {featureType: 'landscape',
+                                stylers: [{color: '#c5cae9'}]},
+                            {featureType: 'road.highway',
+                                stylers: [{color: '#023858'}]},
+                            {featureType: 'road.highway', elementType: 'labels',
+                                stylers: [{visibility: 'off'}]},
+                            {featureType: 'poi',
+                                stylers: [{hue: '#0000ff'}, {saturation: 50}, {lightness: 0}]},
+                            {featureType: 'water',
+                                stylers: [{color: '#0288d1'}]},
+                            {featureType: 'transit.station.airport',
+                                stylers: [{color: '#0000ff'}, {saturation: 50}, {lightness: -50}]}
+                        ]}
+                }
+            };
+
+            var map = new google.visualization.Map(document.getElementById('map_div'));
+
+            map.draw(data, options);
+        };
     </script>
 @endsection
