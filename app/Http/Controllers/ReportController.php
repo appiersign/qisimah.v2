@@ -339,7 +339,7 @@ class ReportController extends Controller
         $where = [];
         $_to = Carbon::parse($to)->endOfDay()->toDateTimeString();
         $_from = Carbon::parse($from)->startOfDay()->toDateTimeString();
-        $playQuery = Play::with(['broadcaster.region']);
+        $playQuery = Play::with(['broadcaster.country', 'broadcaster.region', 'song.artist']);
 
         try {
             if ($broadcaster && !in_array($broadcaster, [null, 'all'])){
@@ -377,19 +377,19 @@ class ReportController extends Controller
             }
 
             if (\request()->ajax()) {
-                $plays = Play::with(['broadcaster.region'])->where($where)->whereBetween('played_at', [$from, $to])->get();
+                $plays = Play::with(['broadcaster.region'])->where($where)->whereBetween('played_at', [$_from, $_to])->get();
             }
 
-            $_plays = $playQuery;
-            $play_count = $playQuery->count();
-            $broadcaster_count = ($broadcaster == 'all')? Play::with([])->where($where)->whereBetween('played_at', [$from, $to])->orderBy('stream_id')->groupBy(['stream_id'])->count() : 1;
-            $region_count = Play::with('broadcaster.region')->where($where)->whereBetween('played_at', [$from, $to])->get()->groupBy('broadcaster.region.qisimah_id')->count();
-            $plays = $_plays->where($where)->whereBetween('played_at', [$from, $to])->paginate(20);
-            $countries = Country::all();
-            $artists = Artist::all();
+            $_plays             = $playQuery->where($where)->whereBetween('played_at', [$_from, $_to]);
+            $getPlays           = $playQuery->get();
+            $play_count         = $getPlays->count();
+            $broadcaster_count  = $getPlays->groupBy(['stream_id'])->count();
+            $region_count       = $getPlays->groupBy('broadcaster.region.qisimah_id')->count();
+            $plays              = $_plays->where($where)->whereBetween('played_at', [$_from, $_to])->paginate(20);
+            $countries          = Country::all();
+            $artists            = Artist::all();
             return view('pages.report.general', compact('artists', 'countries', 'broadcasters', 'plays', 'broadcaster_count', 'region_count', 'play_count'));
         } catch (\Exception $exception) {
-            logger($exception);
             session()->flash('error', $exception->getMessage());
             return back();
         }

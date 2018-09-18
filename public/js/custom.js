@@ -16,13 +16,19 @@ $(document).ready(function () {
     $('#summary-artist').on('change', function (e) {
         var $that = $("#summary-song");
         var id = $(this).val();
-        $.get('/artists/' + id + '/songs', function (data, status) {
+        if ($(this).val() !== 'all') {
+            $.get('/artists/' + id + '/songs', function (data, status) {
+                $that.empty();
+                $that.append("<option value='all' selected>All</option>");
+                data.map( function (obj) {
+                    $that.append("<option value='"+ obj.qisimah_id +"'>"+ obj.title +"</option>");
+                });
+            });
+        } else {
             $that.empty();
             $that.append("<option value='all' selected>All</option>");
-            data.map( function (obj) {
-                $that.append("<option value='"+ obj.qisimah_id +"'>"+ obj.title +"</option>");
-            });
-        });
+        }
+
     });
 
     $('#general-country').on('change', function (e) {
