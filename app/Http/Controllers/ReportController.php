@@ -175,14 +175,6 @@ class ReportController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function compare()
-    {
-        return view('pages.report.compare');
-    }
-
-    /**
      * @param Collection $plays
      */
     private function getCountryPlays(Collection $plays)
@@ -393,5 +385,34 @@ class ReportController extends Controller
             session()->flash('error', $exception->getMessage());
             return back();
         }
+    }
+
+    /**
+     * @param string|null $my_artist
+     * @param string|null $other_artists
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function compare(string $my_artist = null, string $other_artists = null)
+    {
+        if ($my_artist){
+            session()->flash('artist_1', $my_artist);
+            $artist_songs = getArtistSongs($my_artist);
+            $artist_1 = new Collection();
+            $artist_1->name = $artist_songs[0]->nick_name;
+            $artist_1->songs_uploaded = \count($artist_songs[1]);
+            $artist_1->plays = Play::with('song')->whereIn('audio_id', $artist_songs[1])->count();
+        }
+        if ($other_artists){
+            $artists = explode('-', $other_artists);
+            if (isset($artists[0])){
+                session()->flash('artist_2', $artists[0]);
+            }
+
+            if (isset($artists[1])){
+                session()->flash('artist_3', $artists[1]);
+            }
+        }
+        $artists = Artist::with([])->orderBy('nick_name')->get(['qisimah_id', 'nick_name']);
+        return view('pages.report.compare', compact('artists', 'artist_1'));
     }
 }

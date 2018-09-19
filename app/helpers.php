@@ -36,3 +36,21 @@ function getDateDiff(string $from, string $to)
     $to = Carbon::parse($to);
     return $to->diffInDays($from);
 }
+
+
+/**
+ * @param string $qisimah_id
+ * @return array|string
+ */
+function getArtistSongs(string $qisimah_id)
+{
+    try {
+        $artist = \App\Artist::with('songs', 'features')->where('qisimah_id', $qisimah_id)->first();
+        if (is_null($artist)) {
+            throw new Exception('Artist does not exist');
+        }
+        return [$artist, $artist->songs()->pluck('qisimah_id')->toArray()];
+    } catch (Exception $exception) {
+        return $exception->getMessage();
+    }
+}

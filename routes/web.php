@@ -43,7 +43,7 @@ Route::name('reports.')->prefix('reports')->group( function (){
     Route::get('summary', 'ReportController@createSummary')->name('summary');
     Route::post('summary', 'ReportController@summary')->name('summary');
     Route::get('summary/{artist}/{country}/{song}/{from}/{to}', 'ReportController@getSummary')->name('get.summary');
-    Route::get('compare', 'ReportController@compare')->name('compare');
+    Route::get('compare/{my_artist?}/{other_artists?}', 'ReportController@compare')->name('compare');
     Route::get('general/{broadcaster?}/{artist?}/{song?}/{from?}/{to?}', 'ReportController@general')->name('general');
 });
 
