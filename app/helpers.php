@@ -49,7 +49,7 @@ function getArtistSongs(string $qisimah_id)
         if (is_null($artist)) {
             throw new Exception('Artist does not exist');
         }
-        return [$artist, $artist->songs()->pluck('qisimah_id')->toArray()];
+        return [$artist, $artist->songs()->pluck('qisimah_id')->toArray(), $artist->features()->pluck('qisimah_id')->toArray()];
     } catch (Exception $exception) {
         return $exception->getMessage();
     }

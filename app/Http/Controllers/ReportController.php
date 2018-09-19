@@ -396,23 +396,38 @@ class ReportController extends Controller
     {
         if ($my_artist){
             session()->flash('artist_1', $my_artist);
-            $artist_songs = getArtistSongs($my_artist);
-            $artist_1 = new Collection();
-            $artist_1->name = $artist_songs[0]->nick_name;
-            $artist_1->songs_uploaded = \count($artist_songs[1]);
-            $artist_1->plays = Play::with('song')->whereIn('audio_id', $artist_songs[1])->count();
+            $artist_1 = $this->getComparisonData($my_artist);
         }
         if ($other_artists){
             $artists = explode('-', $other_artists);
             if (isset($artists[0])){
                 session()->flash('artist_2', $artists[0]);
+                $artist_2 = $this->getComparisonData($artists[0]);
             }
 
             if (isset($artists[1])){
                 session()->flash('artist_3', $artists[1]);
+                $artist_3 = $this->getComparisonData($artists[1]);
             }
         }
         $artists = Artist::with([])->orderBy('nick_name')->get(['qisimah_id', 'nick_name']);
-        return view('pages.report.compare', compact('artists', 'artist_1'));
+        return view('pages.report.compare', compact('artists', 'artist_1', 'artist_2', 'artist_3'));
+    }
+
+    /**
+     * @param string $artist_qisimah_id
+     * @return Collection
+     */
+    private function getComparisonData(string $artist_qisimah_id)
+    {
+        $artist_songs = getArtistSongs($artist_qisimah_id);
+        $artist_data = new Collection();
+        $artist_data->name = $artist_songs[0]->nick_name;
+        $artist_data->avatar = $artist_songs[0]->avatar;
+        $artist_data->songs_uploaded = \count($artist_songs[1]);
+        $artist_data->features_uploaded = \count($artist_songs[2]);
+        $artist_data->song_plays = Play::with([])->whereIn('audio_id', $artist_songs[1])->count();
+        $artist_data->feature_plays = Play::with([])->whereIn('audio_id', $artist_songs[2])->count();
+        return $artist_data;
     }
 }
