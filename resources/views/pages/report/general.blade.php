@@ -157,7 +157,7 @@
                             {{ $plays->links() }}
                         </div>
                         <div data-w-tab="heat map" class="reports-tab-content w-tab-pane">
-                            <div id="map_div" style="height: 500px"></div>
+                            <div id="chart_div" style="width: 100%"></div>
                         </div>
                     </div>
                 </div>
@@ -180,66 +180,24 @@
         function drawMap() {
             var data = google.visualization.arrayToDataTable([
                 ['Country', 'Population'],
-                ['Ghana', 'Nigeria: 173,615,000'],
+                ['China', 'China: 1,363,800,000'],
+                ['India', 'India: 1,242,620,000'],
+                ['US', 'US: 317,842,000'],
+                ['Indonesia', 'Indonesia: 247,424,598'],
+                ['Brazil', 'Brazil: 201,032,714'],
+                ['Pakistan', 'Pakistan: 186,134,000'],
+                ['Nigeria', 'Nigeria: 173,615,000'],
+                ['Bangladesh', 'Bangladesh: 152,518,015'],
+                ['Russia', 'Russia: 146,019,512'],
+                ['Japan', 'Japan: 127,120,000']
             ]);
 
             var options = {
-                mapType: 'styledMap',
-                zoomLevel: 7,
                 showTooltip: true,
-                showInfoWindow: true,
-                useMapTypeControl: true,
-                // User will only be able to view/select custom styled maps.
-                mapTypeIds: ['styledMap', 'redEverything', 'imBlue'],
-                maps: {
-                    styledMap: {
-                        name: 'Styled Map',
-                        styles: [
-                            {featureType: 'poi.attraction',
-                                stylers: [{color: '#fce8b2'}]},
-                            {featureType: 'road.highway',
-                                stylers: [{hue: '#0277bd'}, {saturation: -50}]},
-                            {featureType: 'road.highway', elementType: 'labels.icon',
-                                stylers: [{hue: '#000'}, {saturation: 100}, {lightness: 50}]},
-                            {featureType: 'landscape',
-                                stylers: [{hue: '#259b24'}, {saturation: 10},{lightness: -22}]}
-                        ]},
-                    redEverything: {
-                        name: 'Redden All The Things',
-                        styles: [
-                            {featureType: 'landscape',
-                                stylers: [{color: '#fde0dd'}]},
-                            {featureType: 'road.highway',
-                                stylers: [{color: '#67000d'}]},
-                            {featureType: 'road.highway', elementType: 'labels',
-                                stylers: [{visibility: 'off'}]},
-                            {featureType: 'poi',
-                                stylers: [{hue: '#ff0000'}, {saturation: 50}, {lightness: 0}]},
-                            {featureType: 'water',
-                                stylers: [{color: '#67000d'}]},
-                            {featureType: 'transit.station.airport',
-                                stylers: [{color: '#ff0000'}, {saturation: 50}, {lightness: -50}]}
-                        ]},
-                    imBlue: {
-                        name: 'All Your Blues are Belong to Us',
-                        styles: [
-                            {featureType: 'landscape',
-                                stylers: [{color: '#c5cae9'}]},
-                            {featureType: 'road.highway',
-                                stylers: [{color: '#023858'}]},
-                            {featureType: 'road.highway', elementType: 'labels',
-                                stylers: [{visibility: 'off'}]},
-                            {featureType: 'poi',
-                                stylers: [{hue: '#0000ff'}, {saturation: 50}, {lightness: 0}]},
-                            {featureType: 'water',
-                                stylers: [{color: '#0288d1'}]},
-                            {featureType: 'transit.station.airport',
-                                stylers: [{color: '#0000ff'}, {saturation: 50}, {lightness: -50}]}
-                        ]}
-                }
+                showInfoWindow: true
             };
 
-            var map = new google.visualization.Map(document.getElementById('map_div'));
+            var map = new google.visualization.Map(document.getElementById('chart_div'));
 
             map.draw(data, options);
         };
