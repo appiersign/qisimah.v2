@@ -157,7 +157,7 @@
                             {{ $plays->links() }}
                         </div>
                         <div data-w-tab="heat map" class="reports-tab-content w-tab-pane">
-                            <div class="map w-widget w-widget-map" style="overflow: hidden;"><div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);"><div class="gm-err-container"><div class="gm-err-content"><div class="gm-err-icon"><img src="https://maps.gstatic.com/mapfiles/api-3/images/icon_error.png" draggable="false" style="user-select: none;"></div><div class="gm-err-title">Sorry! Something went wrong.</div><div class="gm-err-message">This page didn't load Google Maps correctly. See the JavaScript console for technical details.</div></div></div></div></div>
+                            <div id="chart_div" style="width: 100%"></div>
                         </div>
                     </div>
                 </div>
@@ -171,5 +171,35 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
         $('input[name="dates"]').daterangepicker();
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['map'] });
+        google.charts.setOnLoadCallback(drawMap);
+
+        function drawMap() {
+            var data = google.visualization.arrayToDataTable([
+                ['Country', 'Population'],
+                ['China', 'China: 1,363,800,000'],
+                ['India', 'India: 1,242,620,000'],
+                ['US', 'US: 317,842,000'],
+                ['Indonesia', 'Indonesia: 247,424,598'],
+                ['Brazil', 'Brazil: 201,032,714'],
+                ['Pakistan', 'Pakistan: 186,134,000'],
+                ['Nigeria', 'Nigeria: 173,615,000'],
+                ['Bangladesh', 'Bangladesh: 152,518,015'],
+                ['Russia', 'Russia: 146,019,512'],
+                ['Japan', 'Japan: 127,120,000']
+            ]);
+
+            var options = {
+                showTooltip: true,
+                showInfoWindow: true
+            };
+
+            var map = new google.visualization.Map(document.getElementById('chart_div'));
+
+            map.draw(data, options);
+        };
     </script>
 @endsection
