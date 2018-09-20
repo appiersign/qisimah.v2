@@ -157,7 +157,7 @@
                             {{ $plays->links() }}
                         </div>
                         <div data-w-tab="heat map" class="reports-tab-content w-tab-pane">
-                            <div id="chart_div" style="width: 100%"></div>
+                            <div id="chart_div" class="heat-map" style="gitborder-radius: 5px; position: relative;"></div>
                         </div>
                     </div>
                 </div>
@@ -191,6 +191,7 @@
                 ['Russia', 'Russia: 146,019,512'],
                 ['Japan', 'Japan: 127,120,000']
             ]);
+
 
             var options = {
                 showTooltip: true,
