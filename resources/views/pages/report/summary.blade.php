@@ -181,7 +181,9 @@
                     let curve_chart_options = {
                         title: 'Plays',
                         curveType: 'function',
-                        legend: { position: 'bottom' }
+                        legend: { position: 'bottom' },
+                        colors:['#161036'],
+                        pointSize: 7,
                     };
                     let curve_chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
                     curve_chart.draw(curve_chart_data, curve_chart_options);
@@ -190,12 +192,16 @@
                     let regional_options = {
                         title: 'Regional Plays',
                         pieHole: 0.4,
+                        colors:['#161036', '#3266af', '#00afef', '#ffc300', '#eb2e6b'],
                     };
                     let chart = new google.visualization.PieChart(document.getElementById('donutchart'));
                     chart.draw(regional_data, regional_options);
 
                     let country_data = google.visualization.arrayToDataTable(response['countries']);
-                    let country_options = {};
+                    let country_options = {
+                        colorAxis: {colors: ['#ece9f9', '#161036']}
+
+                    };
                     let country_chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
                     country_chart.draw(country_data, country_options);
 
@@ -204,6 +210,7 @@
                     let column_options = {
                         chart: {
                             title: 'Top 5 Songs',
+                            colors: ['#161036'],
                             // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
                         }
                     };
@@ -216,7 +223,8 @@
                     let bar_data = google.visualization.arrayToDataTable(broadcasters);
                     let bar_options = {
                         chart: {
-                            title: 'Top 5 Broadcasters'
+                            title: 'Top 5 Broadcasters',
+                            colors: ['#161036', '#3266af', '#ffc300', '#eb2e6b'],
                         }
                     };
                     let bar_chart = new google.charts.Bar(document.getElementById("barchart_values"));

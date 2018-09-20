@@ -105,7 +105,7 @@
                         <a data-w-tab="Logs" class="reports-tab-link w-inline-block w-tab-link w--current">
                             <div>Log</div>
                         </a>
-                        <a data-w-tab="heat map" class="reports-tab-link w-inline-block w-tab-link">
+                        <a id="heat-map-tab" data-w-tab="heat map" class="reports-tab-link w-inline-block w-tab-link">
                             <div>Heat Map</div>
                         </a>
                     </div>
@@ -157,7 +157,7 @@
                             {{ $plays->links() }}
                         </div>
                         <div data-w-tab="heat map" class="reports-tab-content w-tab-pane">
-                            <div id="chart_div" style="width: 100%"></div>
+                            <div id="chart_div" class="heat-map" style="gitborder-radius: 5px; position: relative;"></div>
                         </div>
                     </div>
                 </div>
@@ -172,34 +172,111 @@
     <script>
         $('input[name="dates"]').daterangepicker();
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpHCatZelD9NgEDQDdTPdP3anWsZPPAF8&libraries=visualization"
+            async defer></script>
     <script>
-        google.charts.load('current', { 'packages': ['map'] });
-        google.charts.setOnLoadCallback(drawMap);
+        $('#heat-map-tab').on('click', function (e) {
+            $.get(window.location.href, function (data, status) {
+                let heatmapData = [];
 
-        function drawMap() {
-            var data = google.visualization.arrayToDataTable([
-                ['Country', 'Population'],
-                ['China', 'China: 1,363,800,000'],
-                ['India', 'India: 1,242,620,000'],
-                ['US', 'US: 317,842,000'],
-                ['Indonesia', 'Indonesia: 247,424,598'],
-                ['Brazil', 'Brazil: 201,032,714'],
-                ['Pakistan', 'Pakistan: 186,134,000'],
-                ['Nigeria', 'Nigeria: 173,615,000'],
-                ['Bangladesh', 'Bangladesh: 152,518,015'],
-                ['Russia', 'Russia: 146,019,512'],
-                ['Japan', 'Japan: 127,120,000']
-            ]);
+                data.map(function (obj) {
+                    heatmapData.push({location: new google.maps.LatLng(obj[0], obj[1]), weight: obj[2]});
+                });
 
-            var options = {
-                showTooltip: true,
-                showInfoWindow: true
-            };
+                let map = new google.maps.Map(document.getElementById('chart_div'), {
+                    center: {lat: 7.8984766, lng: -3.2751248},
+                    zoom: 6,
+                    styles: [
+                        {
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.land_parcel",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.neighborhood",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape.natural.landcover",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "labels.text",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi.business",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi.park",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road",
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        }
+                    ]
+                });
 
-            var map = new google.visualization.Map(document.getElementById('chart_div'));
-
-            map.draw(data, options);
-        };
+                let heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatmapData
+                });
+                heatmap.setMap(map);
+            });
+        });
     </script>
 @endsection
