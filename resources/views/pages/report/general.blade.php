@@ -157,7 +157,7 @@
                             {{ $plays->links() }}
                         </div>
                         <div data-w-tab="heat map" class="reports-tab-content w-tab-pane">
-                            <div id="chart_div" class="heat-map" style="gitborder-radius: 5px; position: relative;"></div>
+                            <div id="chart_div" class="heat-map" style="border-radius: 5px; position: relative;"></div>
                         </div>
                     </div>
                 </div>

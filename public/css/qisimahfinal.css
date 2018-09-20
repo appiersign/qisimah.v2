@@ -3862,6 +3862,11 @@ body {
     height:500px !important;
 }
 
+.compare-charts{
+    width:50% !important;
+    height:500px !important;
+}
+
 .product-price {
     margin-top: 0px;
     margin-bottom: 0px;
