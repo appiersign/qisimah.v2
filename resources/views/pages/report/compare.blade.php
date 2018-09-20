@@ -46,7 +46,7 @@
                             <div class="div-block-52">
                                 <img src="{{ asset($artist_1->avatar ?? 'images/default.jpg') }}"
                                      srcset="{{ asset($artist_1->avatar ?? 'images/default.jpg') }} 500w, {{ asset($artist_1->avatar ?? 'images/default.jpg') }} 575w"
-                                     sizes="(max-width: 767px) 92px, 120px" class="artist-image-compare">
+                                     sizes="(max-width: 767px)" class="artist-image-compare">
                             </div>
                             <div class="div-block-53">
                                 <p class="paragraph-5">{{ $artist_1->name ?? 'Name'}}</p>
@@ -79,7 +79,7 @@
                             <div class="div-block-52">
                                 <img src="{{ asset($artist_2->avatar ?? 'images/default.jpg') }}"
                                      srcset="{{ asset($artist_2->avatar ?? 'images/default.jpg') }} 500w, {{ asset($artist_2->avatar ?? 'images/default.jpg') }} 575w"
-                                     sizes="(max-width: 767px) 92px, 120px" class="artist-image-compare">
+                                     sizes="(max-width: 767px)" class="artist-image-compare">
                             </div>
                             <div class="div-block-53">
                                 <p class="paragraph-5">{{ $artist_2->name ?? 'Name' }}</p>
@@ -112,7 +112,7 @@
                             <div class="div-block-52">
                                 <img src="{{ asset($artist_3->avatar ?? 'images/default.jpg') }}"
                                      srcset="{{ asset($artist_3->avatar ?? 'images/default.jpg') }} 500w, {{ asset($artist_3->avatar ?? 'images/default.jpg') }} 575w"
-                                     sizes="(max-width: 767px) 92px, 120px" class="artist-image-compare">
+                                     sizes="(max-width: 767px)" class="artist-image-compare">
                             </div>
                             <div class="div-block-53">
                                 <p class="paragraph-5">{{ $artist_3->name ?? 'Name' }}</p>
