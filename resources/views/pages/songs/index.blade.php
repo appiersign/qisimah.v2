@@ -44,9 +44,9 @@
                         </div>
                         <div class="div-block-100">
                             <div class="heading-text">STATUS</div>
-                            @if ($song->status === 0)
+                            @if ($song->status == 0)
                                 <div class="text-block-26">PENDING</div>
-                            @elseif($song->status === 1)
+                            @elseif($song->status == 1)
                                 <div class="text-block-26">READY</div>
                             @else
                                 <div class="text-block-26">LISTENING</div>
