@@ -369,7 +369,19 @@ class ReportController extends Controller
             }
 
             if (\request()->ajax()) {
-                $plays = Play::with(['broadcaster.region'])->where($where)->whereBetween('played_at', [$_from, $_to])->get();
+                $regions = Play::with(['broadcaster.region'])
+                    ->where($where)
+                    ->whereBetween('played_at', [$_from, $_to])
+                    ->get()
+                    ->groupBy(function ($p) {
+                    return $p->broadcaster->region->latitude . ' - ' . $p->broadcaster->region->longitude;
+                });
+                $latLong = [];
+                foreach ($regions as $coordinates => $plays) {
+                    $getlatlong = explode(' - ', $coordinates);
+                    array_push($latLong, [$getlatlong[0], $getlatlong[1], \count($plays)]);
+                }
+                return $latLong;
             }
 
             $_plays             = $playQuery->where($where)->whereBetween('played_at', [$_from, $_to]);
