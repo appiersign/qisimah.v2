@@ -56,7 +56,7 @@ class RegionTableSeeder extends Seeder
         factory(\App\Region::class)->create([
             "name"  =>  "Brong-Ahafo",
             "search_box"    =>  "brong-ahafo",
-            "longitude" =>  "7.9559",
+            "longitude" =>  "-1.6004397",
             "latitude"  =>  "7.879671"
         ]);
 
