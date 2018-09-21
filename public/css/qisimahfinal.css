@@ -2564,7 +2564,7 @@ body {
     padding: 26px 40px 20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color: #fff;
+    background-color: #161036;
     text-align: center;
 }
 
@@ -3863,8 +3863,8 @@ body {
 }
 
 .compare-charts{
-    width:50% !important;
-    height:500px !important;
+    width:100% !important;
+    min-height:500px !important;
 }
 
 .product-price {
@@ -6837,6 +6837,7 @@ html.w-mod-js *[data-ix="hide-pause-button"] {
 
     .row {
         display: block;
+        margin:0 !important;
     }
 
     .dash-tabs-link {

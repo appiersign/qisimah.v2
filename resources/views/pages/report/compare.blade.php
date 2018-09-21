@@ -144,10 +144,22 @@
         </div>
                 </div>
                 <div data-w-tab="chart" class="reports-tab-content w-tab-pane">
-                    <div id="song_plays_chart" class="compare-charts" style="border-radius: 5px; position: relative;"></div>
-                    <div id="featured_plays_chart" class="compare-charts" style="border-radius: 5px; position: relative;"></div>
-                    <div id="songs_uploaded_chart" class="compare-charts" style="border-radius: 5px; position: relative;"></div>
-                </div>
+                    <div class="row">
+                    <div id="song_plays_chart" class="compare-charts col-md-6" style="border-radius: 5px;"></div>
+
+                        <div id="featured_plays_chart" class="compare-charts col-md-6" style="border-radius: 5px; "></div>
+
+                    </div>
+
+                    <div class="row">
+                    <div id="songs_uploaded_chart" class="compare-charts col-md-6" style="border-radius: 5px; position: relative;"></div>
+
+
+                    <div id="features_uploaded_chart" class="compare-charts col-md-6" style="border-radius: 5px; position: relative;"></div>
+                    </div>
+
+
+
             </div>
         </div>
         </div>
@@ -171,7 +183,9 @@
                     var options = {
                         title: 'Song Plays',
                         curveType: 'function',
-                        legend: { position: 'right' }
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
                     };
 
                     var chart = new google.visualization.LineChart(document.getElementById('song_plays_chart'));
@@ -196,14 +210,17 @@
                     var options = {
                         title: 'Feature Plays',
                         curveType: 'function',
-                        legend: { position: 'right' }
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
                     };
 
                     var chart = new google.visualization.LineChart(document.getElementById('featured_plays_chart'));
 
                     chart.draw(data, options);
                 };
-            </script>            <script type="text/javascript">
+            </script>
+                <script type="text/javascript">
                 google.charts.load('current', {'packages':['corechart']});
                 google.charts.setOnLoadCallback(drawChart);
 
@@ -219,10 +236,37 @@
                     var options = {
                         title: 'Songs Uploaded',
                         curveType: 'function',
-                        legend: { position: 'right' }
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
                     };
 
                     var chart = new google.visualization.LineChart(document.getElementById('songs_uploaded_chart'));
+
+                    chart.draw(data, options);
+                };
+            </script>                <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Year', 'Sarkodie', 'Stonebuoy'],
+                        ['2004',  1000,      400],
+                        ['2005',  1170,      460],
+                        ['2006',  660,       1120],
+                        ['2007',  1030,      540]
+                    ]);
+
+                    var options = {
+                        title: 'Features Uploaded',
+                        curveType: 'function',
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('features_uploaded_chart'));
 
                     chart.draw(data, options);
                 };
