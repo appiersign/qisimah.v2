@@ -34,6 +34,7 @@ class ArtistInstagramController extends Controller
             session()->flash('active-tab', 'instagram');
             return view('pages.index', compact('user', 'media', 'instagram'));
         } catch (\Exception $exception) {
+            logger($exception->getMessage());
             session()->flash('error', $exception->getMessage());
             return back();
         }

@@ -52,6 +52,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         <h1 class="inner-page-sub">Live Radio Detections</h1>
                         <div class="section-heading w-hidden-medium w-hidden-small w-hidden-tiny w-row">
@@ -111,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-w-tab="Tv" class="dash-tab-pane w-tab-pane w--tab-active">
+                <div data-w-tab="Tv" class="dash-tab-pane w-tab-pane">
                     <div class="tabs-top-wrapper tv-monitoring-tab">
                         <div class="div-block-16">
                             <h1 class="heading-2">Television</h1><a href="#" class="upload-song-button w-inline-block"
@@ -158,6 +159,7 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
+                        @include('components.guest.messages')
                         <h1 class="inner-page-sub">Live TV detections</h1>
                         <div class="section-heading w-row">
                             <div class="w-col w-col-3">
@@ -263,6 +265,7 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
+                        @include('components.guest.messages')
                         <h1 class="inner-page-sub">Most Streamed Songs</h1>
                         <div class="div-block-149 w-hidden-main w-hidden-medium w-hidden-small w-hidden-tiny">
                             <div class="div-block-150"></div>
@@ -507,6 +510,7 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
+                        @include('components.guest.messages')
                         <h1 class="inner-page-sub">Top Post Engagements</h1>
                         <div class="div-block-4">
                             <div class="section-heading w-hidden-medium w-hidden-small w-hidden-tiny w-row">
@@ -685,6 +689,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         @if($user->google_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
@@ -746,7 +751,7 @@
                         @endif
                     </div>
                 </div>
-                <div data-w-tab="Instagram" class="dash-tab-pane w-tab-pane">
+                <div class="dash-tab-pane w-tab-pane {{ (session('active-tab') == 'instagram')? 'w--tab-active' : '' }}">
                     <div class="tabs-top-wrapper instagram-monitoring-tab">
                         <div class="div-block-16">
                             <h1 class="heading-2">Instagram</h1>
@@ -793,6 +798,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         @if($user->instagram_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
@@ -856,7 +862,7 @@
                                         </a>
                                     </div>
                                 @endif
-                        </div>
+                            </div>
                     </div>
                 </div>
                 <div data-w-tab="twitter" class="dash-tab-pane w-tab-pane">
@@ -905,6 +911,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         <h1 class="inner-page-sub">Top Twitter Post Engagements</h1>
                         <div class="div-block-4">
@@ -993,6 +1000,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         <h1 class="inner-page-sub">Achievement Milestone</h1>
                         <div class="w-row">

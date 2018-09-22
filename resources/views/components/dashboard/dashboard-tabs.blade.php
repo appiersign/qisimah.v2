@@ -19,7 +19,7 @@
         <div>YOUTUBE</div>
         <div class="tab-active-bar"></div>
     </a>
-    <a data-w-tab="Instagram" class="dash-tabs-link w-inline-block w-tab-link {{ (Session::get('tab') === 'instagram')? 'w--current': ''  }}" data-ix="show-bar">
+    <a href="{{ route('artists.instagrams.index', ['artist_qisimah_id' => '5b73d8a26a874']) }}" class="dash-tabs-link w-inline-block w-tab-link {{ (Session::get('tab') === 'instagram')? 'w--current': ''  }}" data-ix="show-bar">
         <div>INSTAGRAM</div>
         <div class="tab-active-bar"></div>
     </a>
