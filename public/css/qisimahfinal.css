@@ -4437,6 +4437,13 @@ body {
     text-align: right;
 }
 
+@media (max-width:478px) {
+    .song-things {
+        color: #737373;
+        text-align: left;
+    }
+}
+
 .div-block-107 {
     -webkit-flex-basis: 50%;
     -ms-flex-preferred-size: 50%;
@@ -10107,7 +10114,10 @@ social-report-th {
 
 @media (max-width:767px) {
     .row {
-    }
+        display: block;
+        margin:0 !important;
+
+}
 
     .row-mob {
         width: 100%;
@@ -10151,6 +10161,12 @@ social-report-th {
         z-index: 100;
         margin-top: 59px;
         margin-left: 38px;
+    }
+
+    .row {
+        display: block;
+        margin:0 !important;
+
     }
 }
 
