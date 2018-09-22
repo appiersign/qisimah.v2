@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Artist;
 use Illuminate\Http\Request;
 
 class ArtistInstagramController extends Controller
@@ -11,9 +12,17 @@ class ArtistInstagramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(string $artist_qisimah_id)
     {
-        //
+        try {
+            $artist = Artist::with('instagram')->where('qisimah_id', $artist_qisimah_id)->first();
+            if (is_null($artist)) {
+                throw new \Exception('Artist does not exist!');
+            }
+        } catch (\Exception $exception) {
+            session()->flash('error', $exception->getMessage());
+            return back();
+        }
     }
 
     /**

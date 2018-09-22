@@ -24,6 +24,7 @@ class CreateArtistsTable extends Migration
             $table->string('google_refresh_token')->nullable();
             $table->string('instagram_auth_code')->nullable();
             $table->string('instagram_access_token')->nullable();
+            $table->unsignedInteger('instagram_id')->nullable()->index();
             $table->string('type', 5)->default('solo');
             $table->string('members')->nullable();
             $table->unsignedInteger('label_id')->nullable()->index();
