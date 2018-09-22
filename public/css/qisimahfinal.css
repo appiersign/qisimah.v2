@@ -4381,6 +4381,7 @@ body {
     background-color: #161036;
     -webkit-transition: all 350ms ease;
     transition: all 350ms ease;
+    z-index: 100;
 }
 
 .close-song-view:hover {
