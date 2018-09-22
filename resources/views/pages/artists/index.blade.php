@@ -294,6 +294,7 @@
                 </div>
             </div>
         </div>
+        @include('components.guest.messages')
         <div class="qisimah-container-main">
             <div class="div-block-118">
                 <a href="#" class="link-block-5 w-inline-block" data-ix="add-new-artist-modal">
@@ -301,11 +302,10 @@
                 </a>
             </div>
             <div class="w-row">
-                @if(empty($user->artists))
+                @if(empty($user_artists))
                     You have no artist linked to your account
                 @else
-                    @foreach($user->artists as $artist)
-
+                    @foreach($user_artists as $artist)
                         <div class="w-col w-col-6 w-col-stack">
                             <div class="artist-cards">
                                 <div class="image-wrapper-artists">
@@ -315,15 +315,15 @@
                                              sizes="(max-width: 479px) 100vw, (max-width: 692px) 83vw, (max-width: 767px) 575px, (max-width: 991px) 45vw, 20vw"
                                              class="image-12">
                                     @else
-                                        <img src="images/adina10.jpg"
-                                             srcset="images/adina10-p-500.jpeg 500w, images/adina10.jpg 575w"
+                                        <img src="{{ asset('images/default.jpg') }}"
+                                             srcset="{{ asset('images/default.jpg') }} 500w, {{ asset('images/default.jpg') }} 575w"
                                              sizes="(max-width: 479px) 100vw, (max-width: 692px) 83vw, (max-width: 767px) 575px, (max-width: 991px) 45vw, 20vw"
                                              class="image-12">
                                     @endif
                                 </div>
                                 <div class="div-block-116">
                                     <div class="text-block-40">{{ $artist->nick_name }}</div>
-                                    <div class="text-block-44">{{ strtoupper($artist->label->name) }}</div>
+                                    <div class="text-block-44">{{ strtoupper($artist->label->name ?? '---') }}</div>
                                     <div class="row-10 w-row">
                                         <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
                                             <div class="text-block-41">ALBUMS</div>
@@ -370,34 +370,13 @@
                                             </a>
                                         </div>
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="{{ url('link.instagram.account') }}" class="connect-inactive w-inline-block">
+                                            <a href="{{ route('artists.instagrams.create', ['artist_qisimah_id' => $artist->qisimah_id]) }}" class="connect-inactive w-inline-block">
                                                 <img src="images/029-instagram.svg" width="32">
                                             </a>
                                         </div>
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
                                             <a href="{{ url('link.youtube.account') }}" class="{{ ($user->google_auth_code)? 'connect-active' : 'connect-inactive' }} w-inline-block">
                                                 <img src="images/001-youtube.svg" width="32">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="row-11 w-row">
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="#" class="connect-inactive w-inline-block">
-                                                <img src="images/icons8-google-play-music.svg" width="32">
-                                            </a>
-                                        </div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="#" class="connect-inactive w-inline-block">
-                                                <img src="images/icons8-deezer.svg" width="32"></a>
-                                        </div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="#" class="connect-inactive w-inline-block">
-                                                <img src="images/012-spotify.svg" width="32">
-                                            </a>
-                                        </div>
-                                        <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="#" class="connect-inactive w-inline-block">
-                                                <img src="images/013-soundcloud.svg" width="32">
                                             </a>
                                         </div>
                                     </div>
@@ -413,6 +392,7 @@
                             </div>
                         </div>
                     @endforeach
+                    {{ $user_artists->links() }}
                 @endif
             </div>
         </div>

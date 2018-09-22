@@ -17,6 +17,7 @@ class CreateInstagramsTable extends Migration
             $table->increments('id');
             $table->string('qisimah_id')->unique();
             $table->string('external_id')->unqiue();
+            $table->unsignedInteger('artist_id')->index();
             $table->string('user_name')->unique();
             $table->string('full_name');
             $table->string('avatar')->nullable();
@@ -31,6 +32,11 @@ class CreateInstagramsTable extends Migration
             $table->dateTime('last_request');
             $table->dateTime('last_media_request')->nullable();
             $table->timestamps();
+
+            $table->foreign('artist_id')
+                ->references('id')
+                ->on('artists')
+                ->onDelete('cascade');
         });
     }
 

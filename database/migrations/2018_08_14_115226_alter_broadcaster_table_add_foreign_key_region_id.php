@@ -34,8 +34,8 @@ class AlterBroadcasterTableAddForeignKeyRegionId extends Migration
     public function down()
     {
         Schema::table('broadcasters', function (Blueprint $table){
-            $table->dropForeign('broadcasters_region_id_foreign');
-            $table->dropForeign('broadcasters_country_id_foreign');
+            $table->dropIfExists('region_id');
+            $table->dropIfExists('country_id');
         });
     }
 }
