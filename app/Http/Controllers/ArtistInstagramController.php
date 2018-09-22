@@ -31,7 +31,7 @@ class ArtistInstagramController extends Controller
             $instagram = $artist->instagram;
             $media = $instagram->media()->paginate(10);
             $user = Auth::user();
-            session()->put('tab', 'instagram');
+            session()->flash('tab', 'instagram');
             return view('pages.index', compact('user', 'artist', 'media', 'instagram', 'media'));
         } catch (\Exception $exception) {
             session()->flash('error', $exception->getMessage());
