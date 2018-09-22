@@ -10294,13 +10294,12 @@ ul.pagination li.active {
     background-color: #ffc300;
     color: white;
     border-radius: 5px;
-    padding: 8px 16px;
 }
 
 ul.pagination li span {
     color: black;
     float: left;
-    /*padding: 8px 16px;*/
+    padding: 8px 16px;
     text-decoration: none;
     border-radius: 5px;
 }
