@@ -800,7 +800,7 @@
                     </div>
                     @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
-                        @if($artist->instagram_auth_code)
+                        @if(isset($artist) && $artist->instagram_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
                             <div class="div-block-4">
                                 <div class="section-heading w-row">
