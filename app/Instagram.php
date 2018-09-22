@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 class Instagram extends Model
 {
-    protected $fillable = ['qisimah_id', 'external_id', 'user_name', 'full_name', 'avatar', 'bio', 'website', 'is_business', 'media', 'follows', 'followed_by', 'likes', 'comments', 'last_request', 'last_media_request'];
+    protected $fillable = ['qisimah_id', 'external_id', 'artist_id', 'user_name', 'full_name', 'avatar', 'bio', 'website', 'is_business', 'media', 'follows', 'followed_by', 'likes', 'comments', 'last_request', 'last_media_request'];
 
     public function setIsBusinessAttribute($is_business)
     {
@@ -23,74 +23,95 @@ class Instagram extends Model
         return $this->hasMany(Media::class);
     }
 
-    public function handleInstagramAuthentication(Request $request, User $user)
+    public function artist()
+    {
+        return $this->hasOne(Artist::class);
+    }
+
+    public function handleInstagramAuthentication(Request $request, User $user, Artist $artist)
     {
         if ($request->get('state') === csrf_token()){
-            $request->session()->put('tab', 'instagram');
+            session()->flash('tab', 'instagram');
             Auth::loginUsingId($user->id);
             if ($request->get('code')){
-                $user->instagram_auth_code = $request->get('code');
-                $user->save();
-                $request->session()->flash('success', 'Instagram account linked!');
-                $this->getAccessToken($user);
-                return redirect()->to('');
+                $artist->instagram_auth_code = $request->get('code');
+                $artist->save();
+                return $this->getAccessToken($artist);
             } else {
                 $request->session()->flash('error', 'Instagram account link failed. Please try again!');
             }
             return redirect()->to('');
         }
-        session()->flash('error', 'Authorized request');
+        session()->flash('error', 'Authorization required. Please login!');
         return redirect()->to('login');
     }
 
-    public function getAccessToken(User $user)
+    /**
+     * @param Artist $artist
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getAccessToken(Artist $artist)
     {
-        $fields = 'client_id='.env('INSTAGRAM_CLIENT_ID').'&client_secret='.env('INSTAGRAM_CLIENT_SECRET').'&grant_type=authorization_code&code='.$user->instagram_auth_code.'&redirect_uri='.env('INSTAGRAM_REDIRECT_URI').'?tag='.$user->qisimah_id;
+        $fields = 'client_id='.env('INSTAGRAM_CLIENT_ID').'&client_secret='.env('INSTAGRAM_CLIENT_SECRET').'&grant_type=authorization_code&code='.$artist->instagram_auth_code.'&redirect_uri='.env('INSTAGRAM_REDIRECT_URI').'?tag='.Auth::user()->qisimah_id.'-'.$artist->qisimah_id;
         $response = json_decode(sendRequest(env('INSTAGRAM_ACCESS_TOKEN_URL'), [], $fields, 'POST'), true);
         if (isset($response['code'])) {
-            return redirect()->to('link.instagram.account');
+            \session()->flash('error', 'Instagram Authorization Error. Please try again!');
+            return redirect()->route('artists.index');
         }
-        $user->instagram_access_token = $response['access_token'];
-        $user->save();
+        $artist->instagram_access_token = $response['access_token'];
+        $artist->save();
 
-        $instagram = Instagram::where('external_id', $response['user']['id'])->first();
+        $instagram = Instagram::with([])->where('external_id', $response['user']['id'])->first();
 
         if (is_null($instagram)) {
             try {
-                $instagram = Instagram::create([
+                Instagram::create([
                     "external_id"   =>  $response["user"]["id"],
-                    "qisimah_id" => strtoupper(str_random()),
+                    "qisimah_id" => str_random(),
                     "user_name" => $response["user"]["username"],
                     "full_name" => $response["user"]["full_name"],
                     "avatar"    => $response["user"]["profile_picture"],
                     "bio"       => $response["user"]["bio"],
                     "website"   => $response["user"]["website"],
                     "is_business"   => $response["user"]["is_business"],
-                    "last_request"  => Carbon::now()->toDateTimeString()
+                    "last_request"  => Carbon::now()->toDateTimeString(),
+                    "artist_id" => $artist->id
                 ]);
 
-                $this->getProfile($user);
-                $this->getMedia($user);
+                $this->getProfile($artist);
+                $this->getMedia($artist);
 
             } catch (\Exception $exception) {
-                return false;
+                \session()->flash('error', 'Saving Instagram data failed. Please try again!');
+                return back();
             }
+        } else {
+            $instagram->update([
+                "user_name" => $response["user"]["username"],
+                "full_name" => $response["user"]["full_name"],
+                "avatar"    => $response["user"]["profile_picture"],
+                "bio"       => $response["user"]["bio"],
+                "website"   => $response["user"]["website"],
+                "is_business"   => $response["user"]["is_business"],
+                "last_request"  => Carbon::now()->toDateTimeString(),
+            ]);
+
+            $this->getProfile($artist);
+            $this->getMedia($artist);
         }
-        $user->instagrams()->sync($instagram->id);
-        return true;
+        return redirect()->route('artists.instagrams.index', ['artist_qisimah_id' => $artist->qisimah_id]);
     }
 
-    public function getProfile(User $user): array
+    public function getProfile(Artist $artist): array
     {
-        $response = json_decode(sendRequest(env('INSTAGRAM_GET_PROFILE_URI').'?access_token='.$user->getInstagramAccessToken(), []), true);
+        $response = json_decode(sendRequest(env('INSTAGRAM_GET_PROFILE_URI').'?access_token='.$artist->instagram_access_token, []), true);
         if (isset($response['code'])) {
-            return redirect()->to('link.instagram.account');
+            return redirect()->route('artists.instagrams.create', ['artist_qisimah_id' => $artist->qisimah_id]);
         }
 
         if (isset($response["meta"]["code"]) && $response["meta"]["code"] == 200) {
             $instagram = Instagram::where('external_id', $response["data"]["id"])->first();
             if ($instagram){
-                $user->instagrams()->attach($instagram->id);
                 $instagram->media = $response["data"]["counts"]["media"];
                 $instagram->follows = $response["data"]["counts"]["follows"];
                 $instagram->followed_by = $response["data"]["counts"]["followed_by"];
@@ -103,20 +124,20 @@ class Instagram extends Model
         return $response;
     }
 
-    public function getMedia(User $user, string $uri = null)
+    public function getMedia(Artist $artist, string $uri = null)
     {
         try {
-            $instagramProfile = $user->getInstagramProfile();
-            $_uri = ($uri)? $uri : env('INSTAGRAM_GET_MEDIA_URI').'access_token='.$user->getInstagramAccessToken();
+            $instagramProfile = $artist->instagram;
+            $_uri = ($uri)? $uri : env('INSTAGRAM_GET_MEDIA_URI').'access_token='.$artist->instagram_access_token;
             $response = json_decode(sendRequest($_uri, []), true);
             if (isset($response['code'])) {
-                return redirect()->to('link.instagram.account');
+                return redirect()->route('artists.instagrams.create', ['artist_qisimah_id' => $artist->qisimah_id]);
             }
 
             $this->handleMedia($response["data"], $instagramProfile->id);
 
             if (count($response["pagination"]) === 2 && isset($response["pagination"]["next_url"])){
-                $this->getMedia($user, $response["pagination"]["next_url"]);
+                $this->getMedia($artist, $response["pagination"]["next_url"]);
             }
 
             $likes = $this->getLikes($instagramProfile->id);
@@ -124,6 +145,7 @@ class Instagram extends Model
             $instagramProfile->last_media_request = Carbon::now()->toDateTimeString();
             $instagramProfile->save();
         } catch (\Exception $exception) {
+            logger($exception->getMessage());
             \session()->flash('error', 'Instagram media could not be fetched at this time!');
         }
 

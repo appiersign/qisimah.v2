@@ -29,12 +29,11 @@ class ArtistInstagramController extends Controller
                 throw new \Exception('Artist does not exist!');
             }
             $instagram = $artist->instagram;
-            $media = $instagram->media()->paginate(20);
+            $media = $instagram->media()->paginate(10);
             $user = Auth::user();
-            session()->flash('active-tab', 'instagram');
-            return view('pages.index', compact('user', 'media', 'instagram'));
+            session()->put('tab', 'instagram');
+            return view('pages.index', compact('user', 'artist', 'media', 'instagram', 'media'));
         } catch (\Exception $exception) {
-            logger($exception->getMessage());
             session()->flash('error', $exception->getMessage());
             return back();
         }
@@ -43,11 +42,21 @@ class ArtistInstagramController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param string $artist_qisimah_id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function create(string $artist_qisimah_id)
     {
-        //
+        try {
+            $artist = Artist::with([])->where('qisimah_id', $artist_qisimah_id)->first();
+            if (is_null($artist)){
+                throw new \Exception('Artist does not exist!');
+            }
+            return redirect()->to('https://api.instagram.com/oauth/authorize/?client_id='.env('INSTAGRAM_CLIENT_ID').'&redirect_uri='.env('INSTAGRAM_REDIRECT_URI').'?tag='.Auth::user()->qisimah_id.'-'.$artist_qisimah_id.'&response_type=code&state='.csrf_token().'&scope=basic+public_content');
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Something went wrong. Please try again later!');
+            return back();
+        }
     }
 
     /**

@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Broadcaster::class, function (Faker $faker) {
     return [
         "qisimah_id" => str_random(),
-        "stream_id" => "1827dfsh",
+        "stream_id" => str_random(),
         "region_id" => \App\Region::inRandomOrder()->first()->id,
         "user_id" => 1,
         "name" => $faker->streetName,

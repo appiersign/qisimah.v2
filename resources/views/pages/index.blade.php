@@ -751,7 +751,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="dash-tab-pane w-tab-pane {{ (session('active-tab') == 'instagram')? 'w--tab-active' : '' }}">
+                <div data-w-tab="Instagram" class="dash-tab-pane w-tab-pane">
                     <div class="tabs-top-wrapper instagram-monitoring-tab">
                         <div class="div-block-16">
                             <h1 class="heading-2">Instagram</h1>
@@ -800,7 +800,7 @@
                     </div>
                     @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
-                        @if($user->instagram_auth_code)
+                        @if($artist->instagram_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
                             <div class="div-block-4">
                                 <div class="section-heading w-row">
@@ -843,6 +843,7 @@
                                         <div class="text-block-10">Posted on: {{ $post->created_time }}</div>
                                         <br>
                                     @endforeach
+                                    {{ $media->links() }}
                                 @else
                                     <div class="w-row">
                                         <p>We did not find anything on Instagram</p>
@@ -852,12 +853,12 @@
                                 @else
                                     <div class="div-block-16">
                                         <h1 class="heading-2">YouTube</h1>
-                                        <a href="{{ url('link.instagram.account') }}"
+                                        <a href="{{ route('artists.index') }}"
                                            class="upload-song-button w-inline-block"
                                            data-ix="">
-                                            <img src="images/029-instagram.svg" width="32">
+                                            <img src="{{ asset('images/029-instagram.svg') }}" width="32">
                                             <div class="div-block-18">
-                                                <div class="text-block-6">Connect to Instagram</div>
+                                                <div class="text-block-6">Click to Connect Artist Instagram Account</div>
                                             </div>
                                         </a>
                                     </div>

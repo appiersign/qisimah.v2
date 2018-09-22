@@ -28,9 +28,14 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        $user = User::with('artists.label')->find(Auth::id());
+        $user = Auth::user();
+        if (in_array($user->type, ['master', 'admin'])){
+            $user_artists = Artist::with(['label'])->paginate(6);
+        } else {
+            $user_artists = $user->artists()->with(['label'])->paginate(6);
+        }
         $artists = Artist::all();
-        return view('pages.artists.index', compact('user', 'artists'));
+        return view('pages.artists.index', compact('user', 'artists', 'user_artists'));
     }
 
     /**

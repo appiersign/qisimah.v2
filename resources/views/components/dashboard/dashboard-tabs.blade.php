@@ -1,5 +1,5 @@
 <div class="tabs-menu w-tab-menu">
-    <a data-w-tab="radio" class="dash-tabs-link w-inline-block w-tab-link {{ (Session::get('tab') === null)? 'w--current' : ''  }}" data-ix="show-bar">
+    <a data-w-tab="radio" class="dash-tabs-link w-inline-block w-tab-link {{ (session()->get('tab') === null)? 'w--current' : ''  }}" data-ix="show-bar">
         <div>radio</div>
         <div class="tab-active-bar"></div>
     </a>
@@ -19,7 +19,7 @@
         <div>YOUTUBE</div>
         <div class="tab-active-bar"></div>
     </a>
-    <a href="{{ route('artists.instagrams.index', ['artist_qisimah_id' => '5b73d8a26a874']) }}" class="dash-tabs-link w-inline-block w-tab-link {{ (Session::get('tab') === 'instagram')? 'w--current': ''  }}" data-ix="show-bar">
+    <a data-w-tab="Instagram" href="{{ route('artists.instagrams.index', ['artist_qisimah_id' => '5ba606a675656']) }}" class="dash-tabs-link w-inline-block w-tab-link {{ (session()->get('tab') === 'instagram')? 'w--current': ''  }}" data-ix="show-bar">
         <div>INSTAGRAM</div>
         <div class="tab-active-bar"></div>
     </a>

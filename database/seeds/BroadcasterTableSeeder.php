@@ -12,5 +12,10 @@ class BroadcasterTableSeeder extends Seeder
     public function run()
     {
         factory(\App\Broadcaster::class)->create();
+        factory(\App\Broadcaster::class)->create();
+        factory(\App\Broadcaster::class)->create();
+        factory(\App\Broadcaster::class)->create();
+        factory(\App\Broadcaster::class)->create();
+        factory(\App\Broadcaster::class)->create();
     }
 }
