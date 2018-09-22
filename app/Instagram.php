@@ -105,23 +105,28 @@ class Instagram extends Model
 
     public function getMedia(User $user, string $uri = null)
     {
-        $instagramProfile = $user->getInstagramProfile();
-        $_uri = ($uri)? $uri : env('INSTAGRAM_GET_MEDIA_URI').'access_token='.$user->getInstagramAccessToken();
-        $response = json_decode(sendRequest($_uri, []), true);
-        if (isset($response['code'])) {
-            return redirect()->to('link.instagram.account');
+        try {
+            $instagramProfile = $user->getInstagramProfile();
+            $_uri = ($uri)? $uri : env('INSTAGRAM_GET_MEDIA_URI').'access_token='.$user->getInstagramAccessToken();
+            $response = json_decode(sendRequest($_uri, []), true);
+            if (isset($response['code'])) {
+                return redirect()->to('link.instagram.account');
+            }
+
+            $this->handleMedia($response["data"], $instagramProfile->id);
+
+            if (count($response["pagination"]) === 2 && isset($response["pagination"]["next_url"])){
+                $this->getMedia($user, $response["pagination"]["next_url"]);
+            }
+
+            $likes = $this->getLikes($instagramProfile->id);
+            $instagramProfile->likes = $likes;
+            $instagramProfile->last_media_request = Carbon::now()->toDateTimeString();
+            $instagramProfile->save();
+        } catch (\Exception $exception) {
+            \session()->flash('error', 'Instagram media could not be fetched at this time!');
         }
 
-        $this->handleMedia($response["data"], $instagramProfile->id);
-
-        if (count($response["pagination"]) === 2 && isset($response["pagination"]["next_url"])){
-            $this->getMedia($user, $response["pagination"]["next_url"]);
-        }
-
-        $likes = $this->getLikes($instagramProfile->id);
-        $instagramProfile->likes = $likes;
-        $instagramProfile->last_media_request = Carbon::now()->toDateTimeString();
-        $instagramProfile->save();
     }
 
     public function handleMedia(array $data, int $instagram_id)

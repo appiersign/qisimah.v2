@@ -14,7 +14,10 @@ class AddInstagramIdConstraintOnArtist extends Migration
     public function up()
     {
         Schema::table('artists', function (Blueprint $table) {
-            //
+            $table->foreign('instagram_id')
+                ->references('id')
+                ->on('instagrams')
+                ->onDelete('cascade');
         });
     }
 
@@ -26,7 +29,7 @@ class AddInstagramIdConstraintOnArtist extends Migration
     public function down()
     {
         Schema::table('artists', function (Blueprint $table) {
-            //
+            $table->dropForeign('artists_instagram_id_foreign');
         });
     }
 }

@@ -36,6 +36,7 @@ Route::resources([
     'albums'    => 'AlbumController',
     'broadcasters'  =>  'BroadcasterController',
     'artists.songs' =>  'ArtistSongController',
+    'artists.instagrams' => 'ArtistInstagramController',
     'countries.broadcasters' => 'CountryBroadcasterController'
 ]);
 

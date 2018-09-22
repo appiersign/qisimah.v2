@@ -4,21 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArtistInstagramController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param string $artist_qisimah_id
      * @return \Illuminate\Http\Response
      */
     public function index(string $artist_qisimah_id)
     {
         try {
-            $artist = Artist::with('instagram')->where('qisimah_id', $artist_qisimah_id)->first();
+            $artist = Artist::with('instagram')
+                ->where('qisimah_id', $artist_qisimah_id)
+                ->first();
             if (is_null($artist)) {
                 throw new \Exception('Artist does not exist!');
             }
+            $instagram = $artist->instagram;
+            $media = $instagram->media()->paginate(20);
+            $user = Auth::user();
+            session()->flash('active-tab', 'instagram');
+            return view('pages.index', compact('user', 'media', 'instagram'));
         } catch (\Exception $exception) {
             session()->flash('error', $exception->getMessage());
             return back();
