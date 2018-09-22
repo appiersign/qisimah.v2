@@ -31,15 +31,15 @@ class Instagram extends Model
             if ($request->get('code')){
                 $user->instagram_auth_code = $request->get('code');
                 $user->save();
-                $request->session()->put('success', 'Instagram account linked!');
+                $request->session()->flash('success', 'Instagram account linked!');
                 $this->getAccessToken($user);
                 return redirect()->to('');
             } else {
-                $request->session()->put('error', 'Instagram account link failed. Please try again!');
+                $request->session()->flash('error', 'Instagram account link failed. Please try again!');
             }
             return redirect()->to('');
         }
-        Session::flash('error', 'Authorized request');
+        session()->flash('error', 'Authorized request');
         return redirect()->to('login');
     }
 
