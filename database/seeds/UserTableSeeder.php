@@ -17,6 +17,7 @@ class UserTableSeeder extends Seeder
             "name"  =>  "Solomon APPIER-SIGN",
             "gender"    =>  "male",
             "country_id"    =>  1,
+            "type" => "admin",
             "nick_name" =>  "niisign"
         ]);
 
