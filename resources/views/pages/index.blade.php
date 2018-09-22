@@ -805,7 +805,7 @@
                                         <div class="heading-text">CAPTION</div>
                                     </div>
                                     <div class="w-col w-col-2">
-                                        <div class="heading-text">VIEWS</div>
+                                        {{--<div class="heading-text">VIEWS</div>--}}
                                     </div>
                                     <div class="column-2 w-col w-col-2">
                                         <div class="heading-text">LIKES</div>
@@ -825,7 +825,7 @@
                                                 <p>{{ $post->caption }}</p>
                                             </div>
                                             <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
-                                                <div class="text-block-11">{{ $post->views }}</div>
+                                                {{--<div class="text-block-11">{{ $post->views }}</div>--}}
                                             </div>
                                             <div class="w-col w-col-2 w-col-medium-2 w-col-small-small-stack">
                                                 <div class="text-block-11">{{ $post->likes }}</div>
