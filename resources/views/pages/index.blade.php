@@ -52,6 +52,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         <h1 class="inner-page-sub">Live Radio Detections</h1>
                         <div class="section-heading w-hidden-medium w-hidden-small w-hidden-tiny w-row">
@@ -111,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-w-tab="Tv" class="dash-tab-pane w-tab-pane w--tab-active">
+                <div data-w-tab="Tv" class="dash-tab-pane w-tab-pane">
                     <div class="tabs-top-wrapper tv-monitoring-tab">
                         <div class="div-block-16">
                             <h1 class="heading-2">Television</h1><a href="#" class="upload-song-button w-inline-block"
@@ -158,6 +159,7 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
+                        @include('components.guest.messages')
                         <h1 class="inner-page-sub">Live TV detections</h1>
                         <div class="section-heading w-row">
                             <div class="w-col w-col-3">
@@ -263,6 +265,7 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
+                        @include('components.guest.messages')
                         <h1 class="inner-page-sub">Most Streamed Songs</h1>
                         <div class="div-block-149 w-hidden-main w-hidden-medium w-hidden-small w-hidden-tiny">
                             <div class="div-block-150"></div>
@@ -507,6 +510,7 @@
                         </div>
                     </div>
                     <div class="qisimah-container-main dashboard-version">
+                        @include('components.guest.messages')
                         <h1 class="inner-page-sub">Top Post Engagements</h1>
                         <div class="div-block-4">
                             <div class="section-heading w-hidden-medium w-hidden-small w-hidden-tiny w-row">
@@ -685,6 +689,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         @if($user->google_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
@@ -793,8 +798,9 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
-                        @if($user->instagram_auth_code)
+                        @if($artist->instagram_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
                             <div class="div-block-4">
                                 <div class="section-heading w-row">
@@ -837,6 +843,7 @@
                                         <div class="text-block-10">Posted on: {{ $post->created_time }}</div>
                                         <br>
                                     @endforeach
+                                    {{ $media->links() }}
                                 @else
                                     <div class="w-row">
                                         <p>We did not find anything on Instagram</p>
@@ -846,17 +853,17 @@
                                 @else
                                     <div class="div-block-16">
                                         <h1 class="heading-2">YouTube</h1>
-                                        <a href="{{ url('link.instagram.account') }}"
+                                        <a href="{{ route('artists.index') }}"
                                            class="upload-song-button w-inline-block"
                                            data-ix="">
-                                            <img src="images/029-instagram.svg" width="32">
+                                            <img src="{{ asset('images/029-instagram.svg') }}" width="32">
                                             <div class="div-block-18">
-                                                <div class="text-block-6">Connect to Instagram</div>
+                                                <div class="text-block-6">Click to Connect Artist Instagram Account</div>
                                             </div>
                                         </a>
                                     </div>
                                 @endif
-                        </div>
+                            </div>
                     </div>
                 </div>
                 <div data-w-tab="twitter" class="dash-tab-pane w-tab-pane">
@@ -905,6 +912,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         <h1 class="inner-page-sub">Top Twitter Post Engagements</h1>
                         <div class="div-block-4">
@@ -993,6 +1001,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
                         <h1 class="inner-page-sub">Achievement Milestone</h1>
                         <div class="w-row">

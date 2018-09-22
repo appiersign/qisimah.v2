@@ -18,12 +18,15 @@
         @include('components.guest.messages')
 
         <div class="qisimah-container-main" data-ix="load-album-modal">
-            <div class="div-block-82">
-                <div class="div-block-109">
-                    <div class="div-block-110">
+            <div class="song-details">
+                <div class="div-block-109 row">
+                    <a href="" class="close-song-view w-inline-block" data-ix="close-view-song-modal">
+                        <img src="{{ asset('images/ic_close_white_256dp_1x.png') }}" width="24">
+                    </a>
+                    <div class="div-block-110 col-md-6">
                         <div class="div-block-114">
                             <img src="{{ asset($song->art) }}" srcset="{{ asset($song->art) }} 500w, {{ asset($song->art) }} 575w" sizes="100vw" class="view-song-album-art">
-                            <div class="song-play-wrapper">
+                            <div class="song-play-wrapper" style="position: absolute;left: 0px;right: 0px;bottom: 0px;display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;padding-right: 20px;padding-left: 20px;-webkit-box-pack: justify;-webkit-justify-content: space-between;-ms-flex-pack: justify;justify-content: space-between;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;-webkit-flex-basis: 50%;-ms-flex-preferred-size: 50%;flex-basis: 50%;background-color: rgba(22, 16, 54, .56);box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, .1);color: #000;text-decoration: none;cursor: pointer;">
                                 <div class="div-block-102">
                                     <img src="{{ asset('images/icon.svg') }}" width="20">
                                 </div>
@@ -52,15 +55,15 @@
                                     <div class="text-block-39">Total Plays</div>
                                 </div>
                                 <div class="w-col w-col-6">
-                                    <h3 class="heading-7">52</h3>
-                                    <div class="text-block-39">Total Plays</div>
+                                    <h3 class="heading-7">#1</h3>
+                                    <div class="text-block-39">Rank</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="div-block-111">
+                    <div class="div-block-111 col-md-6">
                         <div class="text-block-31">
-                            <strong class="bold-text-4">{{ $song->title }}</strong>
+                            <strong class="bold-text-4" style="margin-top: 44px; font-size: 28px; line-height: 33px; font-weight: 500;">{{ $song->title }}</strong>
                         </div>
                         <div class="row-9 w-row">
                             <div class="w-col w-col-7">

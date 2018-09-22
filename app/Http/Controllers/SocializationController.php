@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Artist;
 use App\Google;
 use App\Instagram;
 use App\User;
@@ -38,19 +39,25 @@ class SocializationController extends Controller
         return $google->updateUserAccessTokenAndRefreshToken($user, $response);
     }
 
-    public function linkInstagramAccount()
-    {
-        return redirect()->to('https://api.instagram.com/oauth/authorize/?client_id='.env('INSTAGRAM_CLIENT_ID').'&redirect_uri=http://localhost:8000/hooks/instagram/auth?tag='.Auth::user()->qisimah_id.'&response_type=code&state='.csrf_token().'&scope=basic+public_content');
-    }
-
     public function handleInstagramAuthentication(Request $request)
     {
-        $user = User::where('qisimah_id', $request->get('tag'))->first();
-        if (is_null($user)){
-            $request->session()->flash('error', 'Suspicious log in detected!');
-            return redirect()->to('login');
+        try {
+            $qisimah_data = explode('-', $request->get('tag'));
+            $user = User::where('qisimah_id', $qisimah_data[0])->first();
+            $artist = Artist::where('qisimah_id', $qisimah_data[1])->first();
+
+            if (is_null($user)){
+                throw new \Exception('Suspicious login detected');
+            }
+
+            if (is_null($artist)){
+                throw new \Exception('Artist not found!');
+            }
+
+            return (new Instagram)->handleInstagramAuthentication($request, $user, $artist);
+        } catch (\Exception $exception) {
+            session()->flash('error', $exception->getMessage());
+            return url('');
         }
-        $instagram = new Instagram();
-        return $instagram->handleInstagramAuthentication($request, $user);
     }
 }

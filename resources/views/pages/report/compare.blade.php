@@ -14,6 +14,18 @@
                 </div>
             </div>
         </div>
+        <div class="div-block-12 qisimah-container-main">
+        <div data-duration-in="300" data-duration-out="100" class="w-tabs">
+            <div class="reports-tab-menu w-tab-menu">
+                <a data-w-tab="list" class="reports-tab-link w-inline-block w-tab-link w--current">
+                    <div>List</div>
+                </a>
+                <a data-w-tab="chart" class="reports-tab-link w-inline-block w-tab-link">
+                    <div>Chart</div>
+                </a>
+            </div>
+            <div class="w-tab-content">
+                <div data-w-tab="list" class="reports-tab-content w-tab-pane w--tab-active">
         <div class="qisimah-container-main compare-wrapper-no-boarder w-clearfix">
             <div class="parameter-side-stay">
                 <div class="parameter-header"></div>
@@ -130,10 +142,135 @@
                 </div>
             </div>
         </div>
-    </div>
+                </div>
+                <div data-w-tab="chart" class="reports-tab-content w-tab-pane">
+                    <div class="row">
+                    <div id="song_plays_chart" class="compare-charts col-md-6" style="border-radius: 5px;"></div>
+
+                        <div id="featured_plays_chart" class="compare-charts col-md-6" style="border-radius: 5px; "></div>
+
+                    </div>
+
+                    <div class="row">
+                    <div id="songs_uploaded_chart" class="compare-charts col-md-6" style="border-radius: 5px; position: relative;"></div>
+
+
+                    <div id="features_uploaded_chart" class="compare-charts col-md-6" style="border-radius: 5px; position: relative;"></div>
+                    </div>
+
+
+
+            </div>
+        </div>
+        </div>
 @endsection
 
 @section('custom-scripts')
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Year', 'Sarkodie', 'Stonebuoy'],
+                        ['2004',  1000,      400],
+                        ['2005',  1170,      460],
+                        ['2006',  660,       1120],
+                        ['2007',  1030,      540]
+                    ]);
+
+                    var options = {
+                        title: 'Song Plays',
+                        curveType: 'function',
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('song_plays_chart'));
+
+                    chart.draw(data, options);
+                };
+            </script>
+
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Year', 'Sarkodie', 'Stonebuoy'],
+                        ['2004',  1000,      400],
+                        ['2005',  1170,      460],
+                        ['2006',  660,       1120],
+                        ['2007',  1030,      540]
+                    ]);
+
+                    var options = {
+                        title: 'Feature Plays',
+                        curveType: 'function',
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('featured_plays_chart'));
+
+                    chart.draw(data, options);
+                };
+            </script>
+                <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Year', 'Sarkodie', 'Stonebuoy'],
+                        ['2004',  1000,      400],
+                        ['2005',  1170,      460],
+                        ['2006',  660,       1120],
+                        ['2007',  1030,      540]
+                    ]);
+
+                    var options = {
+                        title: 'Songs Uploaded',
+                        curveType: 'function',
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('songs_uploaded_chart'));
+
+                    chart.draw(data, options);
+                };
+            </script>                <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Year', 'Sarkodie', 'Stonebuoy'],
+                        ['2004',  1000,      400],
+                        ['2005',  1170,      460],
+                        ['2006',  660,       1120],
+                        ['2007',  1030,      540]
+                    ]);
+
+                    var options = {
+                        title: 'Features Uploaded',
+                        curveType: 'function',
+                        legend: { position: 'right' },
+                        height: 500,
+                        colors: ['#161036', '#eb2e6b', '#3266af', '#ffc300']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('features_uploaded_chart'));
+
+                    chart.draw(data, options);
+                };
+            </script>
     <script>
         $('.artists').on('change', function (e) {
             e.preventDefault();

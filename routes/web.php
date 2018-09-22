@@ -36,6 +36,7 @@ Route::resources([
     'albums'    => 'AlbumController',
     'broadcasters'  =>  'BroadcasterController',
     'artists.songs' =>  'ArtistSongController',
+    'artists.instagrams' => 'ArtistInstagramController',
     'countries.broadcasters' => 'CountryBroadcasterController'
 ]);
 
@@ -54,7 +55,7 @@ Route::post('songs/{qisimah_id}/metadata', 'SongController@storeMetaData')->name
 Route::get('link.youtube.account', 'SocializationController@linkYoutubeAccount');
 Route::get('link.instagram.account', 'SocializationController@linkInstagramAccount');
 
-Route::get('hooks/instagram/auth', 'SocializationController@handleInstagramAuthentication');
+Route::get('external/hooks/instagram', 'SocializationController@handleInstagramAuthentication');
 
 Route::get('3rd-party/auth/google', 'SocializationController@handleGoogleAuthentication');
 

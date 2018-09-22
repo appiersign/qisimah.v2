@@ -27,4 +27,9 @@ class Media extends Model
     {
         return Carbon::createFromTimestamp($this->attributes['created_time'])->toDateTimeString();
     }
+
+    public function instagram()
+    {
+        return $this->belongsTo(Instagram::class);
+    }
 }
