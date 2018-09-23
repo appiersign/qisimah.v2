@@ -6192,6 +6192,12 @@ body {
     border-radius: 4px;
 }
 
+.artist-field {
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+}
+
 ._50 {
     height: 50px;
     margin-top: 20px;
@@ -6340,12 +6346,35 @@ body {
     -webkit-transform: translate(0px, 45px);
     -ms-transform: translate(0px, 45px);
     transform: translate(0px, 45px);
+}.filla2 {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 50%;
+    margin-bottom: 16px;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-transform: translate(0px, 45px);
+    -ms-transform: translate(0px, 45px);
+    transform: translate(0px, 45px);
 }
 
 .find-and-rename {
     margin-top: 0px;
     margin-bottom: 0px;
     margin-left: 16px;
+    color: #161036;
+    font-weight: 300;
+}
+
+.find-and-rename2 {
+    margin-top: 0px;
+    margin-bottom: 16px;
+    margin-left: 0px;
     color: #161036;
     font-weight: 300;
 }
@@ -8684,6 +8713,10 @@ html.w-mod-js *[data-ix="hide-pause-button"] {
 
     .name-fields {
         width: 70%;
+    }
+
+    .artist-field {
+        width: 100%;
     }
 
     .welcome-form-field {

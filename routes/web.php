@@ -29,6 +29,8 @@ Route::get('', 'HomeController@dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('artists/create/new', function (){ return view('pages.artists.suggest-artist-add'); });
+
 Route::resources([
     'artists'   => 'ArtistController',
     'songs'     => 'SongController',
