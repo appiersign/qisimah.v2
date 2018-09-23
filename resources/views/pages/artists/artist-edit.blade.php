@@ -20,7 +20,7 @@
         <div class="label-contact">
             <div class="form-block-4 w-form" style="margin: auto;">
                 <form id="email-form" name="email-form" data-name="Email Form" class="form-3">
-                    <h1 class="find-and-rename2">Recommend artist</h1>
+                    <h1 class="find-and-rename2">Update Artist Details</h1>
 
                     <label for="Password" class="welcome-form-label">Artist Name</label>
                     <input type="text" class="artist-field w-input" maxlength="256" name="Artistl-Name" data-name="Artist Name" placeholder="enter Artist name" id="Personal-Name" required="">
@@ -89,7 +89,7 @@
                             </a>
                         </div>
                     </div>
-                    <input type="submit" value="Request" data-wait="Please wait..." class="_50 w-button">
+                    <input type="submit" value="Update" data-wait="Please wait..." class="_50 w-button">
                 </form>
                 <div class="w-form-done">
                     <div>Thank you! Your submission has been received!</div>
