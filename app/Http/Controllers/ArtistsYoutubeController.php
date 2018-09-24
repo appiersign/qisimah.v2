@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
+use App\Google;
+use App\User;
+use App\YouTube;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ArtistInstagramController extends Controller
+class ArtistsYoutubeController extends Controller
 {
     public function __construct()
     {
@@ -22,19 +25,18 @@ class ArtistInstagramController extends Controller
     public function index(string $artist_qisimah_id)
     {
         try {
-            $artist = Artist::with('instagram')
+            $artist = Artist::with(['youtube.videos'])
                 ->where('qisimah_id', $artist_qisimah_id)
                 ->first();
             if (is_null($artist)) {
                 throw new \Exception('Artist does not exist!');
             }
-            $instagram = $artist->instagram;
-            $media = $instagram->media()->paginate(10);
             $user = Auth::user();
-            $youtube = null;
-            $videos = [];
-            session()->flash('tab', 'instagram');
-            return view('pages.index', compact('user', 'artist', 'media', 'instagram', 'videos', 'youtube'));
+            $videos = $artist->videos()->paginate(20);
+            $youtube = $artist->youtube;
+            $media = [];
+            session()->flash('tab', 'youtube');
+            return view('pages.index', compact('user', 'artist', 'videos', 'youtube', 'media'));
         } catch (\Exception $exception) {
             session()->flash('error', $exception->getMessage());
             return back();
@@ -45,20 +47,11 @@ class ArtistInstagramController extends Controller
      * Show the form for creating a new resource.
      *
      * @param string $artist_qisimah_id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function create(string $artist_qisimah_id)
     {
-        try {
-            $artist = Artist::with([])->where('qisimah_id', $artist_qisimah_id)->first();
-            if (is_null($artist)){
-                throw new \Exception('Artist does not exist!');
-            }
-            return redirect()->to('https://api.instagram.com/oauth/authorize/?client_id='.env('INSTAGRAM_CLIENT_ID').'&redirect_uri='.env('INSTAGRAM_REDIRECT_URI').'?tag='.Auth::user()->qisimah_id.'-'.$artist_qisimah_id.'&response_type=code&state='.csrf_token().'&scope=basic+public_content');
-        } catch (\Exception $exception) {
-            session()->flash('error', 'Something went wrong. Please try again later!');
-            return back();
-        }
+        return Google::login($artist_qisimah_id);
     }
 
     /**
@@ -70,6 +63,36 @@ class ArtistInstagramController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function handleYoutubeLoginResponse(Request $request)
+    {
+        try {
+            $state = explode('-', $request->get('state'));
+            if (csrf_token() <> $state[0]) {
+                throw new \Exception('Session Expired please try again!');
+            }
+
+            $artist = Artist::with([])->where('qisimah_id', $state[1])->first();
+            if (is_null($artist)) {
+                throw new \Exception('Artist does not exist!');
+            }
+
+            $code = $request->get('code');
+            $artist->google_auth_code = $code;
+            $artist->setGoogleAccessAndRefreshToken();
+
+            if (strlen($artist->google_access_token) === 0) {
+                throw new \Exception('We could not connect youtube. Please try again!');
+            }
+            (new YouTube)->getData($artist);
+        } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('error', $exception->getMessage());
+            return redirect()->route('artists.index');
+        }
+        return redirect()->route('artists.youtube.index', ['artist_qisimah_id' => $artist->qisimah_id]);
+
     }
 
     /**

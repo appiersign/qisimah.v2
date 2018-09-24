@@ -35,8 +35,8 @@ class HomeController extends Controller
     public function dashboard()
     {
         $user    = User::find(Auth::id());
-        $youtube = YouTube::getYouTubeData($user);
-        $videos  = $user->videos()->orderBy('views', 'desc')->limit(20)->get();
+        $youtube = [];
+        $videos  = [];
         $instagram = $user->getInstagramProfile();
         $media = $user->getInstagramMedia();
         return view('pages.index', compact('user', 'youtube', 'videos', 'instagram', 'media'));

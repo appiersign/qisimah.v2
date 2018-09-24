@@ -15,20 +15,29 @@ class Google extends Model
 
     public function __construct()
     {
-        $this->client_id = '744307183277-du6f030bialb2cnnqfg45549tikcnrhq.apps.googleusercontent.com';
-        $this->client_secret = 'Svenu57nqcp5n5l6fNn2CcPb';
-        $this->redirect_uri = 'http://localhost:8000/3rd-party/auth/google';
+        $this->client_id = env('GOOGLE_ACCOUNT_CLIENT_ID');
+        $this->client_secret = env('GOOGLE_ACCOUNT_CLIENT_SECRET');
+        $this->redirect_uri = env('GOOGLE_ACCOUNT_REDIRECT_URL');
     }
 
-    public static function login()
+    /**
+     * @param string $artist_qisimah_id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public static function login(string $artist_qisimah_id)
     {
-        return redirect('https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=https://www.googleapis.com/auth/youtube&redirect_uri=http://localhost:8000/3rd-party/auth/google&client_id=744307183277-du6f030bialb2cnnqfg45549tikcnrhq.apps.googleusercontent.com&include_granted_scopes=true&access_type=offline&prompt=consent');
+        return redirect('https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=https://www.googleapis.com/auth/youtube&redirect_uri='.env('GOOGLE_ACCOUNT_REDIRECT_URL').'&client_id='.env('GOOGLE_ACCOUNT_CLIENT_ID').'&include_granted_scopes=true&access_type=offline&prompt=consent&state='.csrf_token().'-'.$artist_qisimah_id);
     }
 
-    public function updateUserGoogleAuthCode(User $user, $code)
+    /**
+     * @param Artist $artist
+     * @param $code
+     * @return bool
+     */
+    public function updateUserGoogleAuthCode(Artist $artist, $code)
     {
-        $user->google_auth_code = $code;
-        return $user->save();
+        $artist->google_auth_code = $code;
+        return $artist->save();
     }
 
     public function sendRequest($url, $headers, $fields, $method = 'POST')
@@ -47,38 +56,36 @@ class Google extends Model
         return curl_exec($curl);
     }
 
-    public function updateUserAccessTokenAndRefreshToken(User $user, $response)
+    public function updateArtistAccessTokenAndRefreshToken(Artist $artist, $response)
     {
         $_response = json_decode($response, 1);
         if (!isset($_response['access_token'])){
-            Session::flush('failed', 'We could not link YouTube account at this time, please try again!');
+            \session()->flash('error', 'We could not link YouTube account at this time, please try again!');
         } else {
-            $user->google_access_token = $_response['access_token'];
-            $user->google_refresh_token = $_response['refresh_token'];
+            $artist->google_access_token = $_response['access_token'];
+            $artist->google_refresh_token = $_response['refresh_token'];
 
-            if ($user->save()) {
-                Session::flush('success', 'You have linked your YouTube account!');
+            if ($artist->save()) {
+                return true;
             } else {
-                Session::flush('failed', 'We could not link YouTube account at this time, please try again!');
+                return false;
             }
         }
 
-        Auth::loginUsingId($user->id);
-
-        return redirect()->to('/');
+        return $this->refreshAccessToken($artist);
     }
 
-    public function getYouTubeChannelData(User $user)
+    public function getYouTubeChannelData(Artist $artist)
     {
         $url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics&mine=true';
         $headers = [
-            'Authorization: Bearer '. $user->google_access_token
+            'Authorization: Bearer '. $artist->google_access_token
         ];
 
         $response = json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
 
         if (isset($response['error']['message']) && $response['error']['message'] === 'Invalid Credentials') {
-            $access_token = $this->refreshAccessToken($user);
+            $access_token = $this->refreshAccessToken($artist);
 
             if ($access_token){
                 $headers = [ 'Authorization: Bearer '. $access_token ];
@@ -88,71 +95,30 @@ class Google extends Model
         return $response;
     }
 
-    public function getYoutubeChannelActivities(User $user)
+    public function getYoutubeChannelActivities(Artist $artist)
     {
         $url = "https://www.googleapis.com/youtube/v3/activities?mine=true&part=snippet,contentDetails&maxResults=50";
         $headers = [
-            'Authorization: Bearer '. $user->google_access_token
+            'Authorization: Bearer '. $artist->google_access_token
         ];
         $response = $this->sendRequest($url, $headers, '', 'GET');
 
         $results = $this->handleGetYoutubeChannelActivities($response);
 
         if (count($results[1])){
-            $user->videos()->sync($results[1]);
+            $artist->videos()->sync($results[1]);
         }
         return $results[0];
     }
 
-    public function handleGetYoutubeChannelActivities($response): array
+    public function getYoutubeVideoData(Artist $artist): int
     {
-        $_response = json_decode($response, 1);
-        $video_ids = [];
-        $ids = [];
-        if (isset($_response['items'])){
-            $activities = $_response['items'];
-            if (count($activities)){
-                foreach ($activities as $activity) {
-                    if ($activity['snippet']['type'] === 'upload'){
-                        $video_exists = Video::where('video_id', $activity['contentDetails']['upload']['videoId'])->first();
-                        if ($video_exists){
-                            array_push($ids, $video_exists->id);
-                        } else {
-                            $video = [];
-                            $video['qisimah_id']    = str_random();
-                            $video['published_at']  = $activity['snippet']['publishedAt'];
-                            $video['title']         = $activity['snippet']['title'];
-                            $video['description']   = $activity['snippet']['description'];
-                            $video['channel_id']    = $activity['snippet']['channelId'];
-                            $video['thumbnail_medium']  = $activity['snippet']['thumbnails']['medium']['url'];
-                            $video['thumbnail_default'] = $activity['snippet']['thumbnails']['default']['url'];
-                            $video['thumbnail_standard'] = $activity['snippet']['thumbnails']['standard']['url'];
-                            $video['thumbnail_high']    = $activity['snippet']['thumbnails']['high']['url'];
-                            $video['thumbnail_maxres']  = $activity['snippet']['thumbnails']['maxres']['url'];
-                            $video['video_id']          = $activity['contentDetails']['upload']['videoId'];
-
-                            $created = Video::create($video);
-
-                            if ($created){
-                                array_push($ids, $created->id);
-                            }
-                        }
-                        array_push($video_ids, $activity['contentDetails']['upload']['videoId']);
-                    }
-                }
-            }
-        }
-        return [$video_ids, $ids];
-    }
-
-    public function getYoutubeVideoData(User $user): int
-    {
-        $this->refreshAccessToken($user);
+//        $this->refreshAccessToken($artist);
         $number_of_videos = 0;
-        $ids = implode(',', $user->videos()->pluck('videos.video_id')->toArray());
+        $ids = implode(',', $artist->videos()->pluck('videos.video_id')->toArray());
         $url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=$ids";
         $headers = [
-            'Authorization: Bearer '. $user->google_access_token
+            'Authorization: Bearer '. $artist->google_access_token
         ];
         $response = json_decode($this->sendRequest($url, $headers, '', 'GET'), 1);
         if (isset($response['items'])){
@@ -176,17 +142,17 @@ class Google extends Model
         return $number_of_videos;
     }
 
-    public function refreshAccessToken(User $user)
+    public function refreshAccessToken(Artist $artist)
     {
-        $refresh_token = $user->google_refresh_token;
+        $refresh_token = $artist->google_refresh_token;
         $url = "https://www.googleapis.com/oauth2/v4/token";
         $fields = "client_id=$this->client_id&client_secret=$this->client_secret&redirect_uri=$this->redirect_uri&grant_type=refresh_token&refresh_token=$refresh_token";
 
         $response = json_decode($this->sendRequest($url, [], $fields), 1);
 
         if (isset($response['access_token'])){
-            $user->google_access_token = $response["access_token"];
-            $user->save();
+            $artist->google_access_token = $response["access_token"];
+            $artist->save();
             return $response['access_token'];
         }
         return false;
