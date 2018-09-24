@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Artist;
 use App\User;
 use App\YouTube;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class HomeController extends Controller
         $videos  = [];
         $instagram = $user->getInstagramProfile();
         $media = $user->getInstagramMedia();
-        return view('pages.index', compact('user', 'youtube', 'videos', 'instagram', 'media'));
+        $artist = Artist::first();
+        return view('pages.index', compact('user', 'youtube', 'videos', 'instagram', 'media', 'artist'));
     }
 
     public function goolgeLogin(Request $request)

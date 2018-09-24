@@ -27,10 +27,10 @@
 
             <div data-duration-in="300" data-duration-out="100" class="w-tabs">
                 <div class="tabs-menu-3 w-tab-menu">
-                    <a data-w-tab="Tab 1" class="broadcast-tab-link w-inline-block w-tab-link">
+                    <a data-w-tab="Tab 1" class="broadcast-tab-link w-inline-block w-tab-link w--current">
                         <div class="text-block-57">Radio</div>
                     </a>
-                    <a data-w-tab="Tab 2" class="broadcast-tab-link w-inline-block w-tab-link w--current">
+                    <a data-w-tab="Tab 2" class="broadcast-tab-link w-inline-block w-tab-link">
                         <div class="text-block-56">Television</div>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                                 <div class="broadcasters-list-wrapper">
                                     <div class="station-logo">
                                         <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                        <img src="{{ asset($radio->logo) }}" class="station-logo">
+                                        <img src="{{ asset(($radio->logo)? $radio->logo : 'images/default.jpg') }}" class="station-logo">
                                     </div>
                                     <div class="station-name">
                                         <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>
