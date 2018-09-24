@@ -18,6 +18,14 @@
         @include('components.guest.messages')
 
         <div class="qisimah-container-main" data-ix="load-album-modal">
+            <div class="div-block-46">
+            <div class="w-col total-users w-col-4">
+
+            </div>
+            <form action="/search" class="search-input">
+                <input type="search" class="w-input search-admin-tools" maxlength="256" autofocus="true" name="query" placeholder="Search…" id="search">
+            </form>
+            </div>
             @if (count($songs))
                 @foreach($songs as $song)
                     <a href="{{ route('songs.show', ['qisimah_id' => $song->qisimah_id]) }}" class="songs-page-wrapper w-inline-block">

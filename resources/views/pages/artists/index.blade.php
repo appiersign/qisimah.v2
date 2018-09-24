@@ -296,11 +296,15 @@
         </div>
         @include('components.guest.messages')
         <div class="qisimah-container-main">
-            <div class="div-block-118">
+            <div class="div-block-46">
                 <a href="#" class="link-block-5 w-inline-block" data-ix="add-new-artist-modal">
                     <div>Add new artist</div>
                 </a>
+                <form action="/search" class="search-input">
+                    <input type="search" class="w-input search-admin-tools" maxlength="256" autofocus="true" name="query" placeholder="Search…" id="search">
+                </form>
             </div>
+
             <div class="w-row">
                 @if(empty($user_artists))
                     You have no artist linked to your account
