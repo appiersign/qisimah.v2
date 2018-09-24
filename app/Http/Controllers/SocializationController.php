@@ -13,7 +13,7 @@ class SocializationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('handleInstagramAuthentication');
+        $this->middleware('auth')->except('handleInstagramAuthentication', 'handleGoogleAuthentication');
     }
 
     public function linkYoutubeAccount()
@@ -23,6 +23,7 @@ class SocializationController extends Controller
 
     public function handleGoogleAuthentication(Request $request)
     {
+        logger($request->all());
         $user = User::find(Auth::id());
         $google = new Google();
         $code = $request->get('code');

@@ -35,8 +35,10 @@ Route::resources([
     'plays'     => 'PlayController',
     'albums'    => 'AlbumController',
     'broadcasters'  =>  'BroadcasterController',
+    'youtubes' => 'YoutubeController',
     'artists.songs' =>  'ArtistSongController',
     'artists.instagrams' => 'ArtistInstagramController',
+    'artists.youtube' => 'ArtistsYoutubeController',
     'countries.broadcasters' => 'CountryBroadcasterController'
 ]);
 
@@ -57,7 +59,7 @@ Route::get('link.instagram.account', 'SocializationController@linkInstagramAccou
 
 Route::get('external/hooks/instagram', 'SocializationController@handleInstagramAuthentication');
 
-Route::get('3rd-party/auth/google', 'SocializationController@handleGoogleAuthentication');
+Route::get('3rd-party/auth/google', 'ArtistsYoutubeController@handleYoutubeLoginResponse');
 
 //Route::get('google/authorization', 'SocializationController@handleInstagramAuthentication');
 
