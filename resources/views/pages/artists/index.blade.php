@@ -365,23 +365,41 @@
                                     <div class="row-11 w-row">
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
                                             <a href="#" class="connect-active w-inline-block">
-                                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade2f6c4682eaa5b7e28353_036-facebook.svg" width="32">
+                                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade2f6c4682eaa5b7e28353_036-facebook.svg"
+                                                     width="32">
                                             </a>
                                         </div>
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
                                             <a href="#" class="connect-inactive w-inline-block">
-                                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade301a4682ea0de0e283b8_008-twitter.svg" width="32">
+                                                <img src="https://uploads-ssl.webflow.com/5ace5bf2286b145321f46e32/5ade301a4682ea0de0e283b8_008-twitter.svg"
+                                                     width="32">
                                             </a>
                                         </div>
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="{{ route('artists.instagrams.create', ['artist_qisimah_id' => $artist->qisimah_id]) }}" class="connect-inactive w-inline-block">
-                                                <img src="images/029-instagram.svg" width="32">
-                                            </a>
+                                            @if($artist->instagram_auth_code)
+                                                <a href="{{ route('artists.instagrams.index', ['artist_qisimah_id' => $artist->qisimah_id]) }}"
+                                                   class="connect-active w-inline-block">
+                                                    <img src="{{ asset('images/029-instagram.svg') }}" width="32">
+                                                </a>
+                                            @else
+                                                <a href="{{ route('artists.instagrams.create', ['artist_qisimah_id' => $artist->qisimah_id]) }}"
+                                                   class="connect-inactive w-inline-block">
+                                                    <img src="{{ asset('images/029-instagram.svg') }}" width="32">
+                                                </a>
+                                            @endif
                                         </div>
                                         <div class="w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                                            <a href="{{ url('link.youtube.account') }}" class="{{ ($user->google_auth_code)? 'connect-active' : 'connect-inactive' }} w-inline-block">
-                                                <img src="images/001-youtube.svg" width="32">
-                                            </a>
+                                            @if($artist->google_auth_code)
+                                                <a href="{{ route('artists.youtube.index', ['artist_qisimah_id' => $artist->qisimah_id]) }}"
+                                                   class="connect-active w-inline-block">
+                                                    <img src="{{ asset('images/001-youtube.svg') }}" width="32">
+                                                </a>
+                                            @else
+                                                <a href="{{ route('artists.youtube.create', ['artist_qisimah_id' => $artist->qisimah_id]) }}"
+                                                   class="connect-inactive w-inline-block">
+                                                    <img src="{{ asset('images/001-youtube.svg') }}" width="32">
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -389,7 +407,8 @@
                                     <a href="#" class="edit-artist-trigger w-inline-block" data-ix="edit-artist">
                                         <img src="images/icons8-pencil-20.png">
                                     </a>
-                                    <a href="#" class="delete-artist-trigger w-inline-block" data-ix="delete-artist-warning">
+                                    <a href="#" class="delete-artist-trigger w-inline-block"
+                                       data-ix="delete-artist-warning">
                                         <img src="images/icons8-close-window-20.png">
                                     </a>
                                 </div>

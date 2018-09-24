@@ -51,7 +51,7 @@
                                 <div class="broadcasters-list-wrapper">
                                     <div class="station-logo">
                                         <div class="heading-text-proper give-space w-hidden-main w-hidden-medium">LOGO</div>
-                                        <img src="{{ asset($radio->logo) }}" class="station-logo">
+                                        <img src="{{ asset(($radio->logo)? $radio->logo : 'images/default.jpg') }}" class="station-logo">
                                     </div>
                                     <div class="station-name">
                                         <div class="heading-text-proper proper-name give-space w-hidden-main w-hidden-medium">NAME</div>

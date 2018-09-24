@@ -691,7 +691,7 @@
                     </div>
                     @include('components.guest.messages')
                     <div class="qisimah-container-main dashboard-version">
-                        @if($user->google_auth_code)
+                        @if($artist->google_auth_code)
                             <h1 class="inner-page-sub">Top Post Engagements</h1>
                             <div class="w-hidden-medium w-hidden-small w-hidden-tiny w-row">
                                 <div class="w-col w-col-2">
@@ -710,33 +710,37 @@
                                     <div class="heading-text">FAVORITES</div>
                                 </div>
                             </div>
-                        @foreach($videos as $video)
-                            <div class="div-block-4">
-                                <div class="w-row">
-                                    <div class="column-49 w-col w-col-2 w-col-stack">
-                                        <div class="heading-text w-hidden-main">THUMBNAIL</div>
-                                        <img src="{{ $video->thumbnail_standard }}"
-                                             class="image-8"></div>
-                                    <div class="w-col w-col-4 w-col-stack">
-                                        <div class="heading-text w-hidden-main">CAPTION</div>
-                                        <p>{{ $video->description }}</p>
+                        @if(count($videos))
+                            @foreach($videos as $video)
+                                <div class="div-block-4">
+                                    <div class="w-row">
+                                        <div class="column-49 w-col w-col-2 w-col-stack">
+                                            <div class="heading-text w-hidden-main">THUMBNAIL</div>
+                                            <img src="{{ $video->thumbnail_standard }}"
+                                                 class="image-8"></div>
+                                        <div class="w-col w-col-4 w-col-stack">
+                                            <div class="heading-text w-hidden-main">CAPTION</div>
+                                            <p>{{ $video->description }}</p>
+                                        </div>
+                                        <div class="column-50 w-col w-col-2 w-col-stack">
+                                            <div class="heading-text w-hidden-main">VIEWS</div>
+                                            <div class="text-block-11">{{ $video->views }}</div>
+                                        </div>
+                                        <div class="column-51 w-col w-col-2 w-col-stack">
+                                            <div class="heading-text w-hidden-main">LIKES</div>
+                                            <div class="text-block-11">{{ $video->likes }}</div>
+                                        </div>
+                                        <div class="w-col w-col-2 w-col-stack">
+                                            <div class="heading-text w-hidden-main">FAVORITES</div>
+                                            <div class="text-block-11">{{ $video->favorites }}</div>
+                                        </div>
                                     </div>
-                                    <div class="column-50 w-col w-col-2 w-col-stack">
-                                        <div class="heading-text w-hidden-main">VIEWS</div>
-                                        <div class="text-block-11">{{ $video->views }}</div>
-                                    </div>
-                                    <div class="column-51 w-col w-col-2 w-col-stack">
-                                        <div class="heading-text w-hidden-main">LIKES</div>
-                                        <div class="text-block-11">{{ $video->likes }}</div>
-                                    </div>
-                                    <div class="w-col w-col-2 w-col-stack">
-                                        <div class="heading-text w-hidden-main">FAVORITES</div>
-                                        <div class="text-block-11">{{ $video->favorites }}</div>
-                                    </div>
+                                    <div class="text-block-10">Posted
+                                        on: {{ $video->published_at->toFormattedDateString() }}</div>
                                 </div>
-                                <div class="text-block-10">Posted on: {{ $video->published_at->toFormattedDateString() }}</div>
-                            </div>
                             @endforeach
+                            {{ $videos->links() }}
+                            @endif
                         @else
                             <div class="div-block-16-b">
                                 {{--<h1 class="heading-2">YouTube</h1>--}}

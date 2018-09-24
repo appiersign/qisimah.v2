@@ -15,7 +15,7 @@
         <div>FACEBOOK</div>
         <div class="tab-active-bar"></div>
     </a>
-    <a data-w-tab="YouTube" class="dash-tabs-link w-inline-block w-tab-link {{ (Session::get('tab') === 'youtube')? 'w--current': ''  }}" data-ix="show-bar">
+    <a data-w-tab="YouTube" class="dash-tabs-link w-inline-block w-tab-link {{ (session()->get('tab') === 'youtube')? 'w--current': ''  }}" data-ix="show-bar">
         <div>YOUTUBE</div>
         <div class="tab-active-bar"></div>
     </a>
