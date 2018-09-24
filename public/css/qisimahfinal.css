@@ -85,7 +85,7 @@ body {
     align-items: center;
     border: 2px solid transparent;
     border-radius: 50px;
-    background-color: #ffc300;
+    background-color: #fff;
     box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, .15);
     -webkit-transition: all 350ms ease;
     transition: all 350ms ease;
@@ -94,7 +94,7 @@ body {
 
 .upload-song-button:hover {
     border-color: #161036;
-    background-color: #fff;
+    background-color: #ffc300;
 }
 
 .text-block-6 {
@@ -286,6 +286,23 @@ body {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+}
+
+.div-block-16-b {
+    /*display: -webkit-box;*/
+    /*display: -webkit-flex;*/
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    margin: auto;
+    width: 450px;
+    /*-webkit-box-pack: justify;*/
+    /*-webkit-justify-content: space-between;*/
+    /*-ms-flex-pack: justify;*/
+    /*justify-content: space-between;*/
+    /*-webkit-box-align: center;*/
+    /*-webkit-align-items: center;*/
+    /*-ms-flex-align: center;*/
+    /*align-items: center;*/
 }
 
 .column-5 {

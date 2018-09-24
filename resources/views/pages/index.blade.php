@@ -738,13 +738,13 @@
                             </div>
                             @endforeach
                         @else
-                            <div class="div-block-16">
-                                <h1 class="heading-2">YouTube</h1>
+                            <div class="div-block-16-b">
+                                {{--<h1 class="heading-2">YouTube</h1>--}}
                                 <a href="{{ url('link.youtube.account') }}" class="upload-song-button w-inline-block"
                                    data-ix="">
                                     <img src="images/001-youtube.svg" width="32">
                                     <div class="div-block-18">
-                                        <div class="text-block-6">Connect to YouTube</div>
+                                        <div class="text-block-6">Click to Connect Artist Youtube Account</div>
                                     </div>
                                 </a>
                             </div>
@@ -851,8 +851,8 @@
                                     <br>
                                 @endif
                                 @else
-                                    <div class="div-block-16">
-                                        <h1 class="heading-2">YouTube</h1>
+                                    <div class="div-block-16-b">
+                                        {{--<h1 class="heading-2">YouTube</h1>--}}
                                         <a href="{{ route('artists.index') }}"
                                            class="upload-song-button w-inline-block"
                                            data-ix="">
