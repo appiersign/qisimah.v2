@@ -295,11 +295,14 @@
         </div>
 
         <div class="qisimah-container-main" data-ix="load-album-modal">
-            <div class="div-block-46">
+            <div class="div-block-46-b">
                 <a href="{{ route('albums.create') }}" class="link-block-5 w-inline-block">
                     <div data-ix="upload-broadcaster-modal">add album</div>
                 </a>
                 <div class="text-block-17"></div>
+                <form action="/search" class="search-input">
+                    <input type="search" class="w-input search-admin-tools" maxlength="256" autofocus="true" name="query" placeholder="Search…" id="search">
+                </form>
             </div>
 
             @include('components.guest.success-message')

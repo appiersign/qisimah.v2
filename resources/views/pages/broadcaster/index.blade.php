@@ -20,17 +20,19 @@
                 <a href="{{ route('broadcasters.create') }}" class="link-block-5 w-inline-block">
                     <div data-ix="upload-broadcaster-modal">add broadcaster</div>
                 </a>
-                <div class="text-block-17"></div>
+                    <form action="/search" class="search-input">
+                        <input type="search" class="w-input search-admin-tools" maxlength="256" autofocus="true" name="query" placeholder="Search…" id="search">
+                    </form>
             </div>
 
             @include('components.guest.success-message')
 
             <div data-duration-in="300" data-duration-out="100" class="w-tabs">
                 <div class="tabs-menu-3 w-tab-menu">
-                    <a data-w-tab="Tab 1" class="broadcast-tab-link w-inline-block w-tab-link">
+                    <a data-w-tab="Tab 1" class="broadcast-tab-link w-inline-block w-tab-link w--current">
                         <div class="text-block-57">Radio</div>
                     </a>
-                    <a data-w-tab="Tab 2" class="broadcast-tab-link w-inline-block w-tab-link w--current">
+                    <a data-w-tab="Tab 2" class="broadcast-tab-link w-inline-block w-tab-link">
                         <div class="text-block-56">Television</div>
                     </a>
                 </div>
