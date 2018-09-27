@@ -8,6 +8,7 @@ Route::get('about.us', function (){ return view('pages.guest.about-us'); });
 Route::get('log.in', function () { return view('pages.guest.log-in'); });
 Route::post('log.in', 'Auth\LoginController@authenticate');
 Route::get('login', function () { return redirect()->to('log.in'); });
+Route::get('password_reset', function () { return view('pages.guest.password-reset'); });
 
 
 Route::get('sign.up', 'Auth\RegisterController@showSignUpForm');
