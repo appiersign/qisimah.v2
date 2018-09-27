@@ -18,7 +18,7 @@
         @include('components.guest.danger-message')
 
         <div class="qisimah-container-main">
-            <div class="form-block w-form">
+            <div class="form-block w-form" style="margin: auto;">
                 <form action="{{ route("songs.store") }}" method="post" class="modal-upload-song w-clearfix" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <h1 class="upload-modal-title"></h1>
