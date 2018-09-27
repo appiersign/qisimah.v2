@@ -30,7 +30,7 @@
                     <div class="text-block-9">* Recommended file type(s): mp3</div>
                     <br>
                     <div class="text-block-9">* Maximum file size: 7mb</div>
-                    <input type="submit" value="Upload" class="submit-button w-button">
+                    <input type="submit" value="Upload" class="submit-button w-button" style="text-align: center;">
                 </form>
             </div>
         </div>
